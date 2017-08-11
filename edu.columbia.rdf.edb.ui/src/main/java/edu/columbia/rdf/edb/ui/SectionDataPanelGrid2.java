@@ -1,0 +1,71 @@
+package edu.columbia.rdf.edb.ui;
+
+import org.abh.common.dictionary.SubstitutionService;
+import org.abh.common.text.TextUtils;
+import org.abh.common.ui.UI;
+import org.abh.common.ui.panel.MatrixPanel;
+import org.abh.common.ui.panel.VBoxAutoWidth;
+import org.abh.common.ui.text.ModernClipboardTextField;
+import org.abh.common.ui.text.ModernLabel;
+import org.abh.common.ui.text.ModernLabelBold;
+import org.abh.common.ui.text.ModernTextBorderPanel;
+import org.abh.common.ui.widget.ModernWidget;
+
+import edu.columbia.rdf.edb.DataView;
+import edu.columbia.rdf.edb.DataViewField;
+import edu.columbia.rdf.edb.DataViewSection;
+import edu.columbia.rdf.edb.Sample;
+import edu.columbia.rdf.edb.SampleTag;
+
+/**
+ * Displays the results of an experiment using a grid and multiple
+ * Ui elements to make it easier for users to cut and paste.
+ *
+ * @author Antony Holmes Holmes
+ *
+ */
+public class SectionDataPanelGrid2 extends VBoxAutoWidth {
+	private static final long serialVersionUID = 1L;
+
+	private static final int[] ROWS = {ModernWidget.WIDGET_HEIGHT};
+
+	private static final int[] COLUMNS = {180, 400};
+
+	private DataView mView;
+
+	private Sample mSample;
+
+	public SectionDataPanelGrid2(Sample sample, DataView view) {
+		mSample = sample;
+		mView = view; //DataViewService.getInstance().getView(sample.getExpressionType());
+
+		for (DataViewSection dataViewSection : mView) {
+			add(new ModernLabelBold(dataViewSection.getName()));
+			
+			add(UI.createVGap(5));
+			
+			MatrixPanel p = new MatrixPanel(ROWS, COLUMNS, 0, PADDING);
+			
+			for (DataViewField field : dataViewSection) {
+				
+				p.add(new ModernLabel(field.getName()));
+				
+				SampleTag fieldValue = mSample.getTags().getTag(field);
+
+				String text;
+				
+				if (fieldValue != null) {
+					text = SubstitutionService.getInstance().getSubstitute(fieldValue.getValue());
+				} else {
+					text = TextUtils.NA;
+				}
+				
+				p.add(new ModernTextBorderPanel(new ModernClipboardTextField(text, false)));
+			}
+			
+			add(p);
+			
+			add(UI.createVGap(20));
+		}
+	}
+}

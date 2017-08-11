@@ -1,0 +1,93 @@
+package edu.columbia.rdf.edb.ui;
+
+import java.awt.Component;
+import java.io.IOException;
+
+import org.abh.common.text.TextUtils;
+import org.abh.common.ui.ModernComponent;
+import org.abh.common.ui.UI;
+import org.abh.common.ui.clipboard.ClipboardService;
+import org.abh.common.ui.clipboard.ModernClipboardWidget;
+import org.abh.common.ui.panel.ModernLineBottomBorderPanel;
+import org.abh.common.ui.scrollpane.ModernScrollPane;
+import org.abh.common.ui.scrollpane.ScrollBarPolicy;
+import org.abh.common.ui.widget.ModernWidget;
+
+import edu.columbia.rdf.edb.DataView;
+import edu.columbia.rdf.edb.Sample;
+
+/**
+ * Displays all of the information pertaining to a particular sample.
+ * 
+ * @author Antony Holmes Holmes
+ *
+ */
+public class SampleDataPanel extends ModernClipboardWidget {
+	private static final long serialVersionUID = 1L;
+
+	//private ModernIconMenuItem expandMenuItem = 
+	//		new ModernIconMenuItem("Expand All", UIResources.getInstance().loadIcon(PlusVectorIcon.class, 16));
+	
+	//private ModernIconMenuItem collapseMenuItem = 
+	//		new ModernIconMenuItem("Collapse All", UIResources.getInstance().loadIcon(MinusVectorIcon.class, 16));
+	
+	private Sample mSample;
+
+
+	//private ModernPopupMenu menu;
+
+	//private ModernCollapsePane collapsePane;
+
+	public SampleDataPanel(Sample sample, DataView view) {
+
+		mSample = sample;
+
+		SectionDataPanelGrid2 grid = new SectionDataPanelGrid2(sample, view);
+
+		ModernScrollPane scrollPane = new ModernScrollPane(grid);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER);
+		//scrollPane.setScrollBarLocation(ScrollBarLocation.FLOATING);
+		scrollPane.setBorder(LARGE_BORDER);
+		//scrollPane.setBackground(Color.WHITE);
+		//scrollPane.setViewportBorder(BorderFactory.createEmptyBorder());
+		//scrollPane.getViewport().setBackground(Color.WHITE);
+		
+
+		setBody(scrollPane);
+
+		
+		
+		//createMenu();
+	}
+
+	@Override
+	public void setHeader(Component c) {
+		super.setHeader(new ModernComponent(new ModernLineBottomBorderPanel(new ModernComponent(c, UI.createBottomBorder(10))), ModernWidget.LARGE_BORDER));
+	}
+
+
+	public Sample getSample() {
+		return mSample;
+	}
+
+	@Override
+	public boolean copyEnabled() {
+		return true;
+	}
+	
+	@Override
+	public void copy() {
+		StringBuilder buffer = new StringBuilder();
+
+		buffer.append("Sample");
+		buffer.append(TextUtils.TAB_DELIMITER);
+		
+		try {
+			mSample.formattedTxt(buffer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		ClipboardService.copyToClipboard(buffer.toString());
+	}
+}
