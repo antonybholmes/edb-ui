@@ -20,10 +20,10 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 
-import org.abh.common.bioinformatics.annotation.Type;
-import org.abh.common.json.Json;
-import org.abh.common.json.JsonParser;
-import org.abh.common.path.Path;
+import org.jebtk.core.json.Json;
+import org.jebtk.core.json.JsonParser;
+import org.jebtk.core.path.Path;
+import org.jebtk.bioinformatics.annotation.Type;
 
 import edu.columbia.rdf.edb.EDBWLogin;
 import edu.columbia.rdf.edb.Groups;

@@ -20,13 +20,13 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>org.abh</groupId>
-			<artifactId>org.abh.common</artifactId>
+			<groupId>org.jebtk</groupId>
+			<artifactId>org.jebtk.core</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.abh</groupId>
-			<artifactId>org.abh.common.ui</artifactId>
+			<groupId>org.jebtk</groupId>
+			<artifactId>org.jebtk.modern</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
@@ -35,18 +35,18 @@
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.graphplot</groupId>
-			<artifactId>org.graphplot</artifactId>
+			<groupId>org.jebtk</groupId>
+			<artifactId>org.jebtk.graphplot</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.abh</groupId>
-			<artifactId>org.abh.common.bioinformatics</artifactId>
+			<groupId>org.jebtk</groupId>
+			<artifactId>org.jebtk.bioinformatics</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
-			<groupId>org.abh</groupId>
-			<artifactId>org.abh.common.bioinformatics.ui</artifactId>
+			<groupId>org.jebtk</groupId>
+			<artifactId>org.jebtk.bioinformatics.ui</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>

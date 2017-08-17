@@ -1,7 +1,7 @@
 package edu.columbia.rdf.edb.ui;
 
-import org.abh.common.KeyValueNode;
-import org.abh.common.settings.KeyNode;
+import org.jebtk.core.KeyValueNode;
+import org.jebtk.core.settings.KeyNode;
 
 import edu.columbia.rdf.edb.DataViewField;
 

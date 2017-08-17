@@ -2,7 +2,7 @@ package edu.columbia.rdf.edb.ui.search;
 
 import java.util.List;
 
-import org.abh.common.search.SearchStackElement;
+import org.jebtk.core.search.SearchStackElement;
 
 import edu.columbia.rdf.edb.Sample;
 

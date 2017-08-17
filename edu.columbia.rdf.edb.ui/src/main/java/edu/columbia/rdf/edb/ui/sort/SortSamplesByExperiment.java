@@ -3,16 +3,16 @@ package edu.columbia.rdf.edb.ui.sort;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
-import org.abh.common.tree.TreeNode;
-import org.abh.common.tree.TreeRootNode;
-import org.abh.common.ui.search.FilterModel;
-import org.abh.common.ui.tree.ModernTree;
+import org.jebtk.core.tree.TreeNode;
+import org.jebtk.core.tree.TreeRootNode;
+import org.jebtk.modern.search.FilterModel;
+import org.jebtk.modern.tree.ModernTree;
 
 import edu.columbia.rdf.edb.Experiment;
 import edu.columbia.rdf.edb.Sample;
@@ -70,13 +70,13 @@ public class SortSamplesByExperiment extends SampleSorter {
 		Map<Experiment, Set<Sample>> experiments = 
     			Experiment.sortSamplesByExperiment(samples);
 		
-		Set<String> names = new TreeSet<String>();
+		Set<String> names = new HashSet<String>();
 		
 		for (Experiment experiment : experiments.keySet()) {
 			names.add(experiment.getName());
 		}
 		
-		addFilterNames(names, filterModel);
+		addSortedFilterNames(names, filterModel);
 	}
 
 	public final String getName() {

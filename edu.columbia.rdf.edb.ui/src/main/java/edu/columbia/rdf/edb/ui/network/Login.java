@@ -2,7 +2,7 @@ package edu.columbia.rdf.edb.ui.network;
 
 import java.io.Serializable;
 
-import org.abh.common.xml.XmlRepresentation;
+import org.jebtk.core.xml.XmlRepresentation;
 
 
 /**

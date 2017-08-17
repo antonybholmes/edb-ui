@@ -7,16 +7,16 @@ import java.util.Map;
 
 import javax.swing.Box;
 
-import org.abh.common.ui.UI;
-import org.abh.common.ui.button.ModernCheckSwitch;
-import org.abh.common.ui.dialog.ModernDialogTaskWindow;
-import org.abh.common.ui.event.ModernClickEvent;
-import org.abh.common.ui.event.ModernClickListener;
-import org.abh.common.ui.scrollpane.ModernScrollPane;
-import org.abh.common.ui.scrollpane.ScrollBarPolicy;
-import org.abh.common.ui.widget.ModernClickWidget;
-import org.abh.common.ui.widget.ModernTwoStateWidget;
-import org.abh.common.ui.window.ModernWindow;
+import org.jebtk.modern.UI;
+import org.jebtk.modern.button.ModernCheckSwitch;
+import org.jebtk.modern.dialog.ModernDialogTaskWindow;
+import org.jebtk.modern.event.ModernClickEvent;
+import org.jebtk.modern.event.ModernClickListener;
+import org.jebtk.modern.scrollpane.ModernScrollPane;
+import org.jebtk.modern.scrollpane.ScrollBarPolicy;
+import org.jebtk.modern.widget.ModernClickWidget;
+import org.jebtk.modern.widget.ModernTwoStateWidget;
+import org.jebtk.modern.window.ModernWindow;
 
 import edu.columbia.rdf.edb.DataView;
 import edu.columbia.rdf.edb.DataViewField;

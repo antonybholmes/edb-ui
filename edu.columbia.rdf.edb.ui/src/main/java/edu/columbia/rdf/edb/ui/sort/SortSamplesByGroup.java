@@ -1,17 +1,15 @@
 package edu.columbia.rdf.edb.ui.sort;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
-import org.abh.common.collections.ArrayListMultiMap;
-import org.abh.common.collections.CollectionUtils;
-import org.abh.common.collections.ListMultiMap;
-import org.abh.common.ui.search.FilterModel;
-import org.abh.common.ui.tree.ModernTree;
+import org.jebtk.core.collections.ArrayListMultiMap;
+import org.jebtk.core.collections.ListMultiMap;
+import org.jebtk.modern.search.FilterModel;
+import org.jebtk.modern.tree.ModernTree;
 
 import edu.columbia.rdf.edb.Group;
-import edu.columbia.rdf.edb.Person;
 import edu.columbia.rdf.edb.Sample;
 
 /**
@@ -48,19 +46,19 @@ public class SortSamplesByGroup extends SampleSorter {
 			FilterModel filterModel) {
 		super.filter(samples, filterModel);
 
-		Set<Group> names = new TreeSet<Group>();
+		Set<String> names = new HashSet<String>();
 
 		for (Sample sample : samples) {
 			for (Group g : sample.getGroups()) {
 				//String name = person.getName();
 				
 				//names.add(name);
-				names.add(g);
+				names.add(g.getName());
 			}
 		}
 
 		// Add names using surname, forname sorting
-		addFilterNames(CollectionUtils.toString(names), filterModel);
+		addSortedFilterNames(names, filterModel);
 	}
 
 	public final String getName() {

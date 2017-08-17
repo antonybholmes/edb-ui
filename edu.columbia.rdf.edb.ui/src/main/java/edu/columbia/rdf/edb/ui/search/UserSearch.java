@@ -2,7 +2,7 @@ package edu.columbia.rdf.edb.ui.search;
 
 import java.util.ArrayList;
 
-import org.abh.common.xml.XmlRepresentation;
+import org.jebtk.core.xml.XmlRepresentation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

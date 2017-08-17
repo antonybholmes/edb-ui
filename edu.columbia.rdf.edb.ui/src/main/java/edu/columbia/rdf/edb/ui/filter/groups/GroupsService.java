@@ -11,12 +11,12 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.TransformerException;
 
-import org.abh.common.AppService;
-import org.abh.common.event.ChangeEvent;
-import org.abh.common.event.ChangeListener;
-import org.abh.common.io.FileUtils;
-import org.abh.common.io.PathUtils;
-import org.abh.common.xml.XmlUtils;
+import org.jebtk.core.AppService;
+import org.jebtk.core.event.ChangeEvent;
+import org.jebtk.core.event.ChangeListener;
+import org.jebtk.core.io.FileUtils;
+import org.jebtk.core.io.PathUtils;
+import org.jebtk.core.xml.XmlUtils;
 import org.xml.sax.SAXException;
 
 import edu.columbia.rdf.edb.Group;
@@ -33,7 +33,7 @@ public class GroupsService extends GroupsModel implements ChangeListener {
 		return ServiceLoader.INSTANCE;
 	}
 
-	private static final Path GROUPS_FILE = PathUtils.getPath("res/groups.xml");
+	private static final Path GROUPS_FILE = PathUtils.getPath("res/default.groups.xml");
 
 	private static final Path USER_GROUPS_FILE = 
 			AppService.getInstance().getFile("user.groups.xml");

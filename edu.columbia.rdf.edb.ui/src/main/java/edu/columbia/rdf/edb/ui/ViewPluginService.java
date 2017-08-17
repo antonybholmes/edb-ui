@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.abh.common.ui.ModernComponent;
+import org.jebtk.modern.ModernComponent;
 
 import edu.columbia.rdf.edb.Sample;
 

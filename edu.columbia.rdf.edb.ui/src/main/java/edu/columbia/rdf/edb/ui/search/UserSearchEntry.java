@@ -1,8 +1,8 @@
 package edu.columbia.rdf.edb.ui.search;
 
-import org.abh.common.path.Path;
-import org.abh.common.search.SearchStackOperator;
-import org.abh.common.xml.XmlRepresentation;
+import org.jebtk.core.path.Path;
+import org.jebtk.core.search.SearchStackOperator;
+import org.jebtk.core.xml.XmlRepresentation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

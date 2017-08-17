@@ -3,11 +3,11 @@ package edu.columbia.rdf.edb.ui;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
-import org.abh.common.dictionary.SubstitutionService;
-import org.abh.common.text.TextUtils;
-import org.abh.common.ui.graphics.DrawingContext;
-import org.abh.common.ui.widget.ModernWidget;
-import org.graphplot.ModernPlotCanvas;
+import org.jebtk.core.dictionary.SubstitutionService;
+import org.jebtk.core.text.TextUtils;
+import org.jebtk.graphplot.ModernPlotCanvas;
+import org.jebtk.modern.graphics.DrawingContext;
+import org.jebtk.modern.widget.ModernWidget;
 
 import edu.columbia.rdf.edb.DataView;
 import edu.columbia.rdf.edb.DataViewField;

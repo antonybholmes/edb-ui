@@ -21,16 +21,16 @@ import java.util.Map;
 
 import javax.swing.Box;
 
-import org.abh.common.ui.ModernComponent;
-import org.abh.common.ui.UI;
-import org.abh.common.ui.button.ModernCheckSwitch;
-import org.abh.common.ui.collapsepane.ModernSubCollapsePane;
-import org.abh.common.ui.event.ModernClickEvent;
-import org.abh.common.ui.event.ModernClickListener;
-import org.abh.common.ui.panel.VBox;
-import org.abh.common.ui.scrollpane.ModernScrollPane;
-import org.abh.common.ui.scrollpane.ScrollBarPolicy;
-import org.abh.common.ui.widget.ModernTwoStateWidget;
+import org.jebtk.modern.ModernComponent;
+import org.jebtk.modern.UI;
+import org.jebtk.modern.button.ModernCheckSwitch;
+import org.jebtk.modern.collapsepane.ModernSubCollapsePane;
+import org.jebtk.modern.event.ModernClickEvent;
+import org.jebtk.modern.event.ModernClickListener;
+import org.jebtk.modern.panel.VBox;
+import org.jebtk.modern.scrollpane.ModernScrollPane;
+import org.jebtk.modern.scrollpane.ScrollBarPolicy;
+import org.jebtk.modern.widget.ModernTwoStateWidget;
 
 import edu.columbia.rdf.edb.Group;
 
@@ -52,7 +52,8 @@ public class GroupsPanel extends ModernComponent implements ModernClickListener 
 	private Map<ModernTwoStateWidget, Group> mCheckMap =
 			new HashMap<ModernTwoStateWidget, Group>();
 	
-	private ModernTwoStateWidget mCheckAll = new ModernCheckSwitch("Select All"); 
+	private ModernTwoStateWidget mCheckAll = 
+			new ModernCheckSwitch("Select All"); 
 	
 	private ModernTwoStateWidget mCheckAllMode = 
 			new ModernCheckSwitch("In All Groups"); 

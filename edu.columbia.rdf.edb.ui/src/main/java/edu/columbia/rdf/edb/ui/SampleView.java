@@ -3,10 +3,10 @@ package edu.columbia.rdf.edb.ui;
 import java.util.List;
 import java.util.Map;
 
-import org.abh.common.collections.CollectionUtils;
-import org.abh.common.tree.TreeNode;
-import org.abh.common.tree.TreeRootNode;
-import org.abh.common.ui.tree.ModernTree;
+import org.jebtk.core.collections.CollectionUtils;
+import org.jebtk.core.tree.TreeNode;
+import org.jebtk.core.tree.TreeRootNode;
+import org.jebtk.modern.tree.ModernTree;
 
 import edu.columbia.rdf.edb.Sample;
 import edu.columbia.rdf.edb.ui.sort.SampleSorter;

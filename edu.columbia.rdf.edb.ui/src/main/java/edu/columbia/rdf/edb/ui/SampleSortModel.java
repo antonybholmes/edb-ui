@@ -15,7 +15,7 @@
  */
 package edu.columbia.rdf.edb.ui;
 
-import org.abh.common.ui.search.SortModel;
+import org.jebtk.modern.search.SortModel;
 
 import edu.columbia.rdf.edb.Sample;
 

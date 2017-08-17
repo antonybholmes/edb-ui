@@ -1,6 +1,6 @@
 package edu.columbia.rdf.edb.ui;
 
-import org.abh.common.MessageException;
+import org.jebtk.core.MessageException;
 
 /**
  * All Array Search errors should derive from this.

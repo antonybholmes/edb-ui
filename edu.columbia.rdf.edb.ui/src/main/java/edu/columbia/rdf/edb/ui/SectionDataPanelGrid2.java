@@ -1,15 +1,15 @@
 package edu.columbia.rdf.edb.ui;
 
-import org.abh.common.dictionary.SubstitutionService;
-import org.abh.common.text.TextUtils;
-import org.abh.common.ui.UI;
-import org.abh.common.ui.panel.MatrixPanel;
-import org.abh.common.ui.panel.VBoxAutoWidth;
-import org.abh.common.ui.text.ModernClipboardTextField;
-import org.abh.common.ui.text.ModernLabel;
-import org.abh.common.ui.text.ModernLabelBold;
-import org.abh.common.ui.text.ModernTextBorderPanel;
-import org.abh.common.ui.widget.ModernWidget;
+import org.jebtk.core.dictionary.SubstitutionService;
+import org.jebtk.core.text.TextUtils;
+import org.jebtk.modern.UI;
+import org.jebtk.modern.panel.MatrixPanel;
+import org.jebtk.modern.panel.VBoxAutoWidth;
+import org.jebtk.modern.text.ModernClipboardTextField;
+import org.jebtk.modern.text.ModernLabel;
+import org.jebtk.modern.text.ModernLabelBold;
+import org.jebtk.modern.text.ModernTextBorderPanel;
+import org.jebtk.modern.widget.ModernWidget;
 
 import edu.columbia.rdf.edb.DataView;
 import edu.columbia.rdf.edb.DataViewField;

@@ -17,7 +17,7 @@ package edu.columbia.rdf.edb.ui.filter.groups;
 
 
 
-import org.abh.common.text.TextUtils;
+import org.jebtk.core.text.TextUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

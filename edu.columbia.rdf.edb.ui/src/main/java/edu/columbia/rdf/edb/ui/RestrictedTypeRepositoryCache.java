@@ -19,7 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import org.abh.common.bioinformatics.annotation.Type;
+import org.jebtk.bioinformatics.annotation.Type;
 
 import edu.columbia.rdf.edb.EDBWLogin;
 import edu.columbia.rdf.edb.ui.cache.CacheRepository;

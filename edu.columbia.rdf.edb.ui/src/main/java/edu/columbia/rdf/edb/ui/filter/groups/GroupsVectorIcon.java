@@ -29,8 +29,10 @@ package edu.columbia.rdf.edb.ui.filter.groups;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 
-import org.abh.common.ui.graphics.icons.ModernVectorIcon;
+import org.jebtk.modern.graphics.icons.ModernVectorIcon;
+import org.jebtk.modern.widget.ModernWidget;
 
 
 
@@ -42,34 +44,48 @@ import org.abh.common.ui.graphics.icons.ModernVectorIcon;
  *
  */
 public class GroupsVectorIcon extends ModernVectorIcon {
-	
-	
+
+
 	/* (non-Javadoc)
 	 * @see org.abh.lib.ui.modern.icons.ModernIcon#drawForeground(java.awt.Graphics2D, java.awt.Rectangle)
 	 */
 	@Override
 	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Object... params) {
-		
+
 		Color color = (Color)params[0];
-			
-		int blockSize = (w - 2) / 3;
-		
+
 		g2.setColor(color);
-		
+		g2.fillRect(x, y, w, w);
+
+		g2.setColor(Color.WHITE);
+		g2.setFont(ModernWidget.FONT);
+
+		Point p = ModernWidget.getStringCenterPlotCoordinates(g2, w, h, "G");
+
+		g2.drawString("G", x + p.x, y + p.y);
+
+		/*
+		Color color = (Color)params[0];
+
+		int blockSize = (w - 2) / 3;
+
+		g2.setColor(color);
+
 		x += (w - blockSize * 3 - 2) / 2;
 		y = x;
-		
+
 		for (int i = 0; i < 3; ++i) {
 			int x1 = x;
-			
+
 			for (int j = 0; j < 3; ++j) {
 				g2.fillRect(x1, y, blockSize, blockSize);
-				
+
 				x1 += blockSize + 1;
 			}
-			
+
 			y += blockSize + 1;
 		}
+		 */
 	}
 
 }

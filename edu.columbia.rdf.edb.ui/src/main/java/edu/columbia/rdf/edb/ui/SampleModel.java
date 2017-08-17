@@ -15,7 +15,7 @@
  */
 package edu.columbia.rdf.edb.ui;
 
-import org.abh.common.ui.SelectionModel;
+import org.jebtk.modern.SelectionModel;
 
 import edu.columbia.rdf.edb.Sample;
 

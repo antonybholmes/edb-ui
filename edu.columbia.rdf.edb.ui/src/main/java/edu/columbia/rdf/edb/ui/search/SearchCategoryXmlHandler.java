@@ -1,6 +1,6 @@
 package edu.columbia.rdf.edb.ui.search;
 
-import org.abh.common.path.StrictPath;
+import org.jebtk.core.path.StrictPath;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

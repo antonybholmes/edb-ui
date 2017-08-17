@@ -17,8 +17,8 @@ package edu.columbia.rdf.edb.ui.filter.datatypes;
 
 
 
-import org.abh.common.bioinformatics.annotation.Type;
-import org.abh.common.text.TextUtils;
+import org.jebtk.core.text.TextUtils;
+import org.jebtk.bioinformatics.annotation.Type;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

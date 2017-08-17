@@ -25,7 +25,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package edu.columbia.rdf.edb.ui.filter.organisms;
+package edu.columbia.rdf.edb.ui.filter.results;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -43,7 +43,7 @@ import org.jebtk.modern.widget.ModernWidget;
  * @author Antony Holmes Holmes
  *
  */
-public class OrganismsVectorIcon extends ModernVectorIcon {
+public class ResultsVectorIcon extends ModernVectorIcon {
 	
 	
 	/* (non-Javadoc)
@@ -51,7 +51,19 @@ public class OrganismsVectorIcon extends ModernVectorIcon {
 	 */
 	@Override
 	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Object... params) {
+		
 		Color color = (Color)params[0];
+		
+		/*
+		Graphics2D g2Temp = ImageUtils.createAAStrokeGraphics(g2);
+		
+		try {
+			g2Temp.setColor(color);
+			g2Temp.fillOval(x, y, w, w);
+		} finally {
+			g2Temp.dispose();
+		}
+		*/
 		
 		g2.setColor(color);
 		g2.fillRect(x, y, w, w);
@@ -59,9 +71,9 @@ public class OrganismsVectorIcon extends ModernVectorIcon {
 		g2.setColor(Color.WHITE);
 		g2.setFont(ModernWidget.FONT);
 		
-		Point p = ModernWidget.getStringCenterPlotCoordinates(g2, w, h, "O");
+		Point p = ModernWidget.getStringCenterPlotCoordinates(g2, w, h, "S");
 		
-		g2.drawString("O", x + p.x, y + p.y);
+		g2.drawString("S", x + p.x, y + p.y);
 	}
 
 }

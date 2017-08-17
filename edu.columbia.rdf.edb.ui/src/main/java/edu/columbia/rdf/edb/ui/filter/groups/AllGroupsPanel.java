@@ -3,10 +3,10 @@ package edu.columbia.rdf.edb.ui.filter.groups;
 import java.awt.Graphics2D;
 import java.util.Collection;
 
-import org.abh.common.collections.CollectionUtils;
-import org.abh.common.ui.UI;
-import org.abh.common.ui.graphics.ImageUtils;
-import org.abh.common.ui.widget.ModernWidget;
+import org.jebtk.core.collections.CollectionUtils;
+import org.jebtk.modern.UI;
+import org.jebtk.modern.graphics.ImageUtils;
+import org.jebtk.modern.widget.ModernWidget;
 
 import edu.columbia.rdf.edb.Group;
 

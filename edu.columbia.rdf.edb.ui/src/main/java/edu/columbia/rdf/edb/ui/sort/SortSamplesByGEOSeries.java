@@ -4,10 +4,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.abh.common.collections.ArrayListMultiMap;
-import org.abh.common.collections.ListMultiMap;
-import org.abh.common.ui.search.FilterModel;
-import org.abh.common.ui.tree.ModernTree;
+import org.jebtk.core.collections.ArrayListMultiMap;
+import org.jebtk.core.collections.ListMultiMap;
+import org.jebtk.modern.search.FilterModel;
+import org.jebtk.modern.tree.ModernTree;
 
 import edu.columbia.rdf.edb.GEO;
 import edu.columbia.rdf.edb.Sample;
@@ -62,7 +62,7 @@ public class SortSamplesByGEOSeries extends SampleSorter {
 			names.add(name);
 		}
 		
-		addFilterNames(names, filterModel);
+		addSortedFilterNames(names, filterModel);
 	}
 
 	public final String getName() {

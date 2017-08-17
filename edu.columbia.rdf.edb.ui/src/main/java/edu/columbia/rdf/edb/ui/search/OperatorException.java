@@ -1,6 +1,6 @@
 package edu.columbia.rdf.edb.ui.search;
 
-import org.abh.common.search.SearchStackOperator;
+import org.jebtk.core.search.SearchStackOperator;
 
 public class OperatorException extends MatchStackException {
 	private static final long serialVersionUID = 1L;

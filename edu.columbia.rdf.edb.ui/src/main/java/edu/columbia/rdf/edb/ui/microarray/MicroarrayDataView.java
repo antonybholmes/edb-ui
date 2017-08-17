@@ -1,6 +1,6 @@
 package edu.columbia.rdf.edb.ui.microarray;
 
-import org.abh.common.path.Path;
+import org.jebtk.core.path.Path;
 
 import edu.columbia.rdf.edb.DataView;
 import edu.columbia.rdf.edb.DataViewSection;

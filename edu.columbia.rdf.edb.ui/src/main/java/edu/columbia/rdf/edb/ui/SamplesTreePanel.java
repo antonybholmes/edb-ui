@@ -20,33 +20,33 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.abh.common.event.ChangeEvent;
-import org.abh.common.event.ChangeListener;
-import org.abh.common.settings.SettingsService;
-import org.abh.common.tree.TreeNode;
-import org.abh.common.ui.UI;
-import org.abh.common.ui.UIService;
-import org.abh.common.ui.event.ModernClickEvent;
-import org.abh.common.ui.event.ModernClickListener;
-import org.abh.common.ui.event.ModernSelectionListener;
-import org.abh.common.ui.graphics.icons.MinusVectorIcon;
-import org.abh.common.ui.graphics.icons.PlusVectorIcon;
-import org.abh.common.ui.menu.ModernCheckBoxMenuItem;
-import org.abh.common.ui.menu.ModernIconMenuItem;
-import org.abh.common.ui.menu.ModernPopupMenu;
-import org.abh.common.ui.menu.ModernTitleIconMenuItem;
-import org.abh.common.ui.panel.ModernPanel;
-import org.abh.common.ui.scrollpane.ModernScrollPane;
-import org.abh.common.ui.scrollpane.ScrollBarPolicy;
-import org.abh.common.ui.search.FilterEventListener;
-import org.abh.common.ui.search.FilterModel;
-import org.abh.common.ui.search.SortPanel;
-import org.abh.common.ui.tree.ModernTree;
-import org.abh.common.ui.tree.ModernTreeNodeRenderer;
-import org.abh.common.ui.tree.TreeNodeFileCountRenderer;
-import org.abh.common.ui.view.ViewModel;
-import org.abh.common.ui.widget.ModernTwoStateWidget;
-import org.abh.common.ui.window.ModernWindow;
+import org.jebtk.core.event.ChangeEvent;
+import org.jebtk.core.event.ChangeListener;
+import org.jebtk.core.settings.SettingsService;
+import org.jebtk.core.tree.TreeNode;
+import org.jebtk.modern.UI;
+import org.jebtk.modern.UIService;
+import org.jebtk.modern.event.ModernClickEvent;
+import org.jebtk.modern.event.ModernClickListener;
+import org.jebtk.modern.event.ModernSelectionListener;
+import org.jebtk.modern.graphics.icons.MinusVectorIcon;
+import org.jebtk.modern.graphics.icons.PlusVectorIcon;
+import org.jebtk.modern.menu.ModernCheckBoxMenuItem;
+import org.jebtk.modern.menu.ModernIconMenuItem;
+import org.jebtk.modern.menu.ModernPopupMenu;
+import org.jebtk.modern.menu.ModernTitleIconMenuItem;
+import org.jebtk.modern.panel.ModernPanel;
+import org.jebtk.modern.scrollpane.ModernScrollPane;
+import org.jebtk.modern.scrollpane.ScrollBarPolicy;
+import org.jebtk.modern.search.FilterEventListener;
+import org.jebtk.modern.search.FilterModel;
+import org.jebtk.modern.search.SortPanel;
+import org.jebtk.modern.tree.ModernTree;
+import org.jebtk.modern.tree.ModernTreeNodeRenderer;
+import org.jebtk.modern.tree.TreeNodeFileCountRenderer;
+import org.jebtk.modern.view.ViewModel;
+import org.jebtk.modern.widget.ModernTwoStateWidget;
+import org.jebtk.modern.window.ModernWindow;
 
 import edu.columbia.rdf.edb.Sample;
 
@@ -125,12 +125,12 @@ public class SamplesTreePanel extends ModernPanel implements ModernClickListener
 	private class FilterEvents implements FilterEventListener {
 
 		@Override
-		public void filterChanged(ChangeEvent e) {
+		public void filtersUpdated(ChangeEvent e) {
 			loadSamples();
 		}
 
 		@Override
-		public void filtersUpdated(ChangeEvent e) {
+		public void filtersChanged(ChangeEvent e) {
 			//filterSamples();
 		}
 		
@@ -257,9 +257,7 @@ public class SamplesTreePanel extends ModernPanel implements ModernClickListener
 	*/
 
 	public void filterSamples() {
-		
 		mSortModel.getSorter().filter(mSampleModel.getItems(), mFilterModel);
-	
 		
 		loadSamples();
 	}

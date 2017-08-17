@@ -1,8 +1,8 @@
 package edu.columbia.rdf.edb.ui.search;
 
-import org.abh.common.path.Path;
-import org.abh.common.search.SearchStackOperator;
-import org.abh.common.text.TextUtils;
+import org.jebtk.core.path.Path;
+import org.jebtk.core.search.SearchStackOperator;
+import org.jebtk.core.text.TextUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

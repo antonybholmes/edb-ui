@@ -2,18 +2,39 @@ package edu.columbia.rdf.edb.ui.sort;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import org.abh.common.collections.CollectionUtils;
-import org.abh.common.tree.TreeNode;
-import org.abh.common.tree.TreeRootNode;
-import org.abh.common.ui.search.FilterModel;
-import org.abh.common.ui.tree.ModernTree;
+import org.jebtk.core.collections.ArrayListMultiMap;
+import org.jebtk.core.collections.ListMultiMap;
+import org.jebtk.modern.search.FilterModel;
+import org.jebtk.modern.tree.ModernTree;
 
 import edu.columbia.rdf.edb.Sample;
 
 public class SortSamplesByName extends SampleSorter {
+	
+	@Override
+	public void arrange(Collection<Sample> samples, 
+			ModernTree<Sample> tree, 
+			boolean ascending,
+			FilterModel filterModel) {
+		ListMultiMap<String, Sample> map = ArrayListMultiMap.create();
+
+		for (Sample sample : samples) {
+			String name = sample.getName();
+			
+			String t = name.substring(0, 1).toUpperCase();
+			
+			if (filterModel.keep(t)) {
+				map.get(t).add(sample);
+			}
+		}
+
+		arrange(map, ascending, tree);
+	}
+	
+	
+	/*
 	@Override
 	public void arrange(Collection<Sample> samples, 
 			ModernTree<Sample> tree, 
@@ -39,19 +60,23 @@ public class SortSamplesByName extends SampleSorter {
 
 		tree.setRoot(root);
 	}
+	*/
 	
 	@Override
 	public void filter(Collection<Sample> samples, 
 			FilterModel filterModel) {
 		super.filter(samples, filterModel);
 		
-		Set<String> names = new HashSet<String>();
+		Set<String> names = new HashSet<String>(samples.size());
 		
 		for (Sample sample : samples) {
-			names.add(sample.getName());
+			String name = sample.getName();
+			String t = name.substring(0, 1).toUpperCase();
+			
+			names.add(t);
 		}
 		
-		addFilterNames(CollectionUtils.sort(names), filterModel);
+		addSortedFilterNames(names, filterModel);
 	}
 
 	public final String getName() {

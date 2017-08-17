@@ -19,15 +19,15 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.List;
 
-import org.abh.common.tree.TreeNode;
-import org.abh.common.ui.UIService;
-import org.abh.common.ui.graphics.ImageUtils;
-import org.abh.common.ui.theme.RenderMode;
-import org.abh.common.ui.theme.ThemeService;
-import org.abh.common.ui.tree.ModernTreeNodeRenderer;
-import org.abh.common.ui.tree.Tree;
-import org.abh.common.ui.tree.TreeIconNodeCountRenderer;
-import org.abh.common.ui.widget.ModernWidget;
+import org.jebtk.core.tree.TreeNode;
+import org.jebtk.modern.UIService;
+import org.jebtk.modern.graphics.ImageUtils;
+import org.jebtk.modern.theme.RenderMode;
+import org.jebtk.modern.theme.ThemeService;
+import org.jebtk.modern.tree.ModernTreeNodeRenderer;
+import org.jebtk.modern.tree.Tree;
+import org.jebtk.modern.tree.TreeIconNodeCountRenderer;
+import org.jebtk.modern.widget.ModernWidget;
 
 import edu.columbia.rdf.edb.Group;
 import edu.columbia.rdf.edb.Sample;
@@ -87,29 +87,32 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
 
 		int y;
 
-		int x = 0;
+		int x;
 
 		// Draw the dividing line only if the node is not highlighted, otherwise
 		// it interferes with the highlighting rectangle
 
 
 		if (mNode.isParent()) {
+			x = PADDING;
 			y = (HEADER_HEIGHT - UIService.ICON_SIZE_16) / 2;
 
 			if (mNode.isExpanded()) {
-				TreeIconNodeCountRenderer.BRANCH_CLOSED_ICON.drawIcon(g2, x, y, 16);
-			} else {
 				TreeIconNodeCountRenderer.BRANCH_OPEN_ICON.drawIcon(g2, x, y, 16);
+			} else {
+				TreeIconNodeCountRenderer.BRANCH_CLOSED_ICON.drawIcon(g2, x, y, 16);
 			}
 
-			x += TreeIconNodeCountRenderer.BRANCH_OPEN_ICON.getWidth(); // + ModernTheme.getInstance().getClass("widget").getInt("padding");
+			x += TreeIconNodeCountRenderer.BRANCH_OPEN_ICON.getWidth() + PADDING; // + ModernTheme.getInstance().getClass("widget").getInt("padding");
 
-			y = (HEADER_HEIGHT + g2.getFontMetrics().getAscent()) / 2;
+			 //(HEADER_HEIGHT + g2.getFontMetrics().getAscent()) / 2;
 
 			//g2.clipRect(0, 0, getWidth(), getHeight());
 
 			g2.setFont(ModernWidget.BOLD_FONT);
 			g2.setColor(TEXT_COLOR);
+			
+			y = ModernWidget.getTextYPosCenter(g2, HEADER_HEIGHT);
 			g2.drawString(getTruncatedText(g2, mText1, x, mRect.getW()), x, y);
 
 			g2.setColor(ModernWidget.LINE_COLOR);
@@ -119,9 +122,8 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
 			y = mRect.getH() - 1;
 			g2.drawLine(0, y, mRect.getW() - 1, y);
 		} else {
-			x += TreeIconNodeCountRenderer.BRANCH_OPEN_ICON.getWidth(); // + ModernTheme.getInstance().getClass("widget").getInt("padding");
-
-
+			x = DOUBLE_PADDING;
+			//x += PADDINTreeIconNodeCountRenderer.BRANCH_OPEN_ICON.getWidth(); // + ModernTheme.getInstance().getClass("widget").getInt("padding");
 
 			g2.setFont(ModernWidget.SUB_SUB_HEADING_FONT);
 			g2.setColor(TEXT_COLOR);

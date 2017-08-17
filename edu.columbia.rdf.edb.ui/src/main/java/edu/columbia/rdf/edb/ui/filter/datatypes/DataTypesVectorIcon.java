@@ -31,8 +31,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
-import org.abh.common.ui.graphics.icons.ModernVectorIcon;
-import org.abh.common.ui.widget.ModernWidget;
+import org.jebtk.modern.graphics.icons.ModernVectorIcon;
+import org.jebtk.modern.widget.ModernWidget;
 
 
 
@@ -71,9 +71,9 @@ public class DataTypesVectorIcon extends ModernVectorIcon {
 		g2.setColor(Color.WHITE);
 		g2.setFont(ModernWidget.FONT);
 		
-		Point p = ModernWidget.getStringCenterPlotCoordinates(g2, w, h, "T");
+		Point p = ModernWidget.getStringCenterPlotCoordinates(g2, w, h, "D");
 		
-		g2.drawString("T", x + p.x, y + p.y);
+		g2.drawString("D", x + p.x, y + p.y);
 	}
 
 }

@@ -7,8 +7,8 @@ import java.util.Collection;
 import java.util.Deque;
 import java.util.List;
 
-import org.abh.common.bioinformatics.annotation.Type;
-import org.abh.common.collections.CollectionUtils;
+import org.jebtk.core.collections.CollectionUtils;
+import org.jebtk.bioinformatics.annotation.Type;
 
 import edu.columbia.rdf.edb.Groups;
 import edu.columbia.rdf.edb.Sample;

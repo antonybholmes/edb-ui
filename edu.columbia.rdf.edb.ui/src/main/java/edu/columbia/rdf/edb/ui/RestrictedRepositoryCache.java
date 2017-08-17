@@ -19,7 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import org.abh.common.path.Path;
+import org.jebtk.core.path.Path;
 
 import edu.columbia.rdf.edb.EDBWLogin;
 import edu.columbia.rdf.edb.ui.cache.CacheRepository;

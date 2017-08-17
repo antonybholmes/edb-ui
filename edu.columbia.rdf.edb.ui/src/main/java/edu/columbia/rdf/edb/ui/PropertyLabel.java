@@ -3,9 +3,9 @@ package edu.columbia.rdf.edb.ui;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import org.abh.common.ui.UI;
-import org.abh.common.ui.text.ModernAutoSizeLabel;
-import org.abh.common.ui.theme.ThemeService;
+import org.jebtk.modern.UI;
+import org.jebtk.modern.text.ModernAutoSizeLabel;
+import org.jebtk.modern.theme.ThemeService;
 
 public class PropertyLabel extends ModernAutoSizeLabel {
 	private static final long serialVersionUID = 1L;

@@ -4,9 +4,9 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.abh.common.path.Path;
-import org.abh.common.ui.search.FilterModel;
-import org.abh.common.ui.tree.ModernTree;
+import org.jebtk.core.path.Path;
+import org.jebtk.modern.search.FilterModel;
+import org.jebtk.modern.tree.ModernTree;
 
 import edu.columbia.rdf.edb.Sample;
 import edu.columbia.rdf.edb.SampleTag;

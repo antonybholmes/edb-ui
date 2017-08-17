@@ -1,7 +1,7 @@
 package edu.columbia.rdf.edb.ui.microarray;
 
-import org.abh.common.ui.panel.VBox;
-import org.abh.common.ui.window.ModernWindow;
+import org.jebtk.modern.panel.VBox;
+import org.jebtk.modern.window.ModernWindow;
 
 public class RMADialog extends NormalizationDialog {
 	private static final long serialVersionUID = 1L;

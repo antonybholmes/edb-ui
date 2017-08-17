@@ -1,6 +1,6 @@
 package edu.columbia.rdf.edb.ui.network;
 
-import org.abh.common.pool.ObjectCreator;
+import org.jebtk.core.pool.ObjectCreator;
 
 import edu.columbia.rdf.edb.ui.Repository;
 

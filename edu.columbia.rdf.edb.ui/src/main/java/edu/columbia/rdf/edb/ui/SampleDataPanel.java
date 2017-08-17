@@ -3,15 +3,15 @@ package edu.columbia.rdf.edb.ui;
 import java.awt.Component;
 import java.io.IOException;
 
-import org.abh.common.text.TextUtils;
-import org.abh.common.ui.ModernComponent;
-import org.abh.common.ui.UI;
-import org.abh.common.ui.clipboard.ClipboardService;
-import org.abh.common.ui.clipboard.ModernClipboardWidget;
-import org.abh.common.ui.panel.ModernLineBottomBorderPanel;
-import org.abh.common.ui.scrollpane.ModernScrollPane;
-import org.abh.common.ui.scrollpane.ScrollBarPolicy;
-import org.abh.common.ui.widget.ModernWidget;
+import org.jebtk.core.text.TextUtils;
+import org.jebtk.modern.ModernComponent;
+import org.jebtk.modern.UI;
+import org.jebtk.modern.clipboard.ClipboardService;
+import org.jebtk.modern.clipboard.ModernClipboardWidget;
+import org.jebtk.modern.panel.ModernLineBottomBorderPanel;
+import org.jebtk.modern.scrollpane.ModernScrollPane;
+import org.jebtk.modern.scrollpane.ScrollBarPolicy;
+import org.jebtk.modern.widget.ModernWidget;
 
 import edu.columbia.rdf.edb.DataView;
 import edu.columbia.rdf.edb.Sample;

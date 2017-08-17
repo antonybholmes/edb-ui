@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
-import org.abh.common.search.SearchStackElement;
-import org.abh.common.search.SearchStackOperator;
+import org.jebtk.core.search.SearchStackElement;
+import org.jebtk.core.search.SearchStackOperator;
 
 import edu.columbia.rdf.edb.Sample;
 

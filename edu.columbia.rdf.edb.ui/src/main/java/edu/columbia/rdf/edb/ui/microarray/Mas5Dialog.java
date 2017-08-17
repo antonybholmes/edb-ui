@@ -5,13 +5,13 @@ import java.util.List;
 
 import javax.swing.Box;
 
-import org.abh.common.ui.UI;
-import org.abh.common.ui.button.ModernCheckSwitch;
-import org.abh.common.ui.event.ModernClickListener;
-import org.abh.common.ui.panel.ModernPanel;
-import org.abh.common.ui.panel.VBox;
-import org.abh.common.ui.widget.ModernTwoStateWidget;
-import org.abh.common.ui.window.ModernWindow;
+import org.jebtk.modern.UI;
+import org.jebtk.modern.button.ModernCheckSwitch;
+import org.jebtk.modern.event.ModernClickListener;
+import org.jebtk.modern.panel.ModernPanel;
+import org.jebtk.modern.panel.VBox;
+import org.jebtk.modern.widget.ModernTwoStateWidget;
+import org.jebtk.modern.window.ModernWindow;
 
 public class Mas5Dialog extends NormalizationDialog implements ModernClickListener {
 	private static final long serialVersionUID = 1L;
