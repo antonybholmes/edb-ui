@@ -53,7 +53,7 @@ public class SectionDataPanelGrid extends ModernPlotCanvas {
 	}
 
 	@Override
-	public void plot(Graphics2D g2, DrawingContext context) {
+	public void plot(Graphics2D g2, DrawingContext context, Object... params) {
 		int x = getInsets().left;
 		int x2 = x + 180;
 		int y = (ROW_HEIGHT + g2.getFontMetrics().getAscent()) / 2;

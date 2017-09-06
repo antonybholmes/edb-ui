@@ -63,9 +63,9 @@ public class LoginButton extends ModernDialogFlatButton {
 	/**
 	 * The height.
 	 */
-	private int HEIGHT = 96;
+	private int HEIGHT = 64;
 
-	private int WIDTH = 96;
+	private int WIDTH = 128;
 
 	/**
 	 * The roundel height.
@@ -98,16 +98,13 @@ public class LoginButton extends ModernDialogFlatButton {
 	public void drawForegroundAAText(Graphics2D g2) {
 		 //Color.WHITE);
 
-		Graphics2D g2Temp = ImageUtils.createAAGraphics(g2);
-		ImageUtils.setStrokeHints(g2Temp);
+		Graphics2D g2Temp = ImageUtils.createAAStrokeGraphics(g2);
 
 		try {
-			
-			
 			g2Temp.setStroke(ModernTheme.DOUBLE_LINE_STROKE);
 
-			int x = (getWidth() - ROUNDEL_HEIGHT) / 2;
-			int y = (getHeight() - ROUNDEL_HEIGHT) / 4;
+			int x = DOUBLE_PADDING; //(getWidth() - ROUNDEL_HEIGHT) / 2;
+			int y = (getHeight() - ROUNDEL_HEIGHT) / 2;
 
 			g2Temp.setColor(Color.WHITE);
 			g2Temp.fillOval(x, y, ROUNDEL_HEIGHT, ROUNDEL_HEIGHT);
@@ -131,8 +128,8 @@ public class LoginButton extends ModernDialogFlatButton {
 		g2.setColor(TEXT_COLOR);
 		g2.setFont(HEADING_FONT);
 
-		Point p = centerText(g2, mText1, getWidth() / 2, getHeight() * 3 / 4);
+		//Point p = centerText(g2, mText1, getWidth() / 2, getHeight() * 3 / 4);
 
-		g2.drawString(mText1, p.x, p.y);
+		g2.drawString(mText1, 64, getTextYPosCenter(getHeight()));
 	}
 }
