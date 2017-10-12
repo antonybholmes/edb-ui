@@ -195,7 +195,7 @@ public class SamplesDialog extends ModernDialogHelpWindow implements ModernClick
 		//groupTabsModel.addTab("DATA TYPES", new DataTypesVectorIcon(), dataTypesPanel);
 		groupTabsModel.addTab("ORGANISMS", new OrganismsVectorIcon(), organismsPanel);
 
-		IconTabsPanel viewPanel = new IconTabsPanel(groupTabsModel, 40, 20); //new ModernComponent(new IconTabsPanel(groupTabsModel, 30, 20), ModernWidget.DOUBLE_BORDER);
+		IconTabsPanel viewPanel = new IconTabsPanel(groupTabsModel, 36, 22); //new ModernComponent(new IconTabsPanel(groupTabsModel, 30, 20), ModernWidget.DOUBLE_BORDER);
 
 		// Show the column groups by default
 		groupTabsModel.changeTab(0);

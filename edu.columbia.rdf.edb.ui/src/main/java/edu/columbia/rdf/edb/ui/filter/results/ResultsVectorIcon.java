@@ -27,12 +27,7 @@
  */
 package edu.columbia.rdf.edb.ui.filter.results;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Point;
-
-import org.jebtk.modern.graphics.icons.ModernVectorIcon;
-import org.jebtk.modern.widget.ModernWidget;
+import org.jebtk.modern.tabs.IconTabsVectorIcon;
 
 
 
@@ -43,37 +38,8 @@ import org.jebtk.modern.widget.ModernWidget;
  * @author Antony Holmes Holmes
  *
  */
-public class ResultsVectorIcon extends ModernVectorIcon {
-	
-	
-	/* (non-Javadoc)
-	 * @see org.abh.lib.ui.modern.icons.ModernIcon#drawForeground(java.awt.Graphics2D, java.awt.Rectangle)
-	 */
-	@Override
-	public void drawIcon(Graphics2D g2, int x, int y, int w, int h, Object... params) {
-		
-		Color color = (Color)params[0];
-		
-		/*
-		Graphics2D g2Temp = ImageUtils.createAAStrokeGraphics(g2);
-		
-		try {
-			g2Temp.setColor(color);
-			g2Temp.fillOval(x, y, w, w);
-		} finally {
-			g2Temp.dispose();
-		}
-		*/
-		
-		g2.setColor(color);
-		g2.fillRect(x, y, w, w);
-		
-		g2.setColor(Color.WHITE);
-		g2.setFont(ModernWidget.FONT);
-		
-		Point p = ModernWidget.getStringCenterPlotCoordinates(g2, w, h, "S");
-		
-		g2.drawString("S", x + p.x, y + p.y);
+public class ResultsVectorIcon extends IconTabsVectorIcon {
+	public ResultsVectorIcon() {
+		super('S');
 	}
-
 }
