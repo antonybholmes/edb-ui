@@ -80,7 +80,7 @@ public class ResultsPanel extends ModernComponent {
 
 		mModel.addFilterListener(new FilterEvents());
 
-		setBorder(DOUBLE_BORDER);
+		//setBorder(DOUBLE_BORDER);
 		
 		setup();
 	}
@@ -127,6 +127,8 @@ public class ResultsPanel extends ModernComponent {
 				.setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
 
 		mCheckAll.setSelected(true);
+		
+		setBorder(BORDER);
 	}
 
 	private void checkAll() {

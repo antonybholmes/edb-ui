@@ -59,7 +59,8 @@ public class OrganismsPanel extends ModernComponent implements ModernClickListen
 		
 		Box box = VBox.create();
 		
-		box.add(new ModernSubHeadingLabel("Organisms"));
+		//box.add(new ModernSubHeadingLabel("Organisms"));
+		
 		box.add(UI.createVGap(10));
 		
 		box.add(mCheckAll);
@@ -87,7 +88,7 @@ public class OrganismsPanel extends ModernComponent implements ModernClickListen
 				.setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
 				.setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
 		
-		setBorder(DOUBLE_BORDER);
+		//setBorder(DOUBLE_BORDER);
 	}
 
 	@Override

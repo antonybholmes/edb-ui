@@ -100,7 +100,7 @@ public class GroupsPanel extends ModernComponent implements ModernClickListener 
 				.setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
 				.setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
 		
-		setBorder(BORDER);
+		//setBorder(BORDER);
 		
 		mCheckAll.addClickListener(new ModernClickListener() {
 			@Override

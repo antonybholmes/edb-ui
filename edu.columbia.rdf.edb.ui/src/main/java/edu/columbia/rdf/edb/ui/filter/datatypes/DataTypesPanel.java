@@ -137,7 +137,7 @@ public class DataTypesPanel extends ModernComponent {
 				.setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
 				.setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
 
-		setBorder(DOUBLE_BORDER);
+		setBorder(BORDER);
 	}
 
 	private void checkAll() {

@@ -36,8 +36,7 @@ import org.jebtk.modern.graphics.icons.PlusVectorIcon;
 import org.jebtk.modern.panel.CardPanel;
 import org.jebtk.modern.search.ModernSearchPanel;
 import org.jebtk.modern.search.SearchModel;
-import org.jebtk.modern.tabs.IconTabsPanel;
-import org.jebtk.modern.tabs.TabsModel;
+import org.jebtk.modern.tabs.TabPanel;
 import org.jebtk.modern.tree.ModernTree;
 import org.jebtk.modern.widget.ModernWidget;
 import org.jebtk.modern.window.ModernWindow;
@@ -49,10 +48,8 @@ import edu.columbia.rdf.edb.ui.filter.datatypes.DataTypesService;
 import edu.columbia.rdf.edb.ui.filter.groups.GroupsModel;
 import edu.columbia.rdf.edb.ui.filter.groups.GroupsPanel;
 import edu.columbia.rdf.edb.ui.filter.groups.GroupsService;
-import edu.columbia.rdf.edb.ui.filter.groups.GroupsVectorIcon;
 import edu.columbia.rdf.edb.ui.filter.organisms.OrganismsPanel;
 import edu.columbia.rdf.edb.ui.filter.organisms.OrganismsService;
-import edu.columbia.rdf.edb.ui.filter.organisms.OrganismsVectorIcon;
 
 public class SamplesDialog extends ModernDialogHelpWindow implements ModernClickListener {
 	private static final long serialVersionUID = 1L;
@@ -190,17 +187,16 @@ public class SamplesDialog extends ModernDialogHelpWindow implements ModernClick
 		mDataTypesModel.addChangeListener(l);
 		mOrganismsModel.addChangeListener(l);
 
-		TabsModel groupTabsModel = new TabsModel();
-		groupTabsModel.addTab("GROUPS", new GroupsVectorIcon(), userGroupsPanel);
-		//groupTabsModel.addTab("DATA TYPES", new DataTypesVectorIcon(), dataTypesPanel);
-		groupTabsModel.addTab("ORGANISMS", new OrganismsVectorIcon(), organismsPanel);
+		getIconTabs().addTab("GROUPS", 'G', userGroupsPanel);
+		//addLeftTab("DATA TYPES", 'D', dataTypesPanel);
+		getIconTabs().addTab("ORGANISMS", 'O', new TabPanel("Organisms", organismsPanel));
 
-		IconTabsPanel viewPanel = new IconTabsPanel(groupTabsModel, 36, 22); //new ModernComponent(new IconTabsPanel(groupTabsModel, 30, 20), ModernWidget.DOUBLE_BORDER);
+		//IconTabsPanel viewPanel = new IconTabsPanel(groupTabsModel, 36, 22); //new ModernComponent(new IconTabsPanel(groupTabsModel, 30, 20), ModernWidget.DOUBLE_BORDER);
 
 		// Show the column groups by default
-		groupTabsModel.changeTab(0);
+		getIconTabs().changeTab(0);
 		
-		getTabsPane().getModel().addLeftTab("Filter", viewPanel, 200, 100, 500);
+		//getTabsPane().getModel().addLeftTab("Filter", viewPanel, 200, 100, 500);
 		
 		//
 		// Content
