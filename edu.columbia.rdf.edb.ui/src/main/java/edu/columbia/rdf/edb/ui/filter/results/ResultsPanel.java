@@ -15,7 +15,6 @@
  */
 package edu.columbia.rdf.edb.ui.filter.results;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,107 +37,101 @@ import org.jebtk.modern.widget.ModernTwoStateWidget;
 import edu.columbia.rdf.edb.ui.SampleSortModel;
 
 /**
- * Displays groupings of samples so users can quickly find related
- * samples.
+ * Displays groupings of samples so users can quickly find related samples.
  * 
  * @author Antony Holmes
  *
  */
 public class ResultsPanel extends ModernComponent {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1L;
 
-	private FilterModel mModel;
+  private FilterModel mModel;
 
-	private Map<ModernTwoStateWidget, String> mCheckMap =
-			new HashMap<ModernTwoStateWidget, String>();
+  private Map<ModernTwoStateWidget, String> mCheckMap = new HashMap<ModernTwoStateWidget, String>();
 
-	private ModernTwoStateWidget mCheckAll = 
-			new ModernCheckSwitch("Select All", true);
+  private ModernTwoStateWidget mCheckAll = new ModernCheckSwitch("Select All", true);
 
-	private SampleSortModel mSortModel;
-	
-	private class FilterEvents implements FilterEventListener {
+  private SampleSortModel mSortModel;
 
-		@Override
-		public void filtersUpdated(ChangeEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+  private class FilterEvents implements FilterEventListener {
 
-		@Override
-		public void filtersChanged(ChangeEvent e) {
-			setup();
-		}
-		
-	}
+    @Override
+    public void filtersUpdated(ChangeEvent e) {
+      // TODO Auto-generated method stub
 
-	public ResultsPanel(SampleSortModel sortModel, FilterModel model) {
-		mSortModel = sortModel;
-		mModel = model;
+    }
 
-		mModel.addFilterListener(new FilterEvents());
+    @Override
+    public void filtersChanged(ChangeEvent e) {
+      setup();
+    }
 
-		//setBorder(DOUBLE_BORDER);
-		
-		setup();
-	}
-	
-	public void setup() {
-		Box box = VBox.create();
+  }
 
-		box.add(new ModernSubHeadingLabel("Sort By " + mSortModel.getSorter().getName()));
-		box.add(UI.createVGap(10));
-		box.add(mCheckAll);
-		box.add(UI.createVGap(10));
+  public ResultsPanel(SampleSortModel sortModel, FilterModel model) {
+    mSortModel = sortModel;
+    mModel = model;
 
-		mCheckAll.addClickListener(new ModernClickListener() {
-			@Override
-			public void clicked(ModernClickEvent e) {
-				checkAll();
-			}});
+    mModel.addFilterListener(new FilterEvents());
 
-		ModernClickListener l = new ModernClickListener() {
-			@Override
-			public void clicked(ModernClickEvent e) {
-				ModernTwoStateWidget check = 
-						(ModernTwoStateWidget)e.getSource();
+    // setBorder(DOUBLE_BORDER);
 
-				String n = mCheckMap.get(check);
+    setup();
+  }
 
-				mModel.setFilter(n, check.isSelected());
-			}
-		};
+  public void setup() {
+    Box box = VBox.create();
 
-		for (String t : mModel) {
-			ModernTwoStateWidget check =
-					new ModernCheckSwitch(t, mModel.keep(t));
+    box.add(new ModernSubHeadingLabel("Sort By " + mSortModel.getSorter().getName()));
+    box.add(UI.createVGap(10));
+    box.add(mCheckAll);
+    box.add(UI.createVGap(10));
 
-			box.add(check);
+    mCheckAll.addClickListener(new ModernClickListener() {
+      @Override
+      public void clicked(ModernClickEvent e) {
+        checkAll();
+      }
+    });
 
-			mCheckMap.put(check, t);
+    ModernClickListener l = new ModernClickListener() {
+      @Override
+      public void clicked(ModernClickEvent e) {
+        ModernTwoStateWidget check = (ModernTwoStateWidget) e.getSource();
 
-			check.addClickListener(l);
-		}
+        String n = mCheckMap.get(check);
 
-		setBody(new ModernScrollPane(box)
-				.setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
-				.setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
+        mModel.setFilter(n, check.isSelected());
+      }
+    };
 
-		mCheckAll.setSelected(true);
-		
-		setBorder(BORDER);
-	}
+    for (String t : mModel) {
+      ModernTwoStateWidget check = new ModernCheckSwitch(t, mModel.keep(t));
 
-	private void checkAll() {
-		for (ModernTwoStateWidget c : mCheckMap.keySet()) {
-			c.setSelected(mCheckAll.isSelected());
-			mModel.updateFilter(mCheckMap.get(c), c.isSelected());
-		}
+      box.add(check);
 
-		// Finally trigger a refresh via the model
-		mModel.fireFiltersUpdated();
-	}
+      mCheckMap.put(check, t);
+
+      check.addClickListener(l);
+    }
+
+    setBody(new ModernScrollPane(box).setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
+        .setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
+
+    mCheckAll.setSelected(true);
+
+    setBorder(BORDER);
+  }
+
+  private void checkAll() {
+    for (ModernTwoStateWidget c : mCheckMap.keySet()) {
+      c.setSelected(mCheckAll.isSelected());
+      mModel.updateFilter(mCheckMap.get(c), c.isSelected());
+    }
+
+    // Finally trigger a refresh via the model
+    mModel.fireFiltersUpdated();
+  }
 }
-

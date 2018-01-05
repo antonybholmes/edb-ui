@@ -14,49 +14,43 @@ import org.jebtk.modern.widget.ModernTwoStateWidget;
 import org.jebtk.modern.window.ModernWindow;
 
 public class Mas5Dialog extends NormalizationDialog implements ModernClickListener {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private ModernTwoStateWidget checkSignal = 
-			new ModernCheckSwitch("Signal", true);
-		
-	private ModernTwoStateWidget checkDetected = 
-			new ModernCheckSwitch("Detected");
-	
-	private ModernTwoStateWidget checkPValue =
-			new ModernCheckSwitch("P-Value");
+  private ModernTwoStateWidget checkSignal = new ModernCheckSwitch("Signal", true);
 
-	
-	public Mas5Dialog(ModernWindow parent) {
-		super(parent, "MAS5 Normalization");
+  private ModernTwoStateWidget checkDetected = new ModernCheckSwitch("Detected");
 
-		createUi();
-	}
+  private ModernTwoStateWidget checkPValue = new ModernCheckSwitch("P-Value");
 
+  public Mas5Dialog(ModernWindow parent) {
+    super(parent, "MAS5 Normalization");
 
+    createUi();
+  }
 
-	private final void createUi() {
-		Box box = VBox.create();
-		
-		sectionHeader("MAS5 data column options", box);
+  private final void createUi() {
+    Box box = VBox.create();
 
-		box.add(checkSignal);
-		box.add(ModernPanel.createVGap());
-		box.add(checkDetected);
-		box.add(ModernPanel.createVGap());
-		box.add(checkPValue);
-		
-		box.add(UI.createVGap(20));
-		
-		createUi(box);
-	}
+    sectionHeader("MAS5 data column options", box);
 
-	public List<Boolean> getColumns() {
-		List<Boolean> columns = new ArrayList<Boolean>();
-		
-		columns.add(checkSignal.isSelected());
-		columns.add(checkDetected.isSelected());
-		columns.add(checkPValue.isSelected());
-		
-		return columns;
-	}
+    box.add(checkSignal);
+    box.add(ModernPanel.createVGap());
+    box.add(checkDetected);
+    box.add(ModernPanel.createVGap());
+    box.add(checkPValue);
+
+    box.add(UI.createVGap(20));
+
+    createUi(box);
+  }
+
+  public List<Boolean> getColumns() {
+    List<Boolean> columns = new ArrayList<Boolean>();
+
+    columns.add(checkSignal.isSelected());
+    columns.add(checkDetected.isSelected());
+    columns.add(checkPValue.isSelected());
+
+    return columns;
+  }
 }

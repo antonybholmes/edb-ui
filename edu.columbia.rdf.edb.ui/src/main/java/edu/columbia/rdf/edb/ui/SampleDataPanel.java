@@ -23,71 +23,69 @@ import edu.columbia.rdf.edb.Sample;
  *
  */
 public class SampleDataPanel extends ModernClipboardWidget {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	//private ModernIconMenuItem expandMenuItem = 
-	//		new ModernIconMenuItem("Expand All", UIResources.getInstance().loadIcon(PlusVectorIcon.class, 16));
-	
-	//private ModernIconMenuItem collapseMenuItem = 
-	//		new ModernIconMenuItem("Collapse All", UIResources.getInstance().loadIcon(MinusVectorIcon.class, 16));
-	
-	private Sample mSample;
+  // private ModernIconMenuItem expandMenuItem =
+  // new ModernIconMenuItem("Expand All",
+  // UIResources.getInstance().loadIcon(PlusVectorIcon.class, 16));
 
+  // private ModernIconMenuItem collapseMenuItem =
+  // new ModernIconMenuItem("Collapse All",
+  // UIResources.getInstance().loadIcon(MinusVectorIcon.class, 16));
 
-	//private ModernPopupMenu menu;
+  private Sample mSample;
 
-	//private ModernCollapsePane collapsePane;
+  // private ModernPopupMenu menu;
 
-	public SampleDataPanel(Sample sample, DataView view) {
+  // private ModernCollapsePane collapsePane;
 
-		mSample = sample;
+  public SampleDataPanel(Sample sample, DataView view) {
 
-		SectionDataPanelGrid2 grid = new SectionDataPanelGrid2(sample, view);
+    mSample = sample;
 
-		ModernScrollPane scrollPane = new ModernScrollPane(grid);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER);
-		//scrollPane.setScrollBarLocation(ScrollBarLocation.FLOATING);
-		scrollPane.setBorder(LARGE_BORDER);
-		//scrollPane.setBackground(Color.WHITE);
-		//scrollPane.setViewportBorder(BorderFactory.createEmptyBorder());
-		//scrollPane.getViewport().setBackground(Color.WHITE);
-		
+    SectionDataPanelGrid2 grid = new SectionDataPanelGrid2(sample, view);
 
-		setBody(scrollPane);
+    ModernScrollPane scrollPane = new ModernScrollPane(grid);
+    scrollPane.setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER);
+    // scrollPane.setScrollBarLocation(ScrollBarLocation.FLOATING);
+    scrollPane.setBorder(LARGE_BORDER);
+    // scrollPane.setBackground(Color.WHITE);
+    // scrollPane.setViewportBorder(BorderFactory.createEmptyBorder());
+    // scrollPane.getViewport().setBackground(Color.WHITE);
 
-		
-		
-		//createMenu();
-	}
+    setBody(scrollPane);
 
-	@Override
-	public void setHeader(Component c) {
-		super.setHeader(new ModernComponent(new ModernLineBottomBorderPanel(new ModernComponent(c, UI.createBottomBorder(10))), ModernWidget.LARGE_BORDER));
-	}
+    // createMenu();
+  }
 
+  @Override
+  public void setHeader(Component c) {
+    super.setHeader(new ModernComponent(
+        new ModernLineBottomBorderPanel(new ModernComponent(c, UI.createBottomBorder(10))), ModernWidget.LARGE_BORDER));
+  }
 
-	public Sample getSample() {
-		return mSample;
-	}
+  public Sample getSample() {
+    return mSample;
+  }
 
-	@Override
-	public boolean copyEnabled() {
-		return true;
-	}
-	
-	@Override
-	public void copy() {
-		StringBuilder buffer = new StringBuilder();
+  @Override
+  public boolean copyEnabled() {
+    return true;
+  }
 
-		buffer.append("Sample");
-		buffer.append(TextUtils.TAB_DELIMITER);
-		
-		try {
-			mSample.formattedTxt(buffer);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+  @Override
+  public void copy() {
+    StringBuilder buffer = new StringBuilder();
 
-		ClipboardService.copyToClipboard(buffer.toString());
-	}
+    buffer.append("Sample");
+    buffer.append(TextUtils.TAB_DELIMITER);
+
+    try {
+      mSample.formattedTxt(buffer);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    ClipboardService.copyToClipboard(buffer.toString());
+  }
 }

@@ -7,10 +7,9 @@ package edu.columbia.rdf.edb.ui;
  *
  */
 public class ArrayDbFileDescriptorException extends ExperimentSearchException {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-
-	public ArrayDbFileDescriptorException(String message) {
-		super(message);
-	}
+  public ArrayDbFileDescriptorException(String message) {
+    super(message);
+  }
 }

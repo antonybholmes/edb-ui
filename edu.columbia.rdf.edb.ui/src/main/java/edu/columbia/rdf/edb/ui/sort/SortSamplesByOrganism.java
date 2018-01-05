@@ -18,38 +18,34 @@ import edu.columbia.rdf.edb.Sample;
  *
  */
 public class SortSamplesByOrganism extends SampleSorter {
-	public void arrange(Collection<Sample> samples, 
-			ModernTree<Sample> tree, 
-			boolean ascending,
-			FilterModel filterModel) {
-		ListMultiMap<String, Sample> map = ArrayListMultiMap.create();
+  public void arrange(Collection<Sample> samples, ModernTree<Sample> tree, boolean ascending, FilterModel filterModel) {
+    ListMultiMap<String, Sample> map = ArrayListMultiMap.create();
 
-		for (Sample sample : samples) {
-			if (!filterModel.keep(sample.getOrganism().getScientificName())) {
-				continue;
-			}
-				
-			map.get(sample.getOrganism().getScientificName()).add(sample);
-		}
-		
-		arrange(map, ascending, tree);
-	}
-	
-	@Override
-	public void filter(Collection<Sample> samples, 
-			FilterModel filterModel) {
-		super.filter(samples, filterModel);
-		
-		Set<String> names = new HashSet<String>();
-		
-		for (Sample sample : samples) {
-			names.add(sample.getOrganism().getScientificName());
-		}
-		
-		addSortedFilterNames(names, filterModel);
-	}
+    for (Sample sample : samples) {
+      if (!filterModel.keep(sample.getOrganism().getScientificName())) {
+        continue;
+      }
 
-	public final String getName() {
-		return "Organism";
-	}
+      map.get(sample.getOrganism().getScientificName()).add(sample);
+    }
+
+    arrange(map, ascending, tree);
+  }
+
+  @Override
+  public void filter(Collection<Sample> samples, FilterModel filterModel) {
+    super.filter(samples, filterModel);
+
+    Set<String> names = new HashSet<String>();
+
+    for (Sample sample : samples) {
+      names.add(sample.getOrganism().getScientificName());
+    }
+
+    addSortedFilterNames(names, filterModel);
+  }
+
+  public final String getName() {
+    return "Organism";
+  }
 }

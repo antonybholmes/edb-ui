@@ -10,10 +10,9 @@ import edu.columbia.rdf.edb.ui.ExperimentSearchException;
  */
 
 public class LoginException extends ExperimentSearchException {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-
-	public LoginException(String message) {
-		super(message);
-	}
+  public LoginException(String message) {
+    super(message);
+  }
 }

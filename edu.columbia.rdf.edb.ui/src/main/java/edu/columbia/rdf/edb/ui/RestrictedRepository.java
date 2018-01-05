@@ -37,49 +37,46 @@ import edu.columbia.rdf.edb.Species;
  */
 public class RestrictedRepository extends EDBRepository {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	private Path mPath;
-	
-	/**
-	 * Instantiates a new chip seq repository.
-	 *
-	 * @param login the login
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 */
-	public RestrictedRepository(EDBWLogin login, Path path) throws IOException {
-		super(login);
-		
-		mPath = path;
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+  private Path mPath;
 
-	/* (non-Javadoc)
-	 * @see edu.columbia.lib.rdf.edb.Repository#searchSamples(java.lang.String)
-	 */
-	@Override
-	public List<Sample> searchSamples(String query) throws IOException {
-		return searchSamples(query, mPath, ALL_TYPES, ALL_ORGANISMS, ALL_GROUPS);
-	}
-	
-	@Override
-	public List<Sample> searchSamples(String query, 
-			Path path,
-			Collection<Type> dataTypes,
-			Collection<Species> organisms,
-			Groups groups) throws IOException {
-		URL url = getSearchSamplesUrl()
-				.param("p", path.toString())
-				.param("q", query)
-				.param("ext", "persons")
-				.param("ext", "tags")
-				.toUrl();
+  /**
+   * Instantiates a new chip seq repository.
+   *
+   * @param login
+   *          the login
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
+   */
+  public RestrictedRepository(EDBWLogin login, Path path) throws IOException {
+    super(login);
 
-		System.err.println(url);
+    mPath = path;
+  }
 
-		Json json = new JsonParser().parse(url);
+  /*
+   * (non-Javadoc)
+   * 
+   * @see edu.columbia.lib.rdf.edb.Repository#searchSamples(java.lang.String)
+   */
+  @Override
+  public List<Sample> searchSamples(String query) throws IOException {
+    return searchSamples(query, mPath, ALL_TYPES, ALL_ORGANISMS, ALL_GROUPS);
+  }
 
-		return parseSampleJson(json);
-	}
+  @Override
+  public List<Sample> searchSamples(String query, Path path, Collection<Type> dataTypes, Collection<Species> organisms,
+      Groups groups) throws IOException {
+    URL url = getSearchSamplesUrl().param("p", path.toString()).param("q", query).param("ext", "persons")
+        .param("ext", "tags").toUrl();
+
+    System.err.println(url);
+
+    Json json = new JsonParser().parse(url);
+
+    return parseSampleJson(json);
+  }
 }

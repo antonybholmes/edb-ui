@@ -29,30 +29,33 @@ import edu.columbia.rdf.edb.ui.cache.CacheRepository;
  */
 public class RestrictedRepositoryCache extends EDBRepositorySession {
 
-	private Path mPath;
+  private Path mPath;
 
-	/**
-	 * Instantiates a new chip seq repository cache.
-	 *
-	 * @param login the login
-	 * @throws UnsupportedEncodingException the unsupported encoding exception
-	 */
-	public RestrictedRepositoryCache(EDBWLogin login, Path path)
-			throws UnsupportedEncodingException {
-		super(login);
-		
-		mPath = path;
-	}
-	
-	/* (non-Javadoc)
-	 * @see edu.columbia.lib.rdf.edb.EDBRepositorySession#restore(java.io.File)
-	 */
-	@Override
-	public CacheRepository restore(File sessionFile) throws IOException, ClassNotFoundException {
-		EDBRepository repository = new RestrictedRepository(mLogin, mPath);
+  /**
+   * Instantiates a new chip seq repository cache.
+   *
+   * @param login
+   *          the login
+   * @throws UnsupportedEncodingException
+   *           the unsupported encoding exception
+   */
+  public RestrictedRepositoryCache(EDBWLogin login, Path path) throws UnsupportedEncodingException {
+    super(login);
 
-		repository.cache();
-		
-		return repository;
-	}
+    mPath = path;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see edu.columbia.lib.rdf.edb.EDBRepositorySession#restore(java.io.File)
+   */
+  @Override
+  public CacheRepository restore(File sessionFile) throws IOException, ClassNotFoundException {
+    EDBRepository repository = new RestrictedRepository(mLogin, mPath);
+
+    repository.cache();
+
+    return repository;
+  }
 }

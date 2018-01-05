@@ -19,7 +19,6 @@ import org.jebtk.modern.search.SortModel;
 
 import edu.columbia.rdf.edb.Sample;
 
-
 public class SampleSortModel extends SortModel<Sample> {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 }

@@ -15,7 +15,6 @@
  */
 package edu.columbia.rdf.edb.ui.filter.datatypes;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,122 +36,112 @@ import edu.columbia.rdf.edb.Species;
 import edu.columbia.rdf.edb.ui.filter.organisms.OrganismsModel;
 
 /**
- * Displays groupings of samples so users can quickly find related
- * samples.
+ * Displays groupings of samples so users can quickly find related samples.
  * 
  * @author Antony Holmes
  *
  */
 public class DataTypesPanel extends ModernComponent {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1L;
 
-	private DataTypesModel mModel;
+  private DataTypesModel mModel;
 
-	private Map<ModernTwoStateWidget, Type> mCheckMap =
-			new HashMap<ModernTwoStateWidget, Type>();
+  private Map<ModernTwoStateWidget, Type> mCheckMap = new HashMap<ModernTwoStateWidget, Type>();
 
-	private Map<ModernTwoStateWidget, Species> mCheckOrganismsMap =
-			new HashMap<ModernTwoStateWidget, Species>();
+  private Map<ModernTwoStateWidget, Species> mCheckOrganismsMap = new HashMap<ModernTwoStateWidget, Species>();
 
-	private ModernTwoStateWidget mCheckAll = 
-			new ModernCheckSwitch("Select All", true);
+  private ModernTwoStateWidget mCheckAll = new ModernCheckSwitch("Select All", true);
 
-	private OrganismsModel mOrganismsModel; 
+  private OrganismsModel mOrganismsModel;
 
-	public DataTypesPanel(DataTypesModel model, OrganismsModel organismsModel) {
-		mModel = model;
-		mOrganismsModel = organismsModel;
+  public DataTypesPanel(DataTypesModel model, OrganismsModel organismsModel) {
+    mModel = model;
+    mOrganismsModel = organismsModel;
 
-		Box box = VBox.create();
+    Box box = VBox.create();
 
-		box.add(mCheckAll);
-		box.add(UI.createVGap(20));
+    box.add(mCheckAll);
+    box.add(UI.createVGap(20));
 
+    box.add(new ModernSubHeadingLabel("Data Types"));
+    box.add(UI.createVGap(10));
 
-		box.add(new ModernSubHeadingLabel("Data Types"));
-		box.add(UI.createVGap(10));
+    mCheckAll.addClickListener(new ModernClickListener() {
+      @Override
+      public void clicked(ModernClickEvent e) {
+        checkAll();
+      }
+    });
 
+    ModernClickListener l = new ModernClickListener() {
+      @Override
+      public void clicked(ModernClickEvent e) {
+        ModernTwoStateWidget check = (ModernTwoStateWidget) e.getSource();
 
+        Type g = mCheckMap.get(check);
 
-		mCheckAll.addClickListener(new ModernClickListener() {
-			@Override
-			public void clicked(ModernClickEvent e) {
-				checkAll();
-			}});
+        mModel.setUse(g, check.isSelected());
+      }
+    };
 
-		ModernClickListener l = new ModernClickListener() {
-			@Override
-			public void clicked(ModernClickEvent e) {
-				ModernTwoStateWidget check = (ModernTwoStateWidget)e.getSource();
+    for (Type t : model) {
+      ModernTwoStateWidget check = new ModernCheckSwitch(t.getName(), model.getUse(t));
 
-				Type g = mCheckMap.get(check);
+      box.add(check);
 
-				mModel.setUse(g, check.isSelected());
-			}
-		};
+      mCheckMap.put(check, t);
 
-		for (Type t : model) {
-			ModernTwoStateWidget check =
-					new ModernCheckSwitch(t.getName(), model.getUse(t));
+      check.addClickListener(l);
+    }
 
-			box.add(check);
+    box.add(UI.createVGap(20));
+    box.add(new ModernSubHeadingLabel("Organisms"));
+    box.add(UI.createVGap(10));
 
-			mCheckMap.put(check, t);
+    // box.add(mCheckAll);
+    // box.add(UI.createVGap(10));
 
-			check.addClickListener(l);
-		}
+    l = new ModernClickListener() {
+      @Override
+      public void clicked(ModernClickEvent e) {
+        ModernTwoStateWidget check = (ModernTwoStateWidget) e.getSource();
 
-		box.add(UI.createVGap(20));
-		box.add(new ModernSubHeadingLabel("Organisms"));
-		box.add(UI.createVGap(10));
+        Species o = mCheckOrganismsMap.get(check);
 
-		//box.add(mCheckAll);
-		//box.add(UI.createVGap(10));
+        mOrganismsModel.setUse(o, check.isSelected());
+      }
+    };
 
-		l = new ModernClickListener() {
-			@Override
-			public void clicked(ModernClickEvent e) {
-				ModernTwoStateWidget check = (ModernTwoStateWidget)e.getSource();
+    for (Species t : organismsModel) {
+      ModernTwoStateWidget check = new ModernCheckSwitch(t.getName(), organismsModel.getUse(t));
 
-				Species o = mCheckOrganismsMap.get(check);
+      box.add(check);
 
-				mOrganismsModel.setUse(o, check.isSelected());
-			}
-		};
+      mCheckOrganismsMap.put(check, t);
 
-		for (Species t : organismsModel) {
-			ModernTwoStateWidget check =
-					new ModernCheckSwitch(t.getName(), organismsModel.getUse(t));
+      check.addClickListener(l);
+    }
 
-			box.add(check);
+    setBody(new ModernScrollPane(box).setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
+        .setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
 
-			mCheckOrganismsMap.put(check, t);
+    setBorder(BORDER);
+  }
 
-			check.addClickListener(l);
-		}
+  private void checkAll() {
+    for (ModernTwoStateWidget c : mCheckMap.keySet()) {
+      c.setSelected(mCheckAll.isSelected());
+      mModel.updateUse(mCheckMap.get(c), c.isSelected());
+    }
 
-		setBody(new ModernScrollPane(box)
-				.setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
-				.setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
+    for (ModernTwoStateWidget c : mCheckOrganismsMap.keySet()) {
+      c.setSelected(mCheckAll.isSelected());
+      mOrganismsModel.updateUse(mCheckOrganismsMap.get(c), c.isSelected());
+    }
 
-		setBorder(BORDER);
-	}
-
-	private void checkAll() {
-		for (ModernTwoStateWidget c : mCheckMap.keySet()) {
-			c.setSelected(mCheckAll.isSelected());
-			mModel.updateUse(mCheckMap.get(c), c.isSelected());
-		}
-
-		for (ModernTwoStateWidget c : mCheckOrganismsMap.keySet()) {
-			c.setSelected(mCheckAll.isSelected());
-			mOrganismsModel.updateUse(mCheckOrganismsMap.get(c), c.isSelected());
-		}
-
-		// Finally trigger a refresh via the model
-		mModel.fireChanged();
-	}
+    // Finally trigger a refresh via the model
+    mModel.fireChanged();
+  }
 }
-

@@ -5,5 +5,5 @@ import java.util.List;
 import edu.columbia.rdf.edb.Sample;
 
 public interface SelectedSamples {
-	public List<Sample> getSelectedSamples();
+  public List<Sample> getSelectedSamples();
 }

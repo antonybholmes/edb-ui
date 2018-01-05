@@ -36,34 +36,29 @@ import edu.columbia.rdf.edb.Species;
  */
 public class RestrictedTypeRepository extends EDBRepository {
 
-	/**
-	 * The constant serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	private Set<Type> mTypes;
-	
-	/**
-	 * Instantiates a new chip seq repository.
-	 *
-	 * @param login the login
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 */
-	public RestrictedTypeRepository(EDBWLogin login, Type type) throws IOException {
-		super(login);
-		
-		mTypes = CollectionUtils.toSet(type);
-	}
-	
-	@Override
-	public List<Sample> searchSamples(String query, 
-			Path path,
-			Collection<Type> dataTypes,
-			Collection<Species> organisms,
-			Groups groups) throws IOException {
-		return super.searchSamples(query, 
-				path, 
-				mTypes, 
-				organisms, 
-				groups);
-	}
+  /**
+   * The constant serialVersionUID.
+   */
+  private static final long serialVersionUID = 1L;
+  private Set<Type> mTypes;
+
+  /**
+   * Instantiates a new chip seq repository.
+   *
+   * @param login
+   *          the login
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
+   */
+  public RestrictedTypeRepository(EDBWLogin login, Type type) throws IOException {
+    super(login);
+
+    mTypes = CollectionUtils.toSet(type);
+  }
+
+  @Override
+  public List<Sample> searchSamples(String query, Path path, Collection<Type> dataTypes, Collection<Species> organisms,
+      Groups groups) throws IOException {
+    return super.searchSamples(query, path, mTypes, organisms, groups);
+  }
 }

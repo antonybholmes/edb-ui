@@ -29,30 +29,33 @@ import edu.columbia.rdf.edb.ui.cache.CacheRepository;
  */
 public class RestrictedTypeRepositoryCache extends EDBRepositorySession {
 
-	private Type mType;
+  private Type mType;
 
-	/**
-	 * Instantiates a new chip seq repository cache.
-	 *
-	 * @param login the login
-	 * @throws UnsupportedEncodingException the unsupported encoding exception
-	 */
-	public RestrictedTypeRepositoryCache(EDBWLogin login, Type type)
-			throws UnsupportedEncodingException {
-		super(login);
-		
-		mType = type;
-	}
-	
-	/* (non-Javadoc)
-	 * @see edu.columbia.lib.rdf.edb.EDBRepositorySession#restore(java.io.File)
-	 */
-	@Override
-	public CacheRepository restore(File sessionFile) throws IOException, ClassNotFoundException {
-		EDBRepository repository = new RestrictedTypeRepository(mLogin, mType);
+  /**
+   * Instantiates a new chip seq repository cache.
+   *
+   * @param login
+   *          the login
+   * @throws UnsupportedEncodingException
+   *           the unsupported encoding exception
+   */
+  public RestrictedTypeRepositoryCache(EDBWLogin login, Type type) throws UnsupportedEncodingException {
+    super(login);
 
-		repository.cache();
-		
-		return repository;
-	}
+    mType = type;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see edu.columbia.lib.rdf.edb.EDBRepositorySession#restore(java.io.File)
+   */
+  @Override
+  public CacheRepository restore(File sessionFile) throws IOException, ClassNotFoundException {
+    EDBRepository repository = new RestrictedTypeRepository(mLogin, mType);
+
+    repository.cache();
+
+    return repository;
+  }
 }

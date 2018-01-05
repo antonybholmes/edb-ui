@@ -23,110 +23,111 @@ import org.xml.sax.SAXException;
 import edu.columbia.rdf.edb.ui.RepositoryService;
 
 public class DataTypesService extends DataTypesModel implements ChangeListener {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private static class ServiceLoader {
-		private static final DataTypesService INSTANCE = new DataTypesService();
-	}
+  private static class ServiceLoader {
+    private static final DataTypesService INSTANCE = new DataTypesService();
+  }
 
-	public static DataTypesService getInstance() {
-		return ServiceLoader.INSTANCE;
-	}
+  public static DataTypesService getInstance() {
+    return ServiceLoader.INSTANCE;
+  }
 
-	private static final Path DATA_TYPES_FILE = 
-			PathUtils.getPath("res/default.data.types.xml");
+  private static final Path DATA_TYPES_FILE = PathUtils.getPath("res/default.data.types.xml");
 
-	private static final Path USER_DATA_TYPES_FILE = 
-			AppService.getInstance().getFile("user.data.types.xml");
+  private static final Path USER_DATA_TYPES_FILE = AppService.getInstance().getFile("user.data.types.xml");
 
-	private boolean mAutoLoad = true;
+  private boolean mAutoLoad = true;
 
-	private DataTypesService() {
-		addChangeListener(this);
-	}
+  private DataTypesService() {
+    addChangeListener(this);
+  }
 
-	@Override
-	public Iterator<Type> iterator() {
-		autoLoad();
+  @Override
+  public Iterator<Type> iterator() {
+    autoLoad();
 
-		return mTypeMap.keySet().iterator();
+    return mTypeMap.keySet().iterator();
 
-	}
+  }
 
-	private void autoLoad() {
-		if (!mAutoLoad) {
-			return;
-		}
+  private void autoLoad() {
+    if (!mAutoLoad) {
+      return;
+    }
 
-		Collection<Type> groups = RepositoryService
-				.getInstance()
-				.getCurrentRepository()
-				.getDataTypes();
+    Collection<Type> groups = RepositoryService.getInstance().getCurrentRepository().getDataTypes();
 
-		for (Type g : groups) {
-			mTypeMap.put(g, true);
-		}
+    for (Type g : groups) {
+      mTypeMap.put(g, true);
+    }
 
-		mAutoLoad = false;
+    mAutoLoad = false;
 
-		try {
-			autoLoadXml(DATA_TYPES_FILE);
-			autoLoadXml(USER_DATA_TYPES_FILE);
-		} catch (SAXException | IOException | ParserConfigurationException e) {
-			e.printStackTrace();
-		}
-	}
+    try {
+      autoLoadXml(DATA_TYPES_FILE);
+      autoLoadXml(USER_DATA_TYPES_FILE);
+    } catch (SAXException | IOException | ParserConfigurationException e) {
+      e.printStackTrace();
+    }
+  }
 
-	private void autoLoadXml(Path file) throws SAXException, IOException, ParserConfigurationException {
-		if (!FileUtils.exists(file)) {
-			return;
-		}
+  private void autoLoadXml(Path file) throws SAXException, IOException, ParserConfigurationException {
+    if (!FileUtils.exists(file)) {
+      return;
+    }
 
-		InputStream stream = FileUtils.newBufferedInputStream(file);
+    InputStream stream = FileUtils.newBufferedInputStream(file);
 
-		try {
-			autoLoadXml(stream);
-		} finally {
-			stream.close();
-		}
-	}
+    try {
+      autoLoadXml(stream);
+    } finally {
+      stream.close();
+    }
+  }
 
-	/**
-	 * Load xml.
-	 *
-	 * @param is the is
-	 * @param update the update
-	 * @return true, if successful
-	 * @throws SAXException the SAX exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws ParserConfigurationException the parser configuration exception
-	 */
-	private synchronized boolean autoLoadXml(InputStream is) throws SAXException, IOException, ParserConfigurationException {
-		if (is == null) {
-			return false;
-		}
+  /**
+   * Load xml.
+   *
+   * @param is
+   *          the is
+   * @param update
+   *          the update
+   * @return true, if successful
+   * @throws SAXException
+   *           the SAX exception
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
+   * @throws ParserConfigurationException
+   *           the parser configuration exception
+   */
+  private synchronized boolean autoLoadXml(InputStream is)
+      throws SAXException, IOException, ParserConfigurationException {
+    if (is == null) {
+      return false;
+    }
 
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-		SAXParser saxParser = factory.newSAXParser();
+    SAXParserFactory factory = SAXParserFactory.newInstance();
+    SAXParser saxParser = factory.newSAXParser();
 
-		DataTypesXmlHandler handler = new DataTypesXmlHandler(this);
+    DataTypesXmlHandler handler = new DataTypesXmlHandler(this);
 
-		saxParser.parse(is, handler);
+    saxParser.parse(is, handler);
 
-		return true;
-	}
+    return true;
+  }
 
-	@Override
-	public void changed(ChangeEvent e) {
-		try {
-			// Save any user changes
-			save();
-		} catch (TransformerException | ParserConfigurationException e1) {
-			e1.printStackTrace();
-		}
-	}
+  @Override
+  public void changed(ChangeEvent e) {
+    try {
+      // Save any user changes
+      save();
+    } catch (TransformerException | ParserConfigurationException e1) {
+      e1.printStackTrace();
+    }
+  }
 
-	private void save() throws TransformerException, ParserConfigurationException {
-		XmlUtils.writeXml(this, USER_DATA_TYPES_FILE);
-	}
+  private void save() throws TransformerException, ParserConfigurationException {
+    XmlUtils.writeXml(this, USER_DATA_TYPES_FILE);
+  }
 }

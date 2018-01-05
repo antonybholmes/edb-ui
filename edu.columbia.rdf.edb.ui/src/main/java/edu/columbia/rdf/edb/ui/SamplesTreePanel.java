@@ -50,296 +50,265 @@ import org.jebtk.modern.window.ModernWindow;
 
 import edu.columbia.rdf.edb.Sample;
 
-
 public class SamplesTreePanel extends ModernPanel implements ModernClickListener {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private static final ModernTreeNodeRenderer TREE_RENDERER = 
-			new TreeNodeFileCountRenderer();
+  private static final ModernTreeNodeRenderer TREE_RENDERER = new TreeNodeFileCountRenderer();
 
-	private static final ModernTreeNodeRenderer LIST_RENDERER = 
-			new SamplesListTreeNodeRenderer();
+  private static final ModernTreeNodeRenderer LIST_RENDERER = new SamplesListTreeNodeRenderer();
 
-	private ModernTree<Sample> mTree = new ModernTree<Sample>();
-	
-	private FilterModel mFilterModel = new FilterModel();
-	
-	private SortPanel<Sample> mSamplesSortPanel;
+  private ModernTree<Sample> mTree = new ModernTree<Sample>();
 
-	private ModernPopupMenu menu;
-	
-	private ModernTwoStateWidget mSortMenuItem = 
-			new ModernCheckBoxMenuItem("Sort Descending");
-	
-	private ModernIconMenuItem expandMenuItem = 
-			new ModernIconMenuItem("Expand All", UIService.getInstance().loadIcon(PlusVectorIcon.class, 16));
-	
-	private ModernIconMenuItem collapseMenuItem = 
-			new ModernIconMenuItem("Collapse All", UIService.getInstance().loadIcon(MinusVectorIcon.class, 16));
+  private FilterModel mFilterModel = new FilterModel();
 
+  private SortPanel<Sample> mSamplesSortPanel;
 
-	private ViewModel mViewModel = 
-			new ViewModel(SettingsService.getInstance().getAsString("edb.reads.chip-seq.default-view"));
-	
-	private SampleModel mSampleModel;
+  private ModernPopupMenu menu;
 
-	private SampleSortModel mSortModel;
+  private ModernTwoStateWidget mSortMenuItem = new ModernCheckBoxMenuItem("Sort Descending");
 
+  private ModernIconMenuItem expandMenuItem = new ModernIconMenuItem("Expand All",
+      UIService.getInstance().loadIcon(PlusVectorIcon.class, 16));
 
-	
-	private class MouseEvents extends MouseAdapter {
-		@Override
-		public void mousePressed(MouseEvent e) {
-			showPopup(e);
-	    }
+  private ModernIconMenuItem collapseMenuItem = new ModernIconMenuItem("Collapse All",
+      UIService.getInstance().loadIcon(MinusVectorIcon.class, 16));
 
-	    @Override
-		public void mouseReleased(MouseEvent e) {
-			showPopup(e);
-	    }
+  private ViewModel mViewModel = new ViewModel(
+      SettingsService.getInstance().getAsString("edb.reads.chip-seq.default-view"));
 
-		
-	    private void showPopup(MouseEvent e) {
-	        if (!e.getSource().equals(mTree)) {
-	        	return;
-	        }
-	        
-	        if (!e.isPopupTrigger()) {
-	        	return;
-	        }
-	        
-	    	menu.showPopup(e.getComponent(), e.getX(), e.getY());
-	    }
+  private SampleModel mSampleModel;
 
-	}
-	
-	private class SelectionEvents implements ModernSelectionListener {
+  private SampleSortModel mSortModel;
 
-		@Override
-		public void selectionChanged(ChangeEvent e) {
-			filterSamples();
-		}
-		
-	}
-	
-	private class FilterEvents implements FilterEventListener {
+  private class MouseEvents extends MouseAdapter {
+    @Override
+    public void mousePressed(MouseEvent e) {
+      showPopup(e);
+    }
 
-		@Override
-		public void filtersUpdated(ChangeEvent e) {
-			loadSamples();
-		}
+    @Override
+    public void mouseReleased(MouseEvent e) {
+      showPopup(e);
+    }
 
-		@Override
-		public void filtersChanged(ChangeEvent e) {
-			//filterSamples();
-		}
-		
-	}
-	
-	private class SortEvents implements ChangeListener {
-		@Override
-		public void changed(ChangeEvent e) {
-			mSortMenuItem.setSelected(!mSortModel.getSortAscending());
-			
-			filterSamples();
-		}
-	}
-	
-	private class ViewEvents implements ChangeListener {
+    private void showPopup(MouseEvent e) {
+      if (!e.getSource().equals(mTree)) {
+        return;
+      }
 
-		@Override
-		public void changed(ChangeEvent e) {
-			viewChanged();
-		}
-		
-	}
-	
-	public SamplesTreePanel(ModernWindow parent, 
-			SampleModel sampleModel,
-			SampleSortModel sortModel) {
-		mSampleModel = sampleModel;
-		mSortModel = sortModel;
-		
-		mSamplesSortPanel = new SortPanel<Sample>(parent, 
-				mSortModel, 
-				mFilterModel,
-				mViewModel);
+      if (!e.isPopupTrigger()) {
+        return;
+      }
 
-		setup();
-	}
+      menu.showPopup(e.getComponent(), e.getX(), e.getY());
+    }
 
-	private void setup() {
-		
-		mSortModel.addChangeListener(new SortEvents());
-		mFilterModel.addFilterListener(new FilterEvents());
-		mSampleModel.addSelectionListener(new SelectionEvents());
-		mViewModel.addChangeListener(new ViewEvents());
-		//setBackground(Color.PINK);
-		
-	
-		
-		mSamplesSortPanel.setBorder(BOTTOM_BORDER);
-		setHeader(mSamplesSortPanel);
+  }
 
-		//mTree.setNodeRenderer(new SamplesListTreeNodeRenderer());
-		//mTree.setNodeRenderer(new SamplesTreeNodeRenderer());
-		
-		mTree.addMouseListener(new MouseEvents());
-		
-		//mTree.setBorder(RIGHT_BORDER);
-		
-		ModernScrollPane scrollPane = new ModernScrollPane(mTree)
-				.setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
-				.setVScrollSep(PADDING);
-		//scrollPane.setOpaque(true);
-		//scrollPane.setBackground(Color.WHITE);
-		//scrollPane.setBorder(DialogButton.DARK_BORDER);
+  private class SelectionEvents implements ModernSelectionListener {
 
-		setBody(scrollPane); //new ModernDialogContentPanel(new ModernComponent(scrollPane, PADDING)));
+    @Override
+    public void selectionChanged(ChangeEvent e) {
+      filterSamples();
+    }
 
+  }
 
-		createMenu();
-		
-		// Set the default sorter
-	    mSortModel.setSorter("ChIP-seq Type");
-	    
-	    // Ensure the UI matches the view
-	    viewChanged();
-	}
-	
-	private void createMenu() {
-		menu = new ModernPopupMenu();
-		
-		menu.addClickListener(this);
-		
-		menu.add(new ModernIconMenuItem(UI.MENU_COPY, 
-				UIService.getInstance().loadIcon("copy", 16)));
-		
-		menu.add(new ModernTitleIconMenuItem("Sort Options"));
-		
-		menu.add(expandMenuItem);
-		menu.add(collapseMenuItem);
-		
-		menu.add(mSortMenuItem);
-	}
+  private class FilterEvents implements FilterEventListener {
 
-	public final void addSelectionListener(ModernSelectionListener l) {
-		mTree.addSelectionListener(l);
-	}
+    @Override
+    public void filtersUpdated(ChangeEvent e) {
+      loadSamples();
+    }
 
-	/*
-	public final void showSampleWindows() {
+    @Override
+    public void filtersChanged(ChangeEvent e) {
+      // filterSamples();
+    }
 
-		GuiFrame window;
+  }
 
-		SampleSearchResult sample;
+  private class SortEvents implements ChangeListener {
+    @Override
+    public void changed(ChangeEvent e) {
+      mSortMenuItem.setSelected(!mSortModel.getSortAscending());
 
-		for (ModernTreeNode<SampleSearchResult> node : tree.getSelectedNodes()) {
-			if (node.getData() == null) {
-				continue;
-			}
+      filterSamples();
+    }
+  }
 
-			sample = node.getData();
+  private class ViewEvents implements ChangeListener {
 
-			window = WindowServer.getInstance().findByName(sample.getName());
+    @Override
+    public void changed(ChangeEvent e) {
+      viewChanged();
+    }
 
-			if (window != null) {
-				WindowServer.getInstance().setFocus(window);
+  }
 
-				continue;
-			}
+  public SamplesTreePanel(ModernWindow parent, SampleModel sampleModel, SampleSortModel sortModel) {
+    mSampleModel = sampleModel;
+    mSortModel = sortModel;
 
-			window = new SampleWindow(sample);
+    mSamplesSortPanel = new SortPanel<Sample>(parent, mSortModel, mFilterModel, mViewModel);
 
-			window.setVisible(true);
-		}
-	}
-	*/
+    setup();
+  }
 
-	public void filterSamples() {
-		mSortModel.getSorter().filter(mSampleModel.getItems(), mFilterModel);
-		
-		loadSamples();
-	}
-	
-	public void loadSamples() {
-		
-		mSortModel.getSorter().arrange(mSampleModel.getItems(), 
-				mTree, 
-				mSortModel.getSortAscending(),
-				mFilterModel);
+  private void setup() {
 
-		
-		mTree.getRoot().setChildrenAreExpanded(mSortModel.getExpanded());
-		
-		
-		// Select the first node that is not a header
-		
-		///if (mTree.getChildCount() > 1) {
-		//	mTree.getSelectionModel().setSelection(1);
-		//}
-	}
+    mSortModel.addChangeListener(new SortEvents());
+    mFilterModel.addFilterListener(new FilterEvents());
+    mSampleModel.addSelectionListener(new SelectionEvents());
+    mViewModel.addChangeListener(new ViewEvents());
+    // setBackground(Color.PINK);
 
-	public List<Sample> getSelectedSamples() {
+    mSamplesSortPanel.setBorder(BOTTOM_BORDER);
+    setHeader(mSamplesSortPanel);
 
-		List<Sample> samples = new ArrayList<Sample>();
+    // mTree.setNodeRenderer(new SamplesListTreeNodeRenderer());
+    // mTree.setNodeRenderer(new SamplesTreeNodeRenderer());
 
-		for (TreeNode<Sample> node : mTree.getSelectedNodes()) {
-			if (node.getValue() == null) {
-				continue;
-			}
+    mTree.addMouseListener(new MouseEvents());
 
-			Sample sample = node.getValue();
+    // mTree.setBorder(RIGHT_BORDER);
 
-			samples.add(sample);
-		}
+    ModernScrollPane scrollPane = new ModernScrollPane(mTree).setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
+        .setVScrollSep(PADDING);
+    // scrollPane.setOpaque(true);
+    // scrollPane.setBackground(Color.WHITE);
+    // scrollPane.setBorder(DialogButton.DARK_BORDER);
 
-		return samples;
-	}
-	
-	public Sample getSelectedSample() {
+    setBody(scrollPane); // new ModernDialogContentPanel(new ModernComponent(scrollPane, PADDING)));
 
-		if (mTree.getSelectedNode() != null) {
-			return mTree.getSelectedNode().getValue();
-		} else {
-			return null;
-		}
-	}
+    createMenu();
 
-	public void setSelectedSample(Sample sample) {
-		setSelectedSample(sample.getName());
-	}
-	
-	public void setSelectedSample(String name) {
-		setSelectedSample(mTree.getNodeIndexByName(name));
-	}
+    // Set the default sorter
+    mSortModel.setSorter("ChIP-seq Type");
 
-	public void setSelectedSample(int row) {
-		mTree.selectNode(row);
-	}
+    // Ensure the UI matches the view
+    viewChanged();
+  }
 
-	public void clicked(ModernClickEvent e) {
-		if (e.getSource().equals(collapseMenuItem)) {
-			mSortModel.setExpanded(false);
-		} else if (e.getSource().equals(expandMenuItem)) {
-			mSortModel.setExpanded(true);
-		} else if (e.getSource().equals(mSortMenuItem)) {
-			mSortModel.setSortAscending(!mSortMenuItem.isSelected());
-		} else {
-			//
-		}
-	}
-	
-	private void viewChanged() {
-		if (mViewModel.getView().equals("tree")) {
-			mTree.setNodeRenderer(TREE_RENDERER);
-		} else {
-			mTree.setNodeRenderer(LIST_RENDERER);
-		}
-		
-		SettingsService.getInstance().update("edb.reads.chip-seq.default-view", 
-				mViewModel.getView());
-	}
+  private void createMenu() {
+    menu = new ModernPopupMenu();
 
-	
+    menu.addClickListener(this);
+
+    menu.add(new ModernIconMenuItem(UI.MENU_COPY, UIService.getInstance().loadIcon("copy", 16)));
+
+    menu.add(new ModernTitleIconMenuItem("Sort Options"));
+
+    menu.add(expandMenuItem);
+    menu.add(collapseMenuItem);
+
+    menu.add(mSortMenuItem);
+  }
+
+  public final void addSelectionListener(ModernSelectionListener l) {
+    mTree.addSelectionListener(l);
+  }
+
+  /*
+   * public final void showSampleWindows() {
+   * 
+   * GuiFrame window;
+   * 
+   * SampleSearchResult sample;
+   * 
+   * for (ModernTreeNode<SampleSearchResult> node : tree.getSelectedNodes()) { if
+   * (node.getData() == null) { continue; }
+   * 
+   * sample = node.getData();
+   * 
+   * window = WindowServer.getInstance().findByName(sample.getName());
+   * 
+   * if (window != null) { WindowServer.getInstance().setFocus(window);
+   * 
+   * continue; }
+   * 
+   * window = new SampleWindow(sample);
+   * 
+   * window.setVisible(true); } }
+   */
+
+  public void filterSamples() {
+    mSortModel.getSorter().filter(mSampleModel.getItems(), mFilterModel);
+
+    loadSamples();
+  }
+
+  public void loadSamples() {
+
+    mSortModel.getSorter().arrange(mSampleModel.getItems(), mTree, mSortModel.getSortAscending(), mFilterModel);
+
+    mTree.getRoot().setChildrenAreExpanded(mSortModel.getExpanded());
+
+    // Select the first node that is not a header
+
+    /// if (mTree.getChildCount() > 1) {
+    // mTree.getSelectionModel().setSelection(1);
+    // }
+  }
+
+  public List<Sample> getSelectedSamples() {
+
+    List<Sample> samples = new ArrayList<Sample>();
+
+    for (TreeNode<Sample> node : mTree.getSelectedNodes()) {
+      if (node.getValue() == null) {
+        continue;
+      }
+
+      Sample sample = node.getValue();
+
+      samples.add(sample);
+    }
+
+    return samples;
+  }
+
+  public Sample getSelectedSample() {
+
+    if (mTree.getSelectedNode() != null) {
+      return mTree.getSelectedNode().getValue();
+    } else {
+      return null;
+    }
+  }
+
+  public void setSelectedSample(Sample sample) {
+    setSelectedSample(sample.getName());
+  }
+
+  public void setSelectedSample(String name) {
+    setSelectedSample(mTree.getNodeIndexByName(name));
+  }
+
+  public void setSelectedSample(int row) {
+    mTree.selectNode(row);
+  }
+
+  public void clicked(ModernClickEvent e) {
+    if (e.getSource().equals(collapseMenuItem)) {
+      mSortModel.setExpanded(false);
+    } else if (e.getSource().equals(expandMenuItem)) {
+      mSortModel.setExpanded(true);
+    } else if (e.getSource().equals(mSortMenuItem)) {
+      mSortModel.setSortAscending(!mSortMenuItem.isSelected());
+    } else {
+      //
+    }
+  }
+
+  private void viewChanged() {
+    if (mViewModel.getView().equals("tree")) {
+      mTree.setNodeRenderer(TREE_RENDERER);
+    } else {
+      mTree.setNodeRenderer(LIST_RENDERER);
+    }
+
+    SettingsService.getInstance().update("edb.reads.chip-seq.default-view", mViewModel.getView());
+  }
+
 }

@@ -19,49 +19,45 @@ import edu.columbia.rdf.edb.Sample;
  *
  */
 public class SortSamplesByPerson extends SampleSorter {
-	@Override
-	public void arrange(Collection<Sample> samples, 
-			ModernTree<Sample> tree, 
-			boolean ascending,
-			FilterModel filterModel) {
-		ListMultiMap<Person, Sample> map = ArrayListMultiMap.create();
+  @Override
+  public void arrange(Collection<Sample> samples, ModernTree<Sample> tree, boolean ascending, FilterModel filterModel) {
+    ListMultiMap<Person, Sample> map = ArrayListMultiMap.create();
 
-		for (Sample sample : samples) {
-			for (Person person : sample.getPersons()) {
-				String name = person.getName();
-				
-				if (!filterModel.keep(name)) {
-					continue;
-				}
+    for (Sample sample : samples) {
+      for (Person person : sample.getPersons()) {
+        String name = person.getName();
 
-				map.get(person).add(sample);
-			}
-		}
+        if (!filterModel.keep(name)) {
+          continue;
+        }
 
-		arrange(map, ascending, tree);
-	}
+        map.get(person).add(sample);
+      }
+    }
 
-	@Override
-	public void filter(Collection<Sample> samples, 
-			FilterModel filterModel) {
-		super.filter(samples, filterModel);
+    arrange(map, ascending, tree);
+  }
 
-		Set<String> names = new HashSet<String>();
+  @Override
+  public void filter(Collection<Sample> samples, FilterModel filterModel) {
+    super.filter(samples, filterModel);
 
-		for (Sample sample : samples) {
-			for (Person person : sample.getPersons()) {
-				//String name = person.getName();
-				
-				//names.add(name);
-				names.add(person.toString());
-			}
-		}
+    Set<String> names = new HashSet<String>();
 
-		// Add names using surname, forname sorting
-		addSortedFilterNames(names, filterModel);
-	}
+    for (Sample sample : samples) {
+      for (Person person : sample.getPersons()) {
+        // String name = person.getName();
 
-	public final String getName() {
-		return "Person";
-	}
+        // names.add(name);
+        names.add(person.toString());
+      }
+    }
+
+    // Add names using surname, forname sorting
+    addSortedFilterNames(names, filterModel);
+  }
+
+  public final String getName() {
+    return "Person";
+  }
 }

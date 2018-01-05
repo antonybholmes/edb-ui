@@ -12,74 +12,60 @@ import org.jebtk.modern.tree.ModernTree;
 import edu.columbia.rdf.edb.Sample;
 
 public class SortSamplesByName extends SampleSorter {
-	
-	@Override
-	public void arrange(Collection<Sample> samples, 
-			ModernTree<Sample> tree, 
-			boolean ascending,
-			FilterModel filterModel) {
-		ListMultiMap<String, Sample> map = ArrayListMultiMap.create();
 
-		for (Sample sample : samples) {
-			String name = sample.getName();
-			
-			String t = name.substring(0, 1).toUpperCase();
-			
-			if (filterModel.keep(t)) {
-				map.get(t).add(sample);
-			}
-		}
+  @Override
+  public void arrange(Collection<Sample> samples, ModernTree<Sample> tree, boolean ascending, FilterModel filterModel) {
+    ListMultiMap<String, Sample> map = ArrayListMultiMap.create();
 
-		arrange(map, ascending, tree);
-	}
-	
-	
-	/*
-	@Override
-	public void arrange(Collection<Sample> samples, 
-			ModernTree<Sample> tree, 
-			boolean ascending,
-			FilterModel filterModel) {
-		List<Sample> sortedSamples = sortByName(samples, ascending);
+    for (Sample sample : samples) {
+      String name = sample.getName();
 
-		tree.clear();
+      String t = name.substring(0, 1).toUpperCase();
 
-		TreeRootNode<Sample> root = 
-				new TreeRootNode<Sample>();
-		
-		for (Sample sample : sortedSamples) {
-			if (!filterModel.keep(sample.getName())) {
-				continue;
-			}
-			
-			TreeNode<Sample> node = 
-					new TreeNode<Sample>(sample.getName(), sample);
+      if (filterModel.keep(t)) {
+        map.get(t).add(sample);
+      }
+    }
 
-			root.addChild(node);
-		}
+    arrange(map, ascending, tree);
+  }
 
-		tree.setRoot(root);
-	}
-	*/
-	
-	@Override
-	public void filter(Collection<Sample> samples, 
-			FilterModel filterModel) {
-		super.filter(samples, filterModel);
-		
-		Set<String> names = new HashSet<String>(samples.size());
-		
-		for (Sample sample : samples) {
-			String name = sample.getName();
-			String t = name.substring(0, 1).toUpperCase();
-			
-			names.add(t);
-		}
-		
-		addSortedFilterNames(names, filterModel);
-	}
+  /*
+   * @Override public void arrange(Collection<Sample> samples, ModernTree<Sample>
+   * tree, boolean ascending, FilterModel filterModel) { List<Sample>
+   * sortedSamples = sortByName(samples, ascending);
+   * 
+   * tree.clear();
+   * 
+   * TreeRootNode<Sample> root = new TreeRootNode<Sample>();
+   * 
+   * for (Sample sample : sortedSamples) { if
+   * (!filterModel.keep(sample.getName())) { continue; }
+   * 
+   * TreeNode<Sample> node = new TreeNode<Sample>(sample.getName(), sample);
+   * 
+   * root.addChild(node); }
+   * 
+   * tree.setRoot(root); }
+   */
 
-	public final String getName() {
-		return "Sample Name";
-	}
+  @Override
+  public void filter(Collection<Sample> samples, FilterModel filterModel) {
+    super.filter(samples, filterModel);
+
+    Set<String> names = new HashSet<String>(samples.size());
+
+    for (Sample sample : samples) {
+      String name = sample.getName();
+      String t = name.substring(0, 1).toUpperCase();
+
+      names.add(t);
+    }
+
+    addSortedFilterNames(names, filterModel);
+  }
+
+  public final String getName() {
+    return "Sample Name";
+  }
 }

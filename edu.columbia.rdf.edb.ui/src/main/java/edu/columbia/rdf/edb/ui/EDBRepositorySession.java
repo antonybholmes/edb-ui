@@ -13,34 +13,34 @@ import edu.columbia.rdf.edb.EDBWLogin;
 import edu.columbia.rdf.edb.ui.cache.CacheRepository;
 
 public class EDBRepositorySession extends RepositorySession {
-	protected EDBWLogin mLogin;
-	//private UrlBuilder mRestAuthUrl;
-	private UrlBuilder mVersionUrl;
+  protected EDBWLogin mLogin;
+  // private UrlBuilder mRestAuthUrl;
+  private UrlBuilder mVersionUrl;
 
-	public EDBRepositorySession(EDBWLogin login) throws UnsupportedEncodingException {
-		mLogin = login;
+  public EDBRepositorySession(EDBWLogin login) throws UnsupportedEncodingException {
+    mLogin = login;
 
-		//mRestAuthUrl = login.getAuthUrl();
+    // mRestAuthUrl = login.getAuthUrl();
 
-		mVersionUrl = login.getApiUrl().resolve("version");
-	}
+    mVersionUrl = login.getApiUrl().resolve("version");
+  }
 
-	@Override
-	public CacheRepository restore(File sessionFile) throws IOException, ClassNotFoundException {
-		EDBRepository repository = new EDBRepository(mLogin);
+  @Override
+  public CacheRepository restore(File sessionFile) throws IOException, ClassNotFoundException {
+    EDBRepository repository = new EDBRepository(mLogin);
 
-		repository.cache();
-		
-		return repository;
-	}
+    repository.cache();
 
-	public int getCurrentDbVersion() throws IOException {
-		URL url = mVersionUrl.toUrl();
+    return repository;
+  }
 
-		Json json;
+  public int getCurrentDbVersion() throws IOException {
+    URL url = mVersionUrl.toUrl();
 
-		json = new JsonParser().parse(url);
+    Json json;
 
-		return json.get(0).get("version").getAsInt();
-	}
+    json = new JsonParser().parse(url);
+
+    return json.get(0).get("version").getAsInt();
+  }
 }

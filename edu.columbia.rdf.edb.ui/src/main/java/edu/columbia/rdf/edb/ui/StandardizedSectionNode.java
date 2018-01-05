@@ -7,13 +7,13 @@ package edu.columbia.rdf.edb.ui;
  *
  */
 public class StandardizedSectionNode extends SectionNode {
-	private static final long serialVersionUID = 1L;
-	
-	public StandardizedSectionNode(String name) {
-		super(standardize(name));
-	}
+  private static final long serialVersionUID = 1L;
 
-	public StandardizedSectionNode(String name, String value) {
-		super(standardize(name), value);
-	}
+  public StandardizedSectionNode(String name) {
+    super(standardize(name));
+  }
+
+  public StandardizedSectionNode(String name, String value) {
+    super(standardize(name), value);
+  }
 }

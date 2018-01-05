@@ -5,25 +5,25 @@ import org.jebtk.core.pool.ObjectPool;
 import edu.columbia.rdf.edb.ui.Repository;
 
 public class SharedConnectionService {
-	private ObjectPool<Repository> mPool = null;
+  private ObjectPool<Repository> mPool = null;
 
-	private static final SharedConnectionService instance = new SharedConnectionService();
+  private static final SharedConnectionService instance = new SharedConnectionService();
 
-	public static final SharedConnectionService getInstance() {
+  public static final SharedConnectionService getInstance() {
 
-		return instance;
-	}
+    return instance;
+  }
 
-	private SharedConnectionService() {
+  private SharedConnectionService() {
 
-		// do nothing
-	}
-	
-	public void setPool(ObjectPool<Repository> pool) {
-		mPool = pool;
-	}
-	
-	public ObjectPool<Repository> getPool() {
-		return mPool;
-	}
+    // do nothing
+  }
+
+  public void setPool(ObjectPool<Repository> pool) {
+    mPool = pool;
+  }
+
+  public ObjectPool<Repository> getPool() {
+    return mPool;
+  }
 }

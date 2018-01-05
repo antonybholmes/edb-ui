@@ -36,73 +36,81 @@ import edu.columbia.rdf.edb.DataViewSection;
  * The Class SearchFolderXmlHandler.
  */
 public class DataViewXmlHandler extends DefaultHandler {
-	
-	/** The m folder stack. */
-	private DataView mDataView;
-	private DataViewSection mSection;
-	
-	public DataViewXmlHandler(DataView dataView) {
-		mDataView = dataView;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
-	 */
-	@Override
-	public final void startElement(String uri,
-    		String localName,
-    		String qName,
-    		Attributes attributes) throws SAXException {
 
-		if (qName.equals("view")) {
-			//mDataView = new DataView(attributes.getValue("name"));
-		} else if (qName.equals("section")) {
-			mSection = new DataViewSection("Source");
-			
-			mDataView.addSection(mSection);
-		} else if (qName.equals("field")) {
-			mSection.addField(Path.create(attributes.getValue("path")), attributes.getValue("name"));
-    	} else {
-    		// do nothing
-    	}
-	}
-	
-	public static void loadXml(java.nio.file.Path file, DataView dataView) throws SAXException, IOException, ParserConfigurationException {
-		if (file == null || !FileUtils.exists(file)) {
-			return;
-		}
+  /** The m folder stack. */
+  private DataView mDataView;
+  private DataViewSection mSection;
 
-		InputStream stream = FileUtils.newBufferedInputStream(file);
+  public DataViewXmlHandler(DataView dataView) {
+    mDataView = dataView;
+  }
 
-		try {
-			loadXml(stream, dataView);
-		} finally {
-			stream.close();
-		}
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String,
+   * java.lang.String, java.lang.String, org.xml.sax.Attributes)
+   */
+  @Override
+  public final void startElement(String uri, String localName, String qName, Attributes attributes)
+      throws SAXException {
 
-	/**
-	 * Load xml.
-	 *
-	 * @param is the is
-	 * @param update the update
-	 * @return true, if successful
-	 * @throws SAXException the SAX exception
-	 * @throws IOException Signals that an I/O exception has occurred.
-	 * @throws ParserConfigurationException the parser configuration exception
-	 */
-	protected static synchronized boolean loadXml(InputStream is, DataView dataView) throws SAXException, IOException, ParserConfigurationException {
-		if (is == null) {
-			return false;
-		}
+    if (qName.equals("view")) {
+      // mDataView = new DataView(attributes.getValue("name"));
+    } else if (qName.equals("section")) {
+      mSection = new DataViewSection("Source");
 
-		SAXParserFactory factory = SAXParserFactory.newInstance();
-		SAXParser saxParser = factory.newSAXParser();
+      mDataView.addSection(mSection);
+    } else if (qName.equals("field")) {
+      mSection.addField(Path.create(attributes.getValue("path")), attributes.getValue("name"));
+    } else {
+      // do nothing
+    }
+  }
 
-		DataViewXmlHandler handler = new DataViewXmlHandler(dataView);
+  public static void loadXml(java.nio.file.Path file, DataView dataView)
+      throws SAXException, IOException, ParserConfigurationException {
+    if (file == null || !FileUtils.exists(file)) {
+      return;
+    }
 
-		saxParser.parse(is, handler);
+    InputStream stream = FileUtils.newBufferedInputStream(file);
 
-		return true;
-	}
+    try {
+      loadXml(stream, dataView);
+    } finally {
+      stream.close();
+    }
+  }
+
+  /**
+   * Load xml.
+   *
+   * @param is
+   *          the is
+   * @param update
+   *          the update
+   * @return true, if successful
+   * @throws SAXException
+   *           the SAX exception
+   * @throws IOException
+   *           Signals that an I/O exception has occurred.
+   * @throws ParserConfigurationException
+   *           the parser configuration exception
+   */
+  protected static synchronized boolean loadXml(InputStream is, DataView dataView)
+      throws SAXException, IOException, ParserConfigurationException {
+    if (is == null) {
+      return false;
+    }
+
+    SAXParserFactory factory = SAXParserFactory.newInstance();
+    SAXParser saxParser = factory.newSAXParser();
+
+    DataViewXmlHandler handler = new DataViewXmlHandler(dataView);
+
+    saxParser.parse(is, handler);
+
+    return true;
+  }
 }

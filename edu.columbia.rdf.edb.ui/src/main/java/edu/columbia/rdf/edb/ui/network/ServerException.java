@@ -9,9 +9,9 @@ import edu.columbia.rdf.edb.ui.ExperimentSearchException;
  *
  */
 public class ServerException extends ExperimentSearchException {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public ServerException(String message) {
-		super(message);
-	}
+  public ServerException(String message) {
+    super(message);
+  }
 }

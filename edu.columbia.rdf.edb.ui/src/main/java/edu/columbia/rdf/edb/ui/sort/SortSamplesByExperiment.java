@@ -24,92 +24,80 @@ import edu.columbia.rdf.edb.Sample;
  *
  */
 public class SortSamplesByExperiment extends SampleSorter {
-	@Override
-	public void arrange(Collection<Sample> samples, 
-			ModernTree<Sample> tree, 
-			boolean ascending,
-			FilterModel filterModel) {
-		
+  @Override
+  public void arrange(Collection<Sample> samples, ModernTree<Sample> tree, boolean ascending, FilterModel filterModel) {
 
-		Map<Experiment, Set<Sample>> experiments = 
-    			Experiment.sortSamplesByExperiment(samples);
-		
-		List<Experiment> sortedExperiments = sortByTitle(experiments.keySet(), ascending);
-		
-		tree.clear();
-		
-		TreeRootNode<Sample> root = 
-				new TreeRootNode<Sample>();
+    Map<Experiment, Set<Sample>> experiments = Experiment.sortSamplesByExperiment(samples);
 
-		for (Experiment experiment : sortedExperiments) {
-			if (!filterModel.keep(experiment.getName())) {
-				continue;
-			}
-			
-			TreeNode<Sample> node = 
-					new TreeNode<Sample>(experiment.getName());
+    List<Experiment> sortedExperiments = sortByTitle(experiments.keySet(), ascending);
 
-			List<Sample> sortedSamples = 
-					sortByName(experiments.get(experiment), ascending);
+    tree.clear();
 
-			for (Sample sample : sortedSamples) {
-				node.addChild(new TreeNode<Sample>(sample.getName(), sample));
-			}
+    TreeRootNode<Sample> root = new TreeRootNode<Sample>();
 
-			root.addChild(node);
-		}
-		
-		tree.setRoot(root);
-	}
-	
-	@Override
-	public void filter(Collection<Sample> samples, 
-			FilterModel filterModel) {
-		super.filter(samples, filterModel);
-		
-		Map<Experiment, Set<Sample>> experiments = 
-    			Experiment.sortSamplesByExperiment(samples);
-		
-		Set<String> names = new HashSet<String>();
-		
-		for (Experiment experiment : experiments.keySet()) {
-			names.add(experiment.getName());
-		}
-		
-		addSortedFilterNames(names, filterModel);
-	}
+    for (Experiment experiment : sortedExperiments) {
+      if (!filterModel.keep(experiment.getName())) {
+        continue;
+      }
 
-	public final String getName() {
-		return "Experiment";
-	}
-	
-	public static List<Experiment> sortByTitle(Collection<Experiment> experiments, 
-			boolean ascending) {
-		
-		List<String> names = new ArrayList<String>();
-		
-		Map<String, Experiment> experimentMap = 
-				new TreeMap<String, Experiment>();
+      TreeNode<Sample> node = new TreeNode<Sample>(experiment.getName());
 
-		for (Experiment experiment : experiments) {
-			String name = experiment.getName();
-			
-			names.add(name);
-			experimentMap.put(name, experiment);
-		}
+      List<Sample> sortedSamples = sortByName(experiments.get(experiment), ascending);
 
-		Collections.sort(names);
+      for (Sample sample : sortedSamples) {
+        node.addChild(new TreeNode<Sample>(sample.getName(), sample));
+      }
 
-		if (!ascending) {
-			Collections.reverse(names);
-		}
+      root.addChild(node);
+    }
 
-		List<Experiment> sortedExperiments = new ArrayList<Experiment>();
+    tree.setRoot(root);
+  }
 
-		for (String name : names) {
-			sortedExperiments.add(experimentMap.get(name));
-		}
+  @Override
+  public void filter(Collection<Sample> samples, FilterModel filterModel) {
+    super.filter(samples, filterModel);
 
-		return sortedExperiments;
-	}
+    Map<Experiment, Set<Sample>> experiments = Experiment.sortSamplesByExperiment(samples);
+
+    Set<String> names = new HashSet<String>();
+
+    for (Experiment experiment : experiments.keySet()) {
+      names.add(experiment.getName());
+    }
+
+    addSortedFilterNames(names, filterModel);
+  }
+
+  public final String getName() {
+    return "Experiment";
+  }
+
+  public static List<Experiment> sortByTitle(Collection<Experiment> experiments, boolean ascending) {
+
+    List<String> names = new ArrayList<String>();
+
+    Map<String, Experiment> experimentMap = new TreeMap<String, Experiment>();
+
+    for (Experiment experiment : experiments) {
+      String name = experiment.getName();
+
+      names.add(name);
+      experimentMap.put(name, experiment);
+    }
+
+    Collections.sort(names);
+
+    if (!ascending) {
+      Collections.reverse(names);
+    }
+
+    List<Experiment> sortedExperiments = new ArrayList<Experiment>();
+
+    for (String name : names) {
+      sortedExperiments.add(experimentMap.get(name));
+    }
+
+    return sortedExperiments;
+  }
 }

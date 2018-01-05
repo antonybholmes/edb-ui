@@ -21,10 +21,7 @@ import edu.columbia.rdf.edb.Sample;
 
 public class SampleModel extends SelectionModel<Sample> {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	
-
-	
-	// do nothing
+  // do nothing
 }

@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import org.jebtk.core.xml.XmlRepresentation;
 
-
 /**
  * Logins entries for a connection to a server.
  *
@@ -12,13 +11,13 @@ import org.jebtk.core.xml.XmlRepresentation;
  *
  */
 public abstract class Login implements Comparable<Login>, XmlRepresentation, Serializable {
-	private static final long serialVersionUID = 1L;
-	
-	public abstract String getUser();
+  private static final long serialVersionUID = 1L;
 
-	public abstract String getPassword();
+  public abstract String getUser();
 
-	public abstract String getServer();
+  public abstract String getPassword();
 
-	public abstract int getPort();	
+  public abstract String getServer();
+
+  public abstract int getPort();
 }

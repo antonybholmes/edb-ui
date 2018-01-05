@@ -15,7 +15,6 @@
  */
 package edu.columbia.rdf.edb.ui.filter.organisms;
 
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,79 +34,74 @@ import org.jebtk.modern.widget.ModernTwoStateWidget;
 import edu.columbia.rdf.edb.Species;
 
 /**
- * Displays groupings of samples so users can quickly find related
- * samples.
+ * Displays groupings of samples so users can quickly find related samples.
  * 
  * @author Antony Holmes
  *
  */
 public class OrganismsPanel extends ModernComponent implements ModernClickListener {
-	
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-	
-	private OrganismsModel mModel;
 
-	private Map<ModernTwoStateWidget, Species> mCheckMap =
-			new HashMap<ModernTwoStateWidget, Species>();
-	
-	private ModernTwoStateWidget mCheckAll = 
-			new ModernCheckSwitch("Select All", true); 
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1L;
 
-	public OrganismsPanel(OrganismsModel model) {
-		mModel = model;
-		
-		Box box = VBox.create();
-		
-		//box.add(new ModernSubHeadingLabel("Organisms"));
-		
-		box.add(UI.createVGap(10));
-		
-		box.add(mCheckAll);
-		box.add(UI.createVGap(10));
-		
-		mCheckAll.addClickListener(new ModernClickListener() {
+  private OrganismsModel mModel;
 
-			@Override
-			public void clicked(ModernClickEvent e) {
-				checkAll();
-			}});
-		
-		for (Species t : model) {
-			ModernTwoStateWidget check =
-					new ModernCheckSwitch(t.getName(), model.getUse(t));
-			
-			box.add(check);
-			
-			mCheckMap.put(check, t);
-			
-			check.addClickListener(this);
-		}
-		
-		setBody(new ModernScrollPane(box)
-				.setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
-				.setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
-		
-		//setBorder(DOUBLE_BORDER);
-	}
+  private Map<ModernTwoStateWidget, Species> mCheckMap = new HashMap<ModernTwoStateWidget, Species>();
 
-	@Override
-	public void clicked(ModernClickEvent e) {
-		ModernTwoStateWidget check = (ModernTwoStateWidget)e.getSource();
-		
-		Species g = mCheckMap.get(check);
-	
-		mModel.setUse(g, check.isSelected());
-	}
-	
-	private void checkAll() {
-		for (ModernTwoStateWidget c : mCheckMap.keySet()) {
-			c.setSelected(mCheckAll.isSelected());
-			mModel.updateUse(mCheckMap.get(c), c.isSelected());
-		}
-		
-		// Finally trigger a refresh via the model
-		mModel.fireChanged();
-	}
+  private ModernTwoStateWidget mCheckAll = new ModernCheckSwitch("Select All", true);
+
+  public OrganismsPanel(OrganismsModel model) {
+    mModel = model;
+
+    Box box = VBox.create();
+
+    // box.add(new ModernSubHeadingLabel("Organisms"));
+
+    box.add(UI.createVGap(10));
+
+    box.add(mCheckAll);
+    box.add(UI.createVGap(10));
+
+    mCheckAll.addClickListener(new ModernClickListener() {
+
+      @Override
+      public void clicked(ModernClickEvent e) {
+        checkAll();
+      }
+    });
+
+    for (Species t : model) {
+      ModernTwoStateWidget check = new ModernCheckSwitch(t.getName(), model.getUse(t));
+
+      box.add(check);
+
+      mCheckMap.put(check, t);
+
+      check.addClickListener(this);
+    }
+
+    setBody(new ModernScrollPane(box).setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
+        .setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
+
+    // setBorder(DOUBLE_BORDER);
+  }
+
+  @Override
+  public void clicked(ModernClickEvent e) {
+    ModernTwoStateWidget check = (ModernTwoStateWidget) e.getSource();
+
+    Species g = mCheckMap.get(check);
+
+    mModel.setUse(g, check.isSelected());
+  }
+
+  private void checkAll() {
+    for (ModernTwoStateWidget c : mCheckMap.keySet()) {
+      c.setSelected(mCheckAll.isSelected());
+      mModel.updateUse(mCheckMap.get(c), c.isSelected());
+    }
+
+    // Finally trigger a refresh via the model
+    mModel.fireChanged();
+  }
 }
-	

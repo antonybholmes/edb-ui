@@ -18,43 +18,39 @@ import edu.columbia.rdf.edb.Sample;
  *
  */
 public class SortSamplesByExpressionType extends SampleSorter {
-	@Override
-	public void arrange(Collection<Sample> samples, 
-			ModernTree<Sample> tree, 
-			boolean ascending,
-			FilterModel filterModel) {
-		ListMultiMap<String, Sample> map = ArrayListMultiMap.create();
+  @Override
+  public void arrange(Collection<Sample> samples, ModernTree<Sample> tree, boolean ascending, FilterModel filterModel) {
+    ListMultiMap<String, Sample> map = ArrayListMultiMap.create();
 
-		for (Sample sample : samples) {
-			String name = sample.getExpressionType().getName();
+    for (Sample sample : samples) {
+      String name = sample.getExpressionType().getName();
 
-			if (!filterModel.keep(name)) {
-				continue;
-			}
-				
-			map.get(name).add(sample);
-		}
-		
-		arrange(map, ascending, tree);
-	}
-	
-	@Override
-	public void filter(Collection<Sample> samples, 
-			FilterModel filterModel) {
-		super.filter(samples, filterModel);
-		
-		Set<String> names = new HashSet<String>();
-		
-		for (Sample sample : samples) {
-			String name = sample.getExpressionType().getName();
-			
-			names.add(name);
-		}
-		
-		addSortedFilterNames(names, filterModel);
-	}
+      if (!filterModel.keep(name)) {
+        continue;
+      }
 
-	public final String getName() {
-		return "Expression Type";
-	}
+      map.get(name).add(sample);
+    }
+
+    arrange(map, ascending, tree);
+  }
+
+  @Override
+  public void filter(Collection<Sample> samples, FilterModel filterModel) {
+    super.filter(samples, filterModel);
+
+    Set<String> names = new HashSet<String>();
+
+    for (Sample sample : samples) {
+      String name = sample.getExpressionType().getName();
+
+      names.add(name);
+    }
+
+    addSortedFilterNames(names, filterModel);
+  }
+
+  public final String getName() {
+    return "Expression Type";
+  }
 }

@@ -52,234 +52,227 @@ import edu.columbia.rdf.edb.ui.filter.organisms.OrganismsPanel;
 import edu.columbia.rdf.edb.ui.filter.organisms.OrganismsService;
 
 public class SamplesDialog extends ModernDialogHelpWindow implements ModernClickListener {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private ModernTree<Sample> mTree = new ModernTree<Sample>();
+  private ModernTree<Sample> mTree = new ModernTree<Sample>();
 
-	private ModernButton mExpandButton = 
-			new ModernButton(UIService.getInstance().loadIcon(PlusVectorIcon.class, 16));
+  private ModernButton mExpandButton = new ModernButton(UIService.getInstance().loadIcon(PlusVectorIcon.class, 16));
 
-	private ModernButton mCollapseButton = 
-			new ModernButton(UIService.getInstance().loadIcon(MinusVectorIcon.class, 16));
-	
-	private SampleSortModel mSortModel;
+  private ModernButton mCollapseButton = new ModernButton(UIService.getInstance().loadIcon(MinusVectorIcon.class, 16));
 
-	private SampleModel mSampleModel = new SampleModel();
+  private SampleSortModel mSortModel;
 
-	private SamplesTreePanel mSamplesPanel;
+  private SampleModel mSampleModel = new SampleModel();
 
-	private ModernSearchPanel mSearchPanel;
+  private SamplesTreePanel mSamplesPanel;
 
-	private String mRepName;
+  private ModernSearchPanel mSearchPanel;
 
-	private GroupsModel mUserGroupsModel = GroupsService.getInstance();
-	
-	private DataTypesModel mDataTypesModel = DataTypesService.getInstance();
-	
-	private OrganismsService mOrganismsModel = OrganismsService.getInstance();
-	
-	public class RefreshEvents implements ModernClickListener {
-		@Override
-		public void clicked(ModernClickEvent e) {
-			try {
-				search();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}
+  private String mRepName;
 
-	}
+  private GroupsModel mUserGroupsModel = GroupsService.getInstance();
 
-	public class CollapseEvents implements ModernClickListener {
-		@Override
-		public void clicked(ModernClickEvent e) {
-			mTree.getRoot().setChildrenAreExpanded(false);
-		}
-	}
+  private DataTypesModel mDataTypesModel = DataTypesService.getInstance();
 
-	public class ExpandEvents implements ModernClickListener {
-		@Override
-		public void clicked(ModernClickEvent e) {
-			mTree.getRoot().setChildrenAreExpanded(true);
-		}
-	}
+  private OrganismsService mOrganismsModel = OrganismsService.getInstance();
 
-	private class SearchEvents implements ModernClickListener {
+  public class RefreshEvents implements ModernClickListener {
+    @Override
+    public void clicked(ModernClickEvent e) {
+      try {
+        search();
+      } catch (IOException e1) {
+        e1.printStackTrace();
+      }
+    }
 
-		@Override
-		public void clicked(ModernClickEvent e) {
-			try {
-				search();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}
-	}
+  }
 
-	/**
-	 * 
-	 * @param parent
-	 * @param title
-	 * @param help
-	 * @param repName		The repository name to use for searching.
-	 * @param sortModel		
-	 * @param searchModel
-	 */
-	public SamplesDialog(ModernWindow parent,
-			String title,
-			String help,
-			String repName,
-			SampleSortModel sortModel,
-			SearchModel searchModel) {
-		super(parent, help);
+  public class CollapseEvents implements ModernClickListener {
+    @Override
+    public void clicked(ModernClickEvent e) {
+      mTree.getRoot().setChildrenAreExpanded(false);
+    }
+  }
 
-		mRepName = repName;
-		mSortModel = sortModel;
-		mSearchPanel = new ModernSearchPanel(searchModel);
+  public class ExpandEvents implements ModernClickListener {
+    @Override
+    public void clicked(ModernClickEvent e) {
+      mTree.getRoot().setChildrenAreExpanded(true);
+    }
+  }
 
-		createUi();
+  private class SearchEvents implements ModernClickListener {
 
-		mSearchPanel.addClickListener(new SearchEvents());
-		mCollapseButton.addClickListener(new CollapseEvents());
-		mExpandButton.addClickListener(new ExpandEvents());
+    @Override
+    public void clicked(ModernClickEvent e) {
+      try {
+        search();
+      } catch (IOException e1) {
+        e1.printStackTrace();
+      }
+    }
+  }
 
-		addWindowFocusListener(new WindowWidgetFocusEvents(mOkButton));
+  /**
+   * 
+   * @param parent
+   * @param title
+   * @param help
+   * @param repName
+   *          The repository name to use for searching.
+   * @param sortModel
+   * @param searchModel
+   */
+  public SamplesDialog(ModernWindow parent, String title, String help, String repName, SampleSortModel sortModel,
+      SearchModel searchModel) {
+    super(parent, help);
 
-		try {
-			search();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+    mRepName = repName;
+    mSortModel = sortModel;
+    mSearchPanel = new ModernSearchPanel(searchModel);
 
-		setTitle(title);
+    createUi();
 
-		setResizable(true);
+    mSearchPanel.addClickListener(new SearchEvents());
+    mCollapseButton.addClickListener(new CollapseEvents());
+    mExpandButton.addClickListener(new ExpandEvents());
 
-		setSize(800, 600);
+    addWindowFocusListener(new WindowWidgetFocusEvents(mOkButton));
 
-		UI.centerWindowToScreen(this);
-	}
+    try {
+      search();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
-	public void createUi() {
-		
-		//
-		// Filter side bar
-		//
-		
-		ChangeListener l = new ChangeListener() {
-			@Override
-			public void changed(ChangeEvent e) {
-				try {
-					search();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-		};
-		
-		GroupsPanel userGroupsPanel = new GroupsPanel(mUserGroupsModel);
-		//Respond when a user group is changed
-		mUserGroupsModel.addChangeListener(l);
-		
-		//DataTypesPanel dataTypesPanel = new DataTypesPanel(mDataTypesModel, mOrganismsModel);
-		OrganismsPanel organismsPanel = new OrganismsPanel(mOrganismsModel);
-		
-		mDataTypesModel.addChangeListener(l);
-		mOrganismsModel.addChangeListener(l);
+    setTitle(title);
 
-		getIconTabs().addTab("GROUPS", 'G', userGroupsPanel);
-		//addLeftTab("DATA TYPES", 'D', dataTypesPanel);
-		getIconTabs().addTab("ORGANISMS", 'O', new TabPanel("Organisms", organismsPanel));
+    setResizable(true);
 
-		//IconTabsPanel viewPanel = new IconTabsPanel(groupTabsModel, 36, 22); //new ModernComponent(new IconTabsPanel(groupTabsModel, 30, 20), ModernWidget.DOUBLE_BORDER);
+    setSize(800, 600);
 
-		// Show the column groups by default
-		getIconTabs().changeTab(0);
-		
-		//getTabsPane().getModel().addLeftTab("Filter", viewPanel, 200, 100, 500);
-		
-		//
-		// Content
-		// 
-		
-		ModernComponent panel = new ModernComponent();
+    UI.centerWindowToScreen(this);
+  }
 
-		panel.setHeader(new ModernComponent(mSearchPanel, 
-				BorderService.getInstance().createBottomBorder(20)));
+  public void createUi() {
 
-		mSamplesPanel = new SamplesTreePanel(mParent, 
-				mSampleModel,
-				mSortModel);
+    //
+    // Filter side bar
+    //
 
-		panel.setBody(mSamplesPanel); //new ModernContentPanel(mSamplesPanel));
-	
-		Component c = footer();
-		
-		if (c != null) {
-			panel.setFooter(c);
-		}
-		
-		getTabsPane().getModel().setCenterTab(new ModernComponent(
-				new CardPanel(new ModernComponent(panel, ModernWidget.DOUBLE_BORDER)), 
-						ModernWidget.DOUBLE_BORDER));
-		
-		//setDialogCardContent(panel); //new ModernPaddedPanel(new ModernLineBorderPanel(panel)));
-		
-		setDarkBackground();
-	}
-	
-	protected Component footer() {
-		return null;
-	}
+    ChangeListener l = new ChangeListener() {
+      @Override
+      public void changed(ChangeEvent e) {
+        try {
+          search();
+        } catch (IOException e1) {
+          e1.printStackTrace();
+        }
+      }
+    };
 
-	/**
-	 * Generate a tree view of a sample folder and its sub folders.
-	 * 
-	 * @param sampleFolder
-	 * @param tree
-	 * @param ascending
-	 * @throws IOException 
-	 * @throws ParseException 
-	 * @throws java.text.ParseException 
-	 */
-	public void search() throws IOException {
-		//mSampleModel.set(mAssembly.getSamples(mSearchPanel.getText()));
+    GroupsPanel userGroupsPanel = new GroupsPanel(mUserGroupsModel);
+    // Respond when a user group is changed
+    mUserGroupsModel.addChangeListener(l);
 
-		Repository store = 
-				RepositoryService.getInstance().getRepository(mRepName);
+    // DataTypesPanel dataTypesPanel = new DataTypesPanel(mDataTypesModel,
+    // mOrganismsModel);
+    OrganismsPanel organismsPanel = new OrganismsPanel(mOrganismsModel);
 
-		List<Sample> samples = store.searchSamples(mSearchPanel.getText(),
-				mOrganismsModel.getOrganisms(),
-				mUserGroupsModel.getGroups());
+    mDataTypesModel.addChangeListener(l);
+    mOrganismsModel.addChangeListener(l);
 
-		mSampleModel.set(samples);
-	}
+    getIconTabs().addTab("GROUPS", 'G', userGroupsPanel);
+    // addLeftTab("DATA TYPES", 'D', dataTypesPanel);
+    getIconTabs().addTab("ORGANISMS", 'O', new TabPanel("Organisms", organismsPanel));
 
-	public void setSelected(int i) {
-		mTree.selectNode(i);
-	}
+    // IconTabsPanel viewPanel = new IconTabsPanel(groupTabsModel, 36, 22); //new
+    // ModernComponent(new IconTabsPanel(groupTabsModel, 30, 20),
+    // ModernWidget.DOUBLE_BORDER);
 
-	public List<Sample> getSelectedSamples() {
-		List<Sample> samples = mSamplesPanel.getSelectedSamples();
+    // Show the column groups by default
+    getIconTabs().changeTab(0);
 
-		List<Sample> ret = new ArrayList<Sample>(samples.size());
+    // getTabsPane().getModel().addLeftTab("Filter", viewPanel, 200, 100, 500);
 
-		for (Sample sample : mSamplesPanel.getSelectedSamples()) {
-			if (!sample.getLocked()) {
-				ret.add(sample);
-			}
-		}
-		
-		return ret;
-	}
+    //
+    // Content
+    //
 
-	public Sample getSelectedSample() {
-		List<Sample> samples = getSelectedSamples();
-		
-		if (samples.size() > 0) {
-			return samples.get(0);
-		} else {
-			return null;
-		}
-	}
+    ModernComponent panel = new ModernComponent();
+
+    panel.setHeader(new ModernComponent(mSearchPanel, BorderService.getInstance().createBottomBorder(20)));
+
+    mSamplesPanel = new SamplesTreePanel(mParent, mSampleModel, mSortModel);
+
+    panel.setBody(mSamplesPanel); // new ModernContentPanel(mSamplesPanel));
+
+    Component c = footer();
+
+    if (c != null) {
+      panel.setFooter(c);
+    }
+
+    getTabsPane().getModel().setCenterTab(new ModernComponent(
+        new CardPanel(new ModernComponent(panel, ModernWidget.DOUBLE_BORDER)), ModernWidget.DOUBLE_BORDER));
+
+    // setDialogCardContent(panel); //new ModernPaddedPanel(new
+    // ModernLineBorderPanel(panel)));
+
+    setDarkBackground();
+  }
+
+  protected Component footer() {
+    return null;
+  }
+
+  /**
+   * Generate a tree view of a sample folder and its sub folders.
+   * 
+   * @param sampleFolder
+   * @param tree
+   * @param ascending
+   * @throws IOException
+   * @throws ParseException
+   * @throws java.text.ParseException
+   */
+  public void search() throws IOException {
+    // mSampleModel.set(mAssembly.getSamples(mSearchPanel.getText()));
+
+    Repository store = RepositoryService.getInstance().getRepository(mRepName);
+
+    List<Sample> samples = store.searchSamples(mSearchPanel.getText(), mOrganismsModel.getOrganisms(),
+        mUserGroupsModel.getGroups());
+
+    mSampleModel.set(samples);
+  }
+
+  public void setSelected(int i) {
+    mTree.selectNode(i);
+  }
+
+  public List<Sample> getSelectedSamples() {
+    List<Sample> samples = mSamplesPanel.getSelectedSamples();
+
+    List<Sample> ret = new ArrayList<Sample>(samples.size());
+
+    for (Sample sample : mSamplesPanel.getSelectedSamples()) {
+      if (!sample.getLocked()) {
+        ret.add(sample);
+      }
+    }
+
+    return ret;
+  }
+
+  public Sample getSelectedSample() {
+    List<Sample> samples = getSelectedSamples();
+
+    if (samples.size() > 0) {
+      return samples.get(0);
+    } else {
+      return null;
+    }
+  }
 }

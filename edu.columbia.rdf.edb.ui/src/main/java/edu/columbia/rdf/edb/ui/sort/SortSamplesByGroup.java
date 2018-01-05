@@ -19,49 +19,45 @@ import edu.columbia.rdf.edb.Sample;
  *
  */
 public class SortSamplesByGroup extends SampleSorter {
-	@Override
-	public void arrange(Collection<Sample> samples, 
-			ModernTree<Sample> tree, 
-			boolean ascending,
-			FilterModel filterModel) {
-		ListMultiMap<Group, Sample> map = ArrayListMultiMap.create();
+  @Override
+  public void arrange(Collection<Sample> samples, ModernTree<Sample> tree, boolean ascending, FilterModel filterModel) {
+    ListMultiMap<Group, Sample> map = ArrayListMultiMap.create();
 
-		for (Sample sample : samples) {
-			for (Group g : sample.getGroups()) {
-				String name = g.getName();
-				
-				if (!filterModel.keep(name)) {
-					continue;
-				}
+    for (Sample sample : samples) {
+      for (Group g : sample.getGroups()) {
+        String name = g.getName();
 
-				map.get(g).add(sample);
-			}
-		}
+        if (!filterModel.keep(name)) {
+          continue;
+        }
 
-		arrange(map, ascending, tree);
-	}
+        map.get(g).add(sample);
+      }
+    }
 
-	@Override
-	public void filter(Collection<Sample> samples, 
-			FilterModel filterModel) {
-		super.filter(samples, filterModel);
+    arrange(map, ascending, tree);
+  }
 
-		Set<String> names = new HashSet<String>();
+  @Override
+  public void filter(Collection<Sample> samples, FilterModel filterModel) {
+    super.filter(samples, filterModel);
 
-		for (Sample sample : samples) {
-			for (Group g : sample.getGroups()) {
-				//String name = person.getName();
-				
-				//names.add(name);
-				names.add(g.getName());
-			}
-		}
+    Set<String> names = new HashSet<String>();
 
-		// Add names using surname, forname sorting
-		addSortedFilterNames(names, filterModel);
-	}
+    for (Sample sample : samples) {
+      for (Group g : sample.getGroups()) {
+        // String name = person.getName();
 
-	public final String getName() {
-		return "Group";
-	}
+        // names.add(name);
+        names.add(g.getName());
+      }
+    }
+
+    // Add names using surname, forname sorting
+    addSortedFilterNames(names, filterModel);
+  }
+
+  public final String getName() {
+    return "Group";
+  }
 }

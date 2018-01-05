@@ -15,8 +15,6 @@
  */
 package edu.columbia.rdf.edb.ui.filter.groups;
 
-
-
 import org.jebtk.core.text.TextUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -24,49 +22,47 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import edu.columbia.rdf.edb.Group;
 
-
-
 // TODO: Auto-generated Javadoc
 /**
  * The class KeyXmlHandler.
  */
 public class GroupsXmlHandler extends DefaultHandler {
-	
-	
-	private GroupsModel mModel;
 
-	/**
-	 * Instantiates a new key xml handler.
-	 *
-	 * @param service the service
-	 */
-	public GroupsXmlHandler(GroupsModel model) {
-		mModel = model;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
-	 */
-	public void startElement(String uri, 
-			String localName,
-			String qName, 
-            Attributes attributes) throws SAXException {
-		
-		if (qName.equals("groups")) {
-			if (attributes.getValue("all") != null) {
-				mModel.updateAllMode(attributes.getValue("all").equals(TextUtils.TRUE));
-			}
-		} else if (qName.equals("group")) {
-			String name = attributes.getValue("name").toLowerCase();
-			boolean selected = attributes.getValue("selected").equals(TextUtils.TRUE);
-			
-			for (Group g : mModel) {
-				if (g.getName().toLowerCase().contains(name)) {
-					mModel.updateUse(g, selected);
-				}
-			}
-		} else {
-			
-		}
-	}
+  private GroupsModel mModel;
+
+  /**
+   * Instantiates a new key xml handler.
+   *
+   * @param service
+   *          the service
+   */
+  public GroupsXmlHandler(GroupsModel model) {
+    mModel = model;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String,
+   * java.lang.String, java.lang.String, org.xml.sax.Attributes)
+   */
+  public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+
+    if (qName.equals("groups")) {
+      if (attributes.getValue("all") != null) {
+        mModel.updateAllMode(attributes.getValue("all").equals(TextUtils.TRUE));
+      }
+    } else if (qName.equals("group")) {
+      String name = attributes.getValue("name").toLowerCase();
+      boolean selected = attributes.getValue("selected").equals(TextUtils.TRUE);
+
+      for (Group g : mModel) {
+        if (g.getName().toLowerCase().contains(name)) {
+          mModel.updateUse(g, selected);
+        }
+      }
+    } else {
+
+    }
+  }
 }

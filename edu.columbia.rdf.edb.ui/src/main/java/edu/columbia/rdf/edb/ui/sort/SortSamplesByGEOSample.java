@@ -19,53 +19,49 @@ import edu.columbia.rdf.edb.Sample;
  *
  */
 public class SortSamplesByGEOSample extends SampleSorter {
-	@Override
-	public void arrange(Collection<Sample> samples, 
-			ModernTree<Sample> tree, 
-			boolean ascending,
-			FilterModel filterModel) {
-		ListMultiMap<String, Sample> map = ArrayListMultiMap.create();
+  @Override
+  public void arrange(Collection<Sample> samples, ModernTree<Sample> tree, boolean ascending, FilterModel filterModel) {
+    ListMultiMap<String, Sample> map = ArrayListMultiMap.create();
 
-		for (Sample sample : samples) {
-			GEO geo = sample.getGEO();
-			
-			if (geo == null) {
-				continue;
-			}
-			
-			String name = geo.getGEOAccession();
-			
-			if (filterModel.keep(name)) {
-				map.get(name).add(sample);
-			}
-		}
-		
-		arrange(map, ascending, tree);
-	}
-	
-	@Override
-	public void filter(Collection<Sample> samples, 
-			FilterModel filterModel) {
-		super.filter(samples, filterModel);
-		
-		Set<String> names = new HashSet<String>();
-		
-		for (Sample sample : samples) {
-			GEO geo = sample.getGEO();
-			
-			if (geo == null) {
-				continue;
-			}
-			
-			String name = geo.getGEOAccession();
-			
-			names.add(name);
-		}
-		
-		addSortedFilterNames(names, filterModel);
-	}
+    for (Sample sample : samples) {
+      GEO geo = sample.getGEO();
 
-	public final String getName() {
-		return "GEO Sample";
-	}
+      if (geo == null) {
+        continue;
+      }
+
+      String name = geo.getGEOAccession();
+
+      if (filterModel.keep(name)) {
+        map.get(name).add(sample);
+      }
+    }
+
+    arrange(map, ascending, tree);
+  }
+
+  @Override
+  public void filter(Collection<Sample> samples, FilterModel filterModel) {
+    super.filter(samples, filterModel);
+
+    Set<String> names = new HashSet<String>();
+
+    for (Sample sample : samples) {
+      GEO geo = sample.getGEO();
+
+      if (geo == null) {
+        continue;
+      }
+
+      String name = geo.getGEOAccession();
+
+      names.add(name);
+    }
+
+    addSortedFilterNames(names, filterModel);
+  }
+
+  public final String getName() {
+    return "GEO Sample";
+  }
 }

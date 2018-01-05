@@ -15,8 +15,6 @@
  */
 package edu.columbia.rdf.edb.ui.filter.organisms;
 
-
-
 import org.jebtk.core.text.TextUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -24,43 +22,41 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import edu.columbia.rdf.edb.Species;
 
-
-
 // TODO: Auto-generated Javadoc
 /**
  * The class KeyXmlHandler.
  */
 public class OrganismsXmlHandler extends DefaultHandler {
-	
-	
-	private OrganismsModel mModel;
 
-	/**
-	 * Instantiates a new key xml handler.
-	 *
-	 * @param service the service
-	 */
-	public OrganismsXmlHandler(OrganismsModel model) {
-		mModel = model;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
-	 */
-	public void startElement(String uri, 
-			String localName,
-			String qName, 
-            Attributes attributes) throws SAXException {
-		
-		if (qName.equals("organism")) {
-			String name = attributes.getValue("name").toLowerCase();
-			boolean selected = attributes.getValue("selected").equals(TextUtils.TRUE);
-			
-			for (Species t : mModel) {
-				if (t.getName().toLowerCase().contains(name)) {
-					mModel.updateUse(t, selected);
-				}
-			}
-		} 
-	}
+  private OrganismsModel mModel;
+
+  /**
+   * Instantiates a new key xml handler.
+   *
+   * @param service
+   *          the service
+   */
+  public OrganismsXmlHandler(OrganismsModel model) {
+    mModel = model;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String,
+   * java.lang.String, java.lang.String, org.xml.sax.Attributes)
+   */
+  public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+
+    if (qName.equals("organism")) {
+      String name = attributes.getValue("name").toLowerCase();
+      boolean selected = attributes.getValue("selected").equals(TextUtils.TRUE);
+
+      for (Species t : mModel) {
+        if (t.getName().toLowerCase().contains(name)) {
+          mModel.updateUse(t, selected);
+        }
+      }
+    }
+  }
 }

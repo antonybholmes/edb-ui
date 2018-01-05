@@ -9,10 +9,10 @@ import org.jebtk.core.MessageException;
  *
  */
 public class ExperimentSearchException extends MessageException {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	public ExperimentSearchException(String message) {
-		super(message);
-	}
+  public ExperimentSearchException(String message) {
+    super(message);
+  }
 
 }

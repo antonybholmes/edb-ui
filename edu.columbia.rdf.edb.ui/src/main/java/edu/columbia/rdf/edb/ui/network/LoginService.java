@@ -13,90 +13,88 @@ import org.jebtk.core.xml.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-
 public class LoginService implements Iterable<Login> {
-	private List<Login> logins = new ArrayList<Login>();
+  private List<Login> logins = new ArrayList<Login>();
 
-	private Path mFile;
+  private Path mFile;
 
-	private static final LoginService instance = new LoginService();
+  private static final LoginService instance = new LoginService();
 
-	public static final LoginService getInstance() {
+  public static final LoginService getInstance() {
 
-		return instance;
-	}
+    return instance;
+  }
 
-	public LoginService() {
+  public LoginService() {
 
-		// do nothing
-	}
-	
+    // do nothing
+  }
 
-	/**
-	 * Returns a list of the recent files.
-	 *
-	 * @return	a list of recent files.
-	 */
-	public final int size() {
+  /**
+   * Returns a list of the recent files.
+   *
+   * @return a list of recent files.
+   */
+  public final int size() {
 
-		return logins.size();
-	}
+    return logins.size();
+  }
 
-	/**
-	 * Adds a new login.
-	 *
-	 * @param login
-	 */
-	public final void add(Login login) {
+  /**
+   * Adds a new login.
+   *
+   * @param login
+   */
+  public final void add(Login login) {
 
-		if (logins.contains(login)) {
-			return;
-		}
+    if (logins.contains(login)) {
+      return;
+    }
 
-		logins.add(login);
-	}
+    logins.add(login);
+  }
 
-	public void write() throws ParserConfigurationException, TransformerException {
-		write(true, false);
-	}
+  public void write() throws ParserConfigurationException, TransformerException {
+    write(true, false);
+  }
 
-	/**
-	 * Writes login details to file. It has the option of writing
-	 * user names and passwords along with the server and port which
-	 * are mandatory.
-	 *
-	 * @param writeUsers
-	 * @param writePasswords
-	 * @throws IOException 
-	 * @throws ParserConfigurationException 
-	 * @throws TransformerException 
-	 */
-	public final void write(boolean writeUsers, boolean writePasswords) throws ParserConfigurationException, TransformerException {
+  /**
+   * Writes login details to file. It has the option of writing user names and
+   * passwords along with the server and port which are mandatory.
+   *
+   * @param writeUsers
+   * @param writePasswords
+   * @throws IOException
+   * @throws ParserConfigurationException
+   * @throws TransformerException
+   */
+  public final void write(boolean writeUsers, boolean writePasswords)
+      throws ParserConfigurationException, TransformerException {
 
-		// create the root
-		
-		Document doc = XmlUtils.createDoc(); //new XmlDocument(serversElement);
+    // create the root
 
-		Element serversElement = doc.createElement("servers");
-		
-		doc.appendChild(serversElement);
-		
-		for (Login login : logins) {
-			serversElement.appendChild(login.toXml(doc));
-	    }
+    Document doc = XmlUtils.createDoc(); // new XmlDocument(serversElement);
 
-		XmlUtils.writeXml(doc, mFile);
-	}
+    Element serversElement = doc.createElement("servers");
 
-	public final Iterator<Login> iterator() {
-		return logins.iterator();
-	}
+    doc.appendChild(serversElement);
 
-	public final Login get(int i) {
-		if (i < 0 || i >= logins.size()) {
-			return null;
-		}
+    for (Login login : logins) {
+      serversElement.appendChild(login.toXml(doc));
+    }
 
-		return logins.get(i);
-	}
+    XmlUtils.writeXml(doc, mFile);
+  }
+
+  public final Iterator<Login> iterator() {
+    return logins.iterator();
+  }
+
+  public final Login get(int i) {
+    if (i < 0 || i >= logins.size()) {
+      return null;
+    }
+
+    return logins.get(i);
+  }
 }

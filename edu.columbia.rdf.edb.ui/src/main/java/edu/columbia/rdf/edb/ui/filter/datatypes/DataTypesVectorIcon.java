@@ -29,8 +29,6 @@ package edu.columbia.rdf.edb.ui.filter.datatypes;
 
 import org.jebtk.modern.tabs.IconTabsVectorIcon;
 
-
-
 // TODO: Auto-generated Javadoc
 /**
  * Group vector icon showing 3 colored balls spaced equally around a circle.
@@ -39,7 +37,7 @@ import org.jebtk.modern.tabs.IconTabsVectorIcon;
  *
  */
 public class DataTypesVectorIcon extends IconTabsVectorIcon {
-	public DataTypesVectorIcon() {
-		super('D');
-	}
+  public DataTypesVectorIcon() {
+    super('D');
+  }
 }

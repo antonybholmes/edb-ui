@@ -1,6 +1,5 @@
 package edu.columbia.rdf.edb.ui.microarray;
 
 public enum MicroarrayNormalizationType {
-	RMA,
-	MAS5
+  RMA, MAS5
 }
