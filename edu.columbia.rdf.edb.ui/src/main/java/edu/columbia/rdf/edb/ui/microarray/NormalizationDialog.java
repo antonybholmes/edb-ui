@@ -22,14 +22,16 @@ import edu.columbia.rdf.edb.DataView;
 import edu.columbia.rdf.edb.DataViewField;
 import edu.columbia.rdf.edb.DataViewSection;
 
-public class NormalizationDialog extends ModernDialogTaskWindow implements ModernClickListener {
+public class NormalizationDialog extends ModernDialogTaskWindow
+    implements ModernClickListener {
   private static final long serialVersionUID = 1L;
 
   public static final String MICROARRAY_EXPRESSION_DATA = "Microarray";
 
   private static final DataView DATA_VIEW = new MicroarrayDataView();
 
-  private ModernTwoStateWidget mCheckSelectAll = new ModernCheckSwitch(UI.MENU_SELECT_ALL);
+  private ModernTwoStateWidget mCheckSelectAll = new ModernCheckSwitch(
+      UI.MENU_SELECT_ALL);
 
   // private ModernListModel<String> model = new ModernListModel<String>();
 

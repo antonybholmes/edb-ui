@@ -18,7 +18,8 @@ import edu.columbia.rdf.edb.ui.DataViewXmlHandler;
  */
 public class MicroarrayDataView extends DataView {
 
-  private static final java.nio.file.Path VIEW_FILE = PathUtils.getPath("res/views/microarray.xml");
+  private static final java.nio.file.Path VIEW_FILE = PathUtils
+      .getPath("res/views/microarray.xml");
 
   public MicroarrayDataView() {
     super("Microarray");
@@ -39,10 +40,10 @@ public class MicroarrayDataView extends DataView {
      * "Material Type" ); section.addField(Path.create(
      * "/Microarray/Sample/Source/Characteristic/Organism"), "Organism");
      * section.addField(Path.create(
-     * "/Microarray/Sample/Source/Characteristic/Organism_Part"), "Organism Part");
-     * section.addField(Path.create(
-     * "/Microarray/Sample/Source/Characteristic/Disease_State"), "Disease State");
-     * section.addField(Path.create(
+     * "/Microarray/Sample/Source/Characteristic/Organism_Part"),
+     * "Organism Part"); section.addField(Path.create(
+     * "/Microarray/Sample/Source/Characteristic/Disease_State"),
+     * "Disease State"); section.addField(Path.create(
      * "/Microarray/Sample/Source/Characteristic/Cell_Type"), "Cell Type");
      * section.addField(Path.create(
      * "/Microarray/Sample/Source/Characteristic/Treatment"), "Treatment");
@@ -54,12 +55,13 @@ public class MicroarrayDataView extends DataView {
      * "/Microarray/Sample/Source/Characteristic/Disease_Status"),
      * "Disease Status"); section.addField(Path.create(
      * "/Microarray/Sample/Source/Characteristic/Gender"), "Gender");
-     * section.addField(Path.create("/Microarray/Sample/Source/Characteristic/Age"),
-     * "Age"); section.addField(Path.create(
+     * section.addField(Path.create(
+     * "/Microarray/Sample/Source/Characteristic/Age"), "Age");
+     * section.addField(Path.create(
      * "/Microarray/Sample/Source/Characteristic/Clinical_Parameters"),
      * "Clinical Parameters"); section.addField(Path.create(
-     * "/Microarray/Sample/Source/Characteristic/Cytogenetics"), "Cytogenetics");
-     * section.addField(Path.create(
+     * "/Microarray/Sample/Source/Characteristic/Cytogenetics"),
+     * "Cytogenetics"); section.addField(Path.create(
      * "/Microarray/Sample/Source/Characteristic/IgV_Status"), "IgV Status");
      * section.addField(Path.create(
      * "/Microarray/Sample/Source/Characteristic/GEP_Based_Classification"),
@@ -103,30 +105,31 @@ public class MicroarrayDataView extends DataView {
      * section.addField(Path.create(
      * "/Microarray/Sample/Labeled_Extract/Characteristic/Array_Platform"),
      * "Array Platform"); section.addField(Path.create(
-     * "/Microarray/Sample/Labeled_Extract/Characteristic/Hybridization_Protocol"),
-     * "Hybridization Protocol"); section.addField(Path.create(
+     * "/Microarray/Sample/Labeled_Extract/Characteristic/Hybridization_Protocol"
+     * ), "Hybridization Protocol"); section.addField(Path.create(
      * "/Microarray/Sample/Labeled_Extract/Characteristic/Scanning_Protocol"),
      * "Scanning Protocol"); section.addField(Path.create(
      * "/Microarray/Sample/Labeled_Extract/Characteristic/CHP_Normalization_Method")
      * , "CHP Normalization Method"); section.addField(Path.create(
-     * "/Microarray/Sample/Labeled_Extract/Characteristic/Hybridization_Facility"),
-     * "Hybridization Facility"); section.addField(Path.create(
+     * "/Microarray/Sample/Labeled_Extract/Characteristic/Hybridization_Facility"
+     * ), "Hybridization Facility"); section.addField(Path.create(
      * "/Microarray/Sample/Labeled_Extract/Characteristic/MAS5_Normalization"),
      * "MAS5 Normalization"); section.addField(Path.create(
-     * "/Microarray/Sample/Labeled_Extract/Characteristic/MAS5_Normalization_File"),
-     * "MAS5 Normalization File"); section.addField(Path.create(
+     * "/Microarray/Sample/Labeled_Extract/Characteristic/MAS5_Normalization_File"
+     * ), "MAS5 Normalization File"); section.addField(Path.create(
      * "/Microarray/Sample/Labeled_Extract/Characteristic/RMA_Normalization"),
      * "RMA Normalization"); section.addField(Path.create(
-     * "/Microarray/Sample/Labeled_Extract/Characteristic/RMA_Normalization_File"),
-     * "RMA Normalization File"); section.addField(Path.create(
-     * "/Microarray/Sample/Labeled_Extract/Characteristic/GEO_Series_Accession"),
-     * "GEO Series Accession"); section.addField(Path.create(
+     * "/Microarray/Sample/Labeled_Extract/Characteristic/RMA_Normalization_File"
+     * ), "RMA Normalization File"); section.addField(Path.create(
+     * "/Microarray/Sample/Labeled_Extract/Characteristic/GEO_Series_Accession")
+     * , "GEO Series Accession"); section.addField(Path.create(
      * "/Microarray/Sample/Labeled_Extract/Characteristic/GEO_Accession"),
      * "GEO Accession"); section.addField(Path.create(
      * "/Microarray/Sample/Labeled_Extract/Characteristic/GEO_Platform"),
      * "GEO Platform"); addSection(section);
      * 
-     * section = new DataViewSection("Hybridization"); section.addField(Path.create(
+     * section = new DataViewSection("Hybridization");
+     * section.addField(Path.create(
      * "/Microarray/Sample/Hybridization/Hybridization_Name"),
      * "Hybridization Name"); section.addField(Path.create(
      * "/Microarray/Sample/Hybridization/Array_Data_File"), "Array Data File");

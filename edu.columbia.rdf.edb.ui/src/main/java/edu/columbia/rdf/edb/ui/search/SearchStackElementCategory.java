@@ -57,7 +57,8 @@ public class SearchStackElementCategory {
    * @return
    * @throws Exception
    */
-  public static Deque<SearchStackElementCategory> getSearchStack(UserSearch search) throws Exception {
+  public static Deque<SearchStackElementCategory> getSearchStack(
+      UserSearch search) throws Exception {
     List<SearchStackElementCategory> searchList = new ArrayList<SearchStackElementCategory>();
 
     Deque<SearchStackOperator> operatorStack = new ArrayDeque<SearchStackOperator>();
@@ -77,12 +78,16 @@ public class SearchStackElementCategory {
       // operand
 
       if (i > 0) {
-        addLowerPrecedenceOps(searchEntry.getOperator(), searchList, operatorStack);
+        addLowerPrecedenceOps(searchEntry.getOperator(),
+            searchList,
+            operatorStack);
       }
 
-      List<SearchStackElement<Sample>> searchQueue = SearchStackElement.parseQuery(searchEntry.getText());
+      List<SearchStackElement<Sample>> searchQueue = SearchStackElement
+          .parseQuery(searchEntry.getText());
 
-      SearchStackElementCategory element = new SearchStackElementCategory(searchEntry.getField(),
+      SearchStackElementCategory element = new SearchStackElementCategory(
+          searchEntry.getField(),
           new Search(searchEntry.getText(), searchQueue));
 
       searchList.add(element);
@@ -116,10 +121,10 @@ public class SearchStackElementCategory {
    * @param operator
    * @param operatorStack
    * @param stack
-   * @throws Exception
-   *           {
+   * @throws Exception {
    */
-  private static void addLowerPrecedenceOps(SearchStackOperator operator, List<SearchStackElementCategory> stack,
+  private static void addLowerPrecedenceOps(SearchStackOperator operator,
+      List<SearchStackElementCategory> stack,
       Deque<SearchStackOperator> operatorStack) throws Exception {
     int precedence = SearchStackOperator.precedence(operator);
 
@@ -130,8 +135,10 @@ public class SearchStackElementCategory {
     while (operatorStack.size() > 0) {
       op = operatorStack.peek();
 
-      if ((SearchStackOperator.isLeftAssociative(operator) && (precedence <= SearchStackOperator.precedence(op)))
-          || (!SearchStackOperator.isLeftAssociative(operator) && (precedence < SearchStackOperator.precedence(op)))) {
+      if ((SearchStackOperator.isLeftAssociative(operator)
+          && (precedence <= SearchStackOperator.precedence(op)))
+          || (!SearchStackOperator.isLeftAssociative(operator)
+              && (precedence < SearchStackOperator.precedence(op)))) {
         // addOperatorToStack(stack, op);
         stack.add(new SearchStackElementCategory(op));
 

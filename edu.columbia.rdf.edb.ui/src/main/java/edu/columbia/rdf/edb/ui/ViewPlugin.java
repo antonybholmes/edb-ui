@@ -36,9 +36,9 @@ public abstract class ViewPlugin implements Comparable<ViewPlugin> {
   }
 
   /**
-   * Should add sample viewers specific to the type of view this plugin describes.
-   * Sample views are similar to sample sorters, but used for the very left
-   * folders pane in the main UI.
+   * Should add sample viewers specific to the type of view this plugin
+   * describes. Sample views are similar to sample sorters, but used for the
+   * very left folders pane in the main UI.
    * 
    * @param views
    */
@@ -47,25 +47,28 @@ public abstract class ViewPlugin implements Comparable<ViewPlugin> {
   }
 
   /**
-   * Should be overridden to add custom search functionality for features specific
-   * to this plugin, e.g. for microarrays, this could be to allow you to search by
-   * array plaform.
+   * Should be overridden to add custom search functionality for features
+   * specific to this plugin, e.g. for microarrays, this could be to allow you
+   * to search by array plaform.
    * 
    * @param searchCategoryService
    */
-  public void initSearchCategories(SearchCategoryService searchCategoryService) {
+  public void initSearchCategories(
+      SearchCategoryService searchCategoryService) {
     // do nothing
   }
 
   /**
-   * Should return the name of the view. This is matched to a sample's expression
-   * type to determine how it should be displayed.
+   * Should return the name of the view. This is matched to a sample's
+   * expression type to determine how it should be displayed.
    * 
    * @return
    */
   public abstract String getExpressionType();
 
-  public void init(ModernRibbonWindow parent, StatusModel statusModel, ModernToolTipModel toolTipModel,
+  public void init(ModernRibbonWindow parent,
+      StatusModel statusModel,
+      ModernToolTipModel toolTipModel,
       SelectionModel<Sample> selectedSamples) {
     // Do nothing
   }
@@ -114,7 +117,8 @@ public abstract class ViewPlugin implements Comparable<ViewPlugin> {
    * @param samples
    * @return
    */
-  public static final List<Sample> getUnlockedSamples(Collection<Sample> samples) {
+  public static final List<Sample> getUnlockedSamples(
+      Collection<Sample> samples) {
     List<Sample> ret = new ArrayList<Sample>(samples.size());
 
     for (Sample sample : samples) {

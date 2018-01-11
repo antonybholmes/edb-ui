@@ -24,11 +24,14 @@ public class DownloadManager {
   public static final String MAS5 = "mas5-annotated";
   public static final String RMA = "rma-annotated";
 
-  public static Path downloadAsZip(ModernWindow parent, Set<FileDescriptor> files) throws IOException {
+  public static Path downloadAsZip(ModernWindow parent,
+      Set<FileDescriptor> files) throws IOException {
 
     if (files.size() == 0) {
-      ModernMessageDialog.createDialog(parent, parent.getAppInfo().getName(),
-          "You must select at least one file to download.", MessageDialogType.WARNING);
+      ModernMessageDialog.createDialog(parent,
+          parent.getAppInfo().getName(),
+          "You must select at least one file to download.",
+          MessageDialogType.WARNING);
 
       return null;
     }
@@ -51,7 +54,8 @@ public class DownloadManager {
     Path output = PathUtils.addExtension(fc.getSelectedFile().toPath(), "zip");
 
     if (FileUtils.exists(output)) {
-      ModernDialogStatus status = ModernMessageDialog.createFileReplaceDialog(parent, output);
+      ModernDialogStatus status = ModernMessageDialog
+          .createFileReplaceDialog(parent, output);
 
       if (status == ModernDialogStatus.CANCEL) {
         return downloadAsZip(parent, files);
@@ -62,13 +66,16 @@ public class DownloadManager {
 
     RecentFilesService.getInstance().add(output);
 
-    ModernMessageDialog.createFileSavedDialog(parent, parent.getAppInfo().getName(), output);
+    ModernMessageDialog
+        .createFileSavedDialog(parent, parent.getAppInfo().getName(), output);
 
     return output;
   }
 
-  public static void downloadAsZip(Set<FileDescriptor> files, Path output) throws IOException {
-    Repository connection = RepositoryService.getInstance().getRepository(RepositoryService.DEFAULT_REP);
+  public static void downloadAsZip(Set<FileDescriptor> files, Path output)
+      throws IOException {
+    Repository connection = RepositoryService.getInstance()
+        .getRepository(RepositoryService.DEFAULT_REP);
 
     FileDownloader downloader = connection.getFileDownloader();
 
@@ -77,7 +84,8 @@ public class DownloadManager {
 
   public static Path chooseDownloadDirectory(Frame parent) throws IOException {
 
-    Path downloadDirectory = PathUtils.getPath(SettingsService.getInstance().getAsString("downloads/directory"));
+    Path downloadDirectory = PathUtils.getPath(
+        SettingsService.getInstance().getAsString("downloads/directory"));
 
     // Make sure the directory exists
     FileUtils.mkdir(downloadDirectory);
@@ -87,15 +95,18 @@ public class DownloadManager {
     fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     fc.setCurrentDirectory(downloadDirectory.toFile());
 
-    if (fc.showDialog(parent, "Choose download directory") == JFileChooser.CANCEL_OPTION) {
+    if (fc.showDialog(parent,
+        "Choose download directory") == JFileChooser.CANCEL_OPTION) {
       return null;
     }
 
     return fc.getSelectedFile().toPath();
   }
 
-  public static void download(FileDescriptor file, Path output) throws IOException {
-    Repository connection = RepositoryService.getInstance().getRepository(RepositoryService.DEFAULT_REP);
+  public static void download(FileDescriptor file, Path output)
+      throws IOException {
+    Repository connection = RepositoryService.getInstance()
+        .getRepository(RepositoryService.DEFAULT_REP);
 
     FileDownloader downloader = connection.getFileDownloader();
 

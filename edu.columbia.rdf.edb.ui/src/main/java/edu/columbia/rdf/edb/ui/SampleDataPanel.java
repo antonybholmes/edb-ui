@@ -61,7 +61,9 @@ public class SampleDataPanel extends ModernClipboardWidget {
   @Override
   public void setHeader(Component c) {
     super.setHeader(new ModernComponent(
-        new ModernLineBottomBorderPanel(new ModernComponent(c, UI.createBottomBorder(10))), ModernWidget.LARGE_BORDER));
+        new ModernLineBottomBorderPanel(
+            new ModernComponent(c, UI.createBottomBorder(10))),
+        ModernWidget.LARGE_BORDER));
   }
 
   public Sample getSample() {

@@ -52,8 +52,10 @@ public class DataViewXmlHandler extends DefaultHandler {
    * java.lang.String, java.lang.String, org.xml.sax.Attributes)
    */
   @Override
-  public final void startElement(String uri, String localName, String qName, Attributes attributes)
-      throws SAXException {
+  public final void startElement(String uri,
+      String localName,
+      String qName,
+      Attributes attributes) throws SAXException {
 
     if (qName.equals("view")) {
       // mDataView = new DataView(attributes.getValue("name"));
@@ -62,7 +64,8 @@ public class DataViewXmlHandler extends DefaultHandler {
 
       mDataView.addSection(mSection);
     } else if (qName.equals("field")) {
-      mSection.addField(Path.create(attributes.getValue("path")), attributes.getValue("name"));
+      mSection.addField(Path.create(attributes.getValue("path")),
+          attributes.getValue("name"));
     } else {
       // do nothing
     }
@@ -86,19 +89,15 @@ public class DataViewXmlHandler extends DefaultHandler {
   /**
    * Load xml.
    *
-   * @param is
-   *          the is
-   * @param update
-   *          the update
+   * @param is the is
+   * @param update the update
    * @return true, if successful
-   * @throws SAXException
-   *           the SAX exception
-   * @throws IOException
-   *           Signals that an I/O exception has occurred.
-   * @throws ParserConfigurationException
-   *           the parser configuration exception
+   * @throws SAXException the SAX exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ParserConfigurationException the parser configuration exception
    */
-  protected static synchronized boolean loadXml(InputStream is, DataView dataView)
+  protected static synchronized boolean loadXml(InputStream is,
+      DataView dataView)
       throws SAXException, IOException, ParserConfigurationException {
     if (is == null) {
       return false;

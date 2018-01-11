@@ -20,7 +20,10 @@ import edu.columbia.rdf.edb.Sample;
  */
 public class SortSamplesByGEOSample extends SampleSorter {
   @Override
-  public void arrange(Collection<Sample> samples, ModernTree<Sample> tree, boolean ascending, FilterModel filterModel) {
+  public void arrange(Collection<Sample> samples,
+      ModernTree<Sample> tree,
+      boolean ascending,
+      FilterModel filterModel) {
     ListMultiMap<String, Sample> map = ArrayListMultiMap.create();
 
     for (Sample sample : samples) {

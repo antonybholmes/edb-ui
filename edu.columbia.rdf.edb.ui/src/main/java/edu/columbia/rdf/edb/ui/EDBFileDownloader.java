@@ -23,11 +23,13 @@ import edu.columbia.rdf.edb.FileDescriptor;
  *
  */
 public class EDBFileDownloader implements FileDownloader {
-  private static final Logger LOG = LoggerFactory.getLogger(EDBFileDownloader.class);
+  private static final Logger LOG = LoggerFactory
+      .getLogger(EDBFileDownloader.class);
 
   private EDBWLogin mLogin;
 
-  public EDBFileDownloader(EDBWLogin login) throws UnsupportedEncodingException {
+  public EDBFileDownloader(EDBWLogin login)
+      throws UnsupportedEncodingException {
     mLogin = login;
 
     // serveFileUrl =
@@ -81,15 +83,19 @@ public class EDBFileDownloader implements FileDownloader {
   }
 
   @Override
-  public void downloadFile(FileDescriptor file, Path localFile) throws IOException {
-    UrlBuilder urlFile = mLogin.getOTKAuthUrl().resolve("download").resolve("files").resolve(file.getId());
+  public void downloadFile(FileDescriptor file, Path localFile)
+      throws IOException {
+    UrlBuilder urlFile = mLogin.getOTKAuthUrl().resolve("download")
+        .resolve("files").resolve(file.getId());
 
     downloadFile(urlFile, localFile);
   }
 
   @Override
-  public void downloadZip(Set<FileDescriptor> files, Path localFile) throws IOException {
-    UrlBuilder url = mLogin.getOTKAuthUrl().resolve("download").resolve("files").resolve("zip");
+  public void downloadZip(Set<FileDescriptor> files, Path localFile)
+      throws IOException {
+    UrlBuilder url = mLogin.getOTKAuthUrl().resolve("download").resolve("files")
+        .resolve("zip");
 
     // Add the file ids we want to download
     for (FileDescriptor file : files) {

@@ -55,12 +55,14 @@ public class SectionDataPanelGrid2 extends VBoxAutoWidth {
         String text;
 
         if (fieldValue != null) {
-          text = SubstitutionService.getInstance().getSubstitute(fieldValue.getValue());
+          text = SubstitutionService.getInstance()
+              .getSubstitute(fieldValue.getValue());
         } else {
           text = TextUtils.NA;
         }
 
-        p.add(new ModernTextBorderPanel(new ModernClipboardTextField(text, false)));
+        p.add(new ModernTextBorderPanel(
+            new ModernClipboardTextField(text, false)));
       }
 
       add(p);

@@ -15,20 +15,24 @@ public class UserSearchXmlHandler extends DefaultHandler {
   private SearchCategory mField;
 
   @Override
-  public final void startElement(String uri, String localName, String qName, Attributes attributes)
-      throws SAXException {
+  public final void startElement(String uri,
+      String localName,
+      String qName,
+      Attributes attributes) throws SAXException {
 
     if (qName.equals("user-search")) {
       mUserSearch = new UserSearch();
     } else if (qName.equals("field")) {
-      mField = new SearchCategory(attributes.getValue("name"), new Path(attributes.getValue("field")));
+      mField = new SearchCategory(attributes.getValue("name"),
+          new Path(attributes.getValue("field")));
     } else {
       // do nothing
     }
   }
 
   @Override
-  public final void endElement(String uri, String localName, String qName) throws SAXException {
+  public final void endElement(String uri, String localName, String qName)
+      throws SAXException {
 
     if (qName.equals("user-search-entry")) {
       UserSearchEntry entry = new UserSearchEntry(mOperator, mField, mSearch);
@@ -42,7 +46,8 @@ public class UserSearchXmlHandler extends DefaultHandler {
   @Override
   public void characters(char[] ch, int start, int length) {
     if (mMode.equals("operator")) {
-      mOperator = SearchStackOperator.parseOperator(new String(ch, start, length));
+      mOperator = SearchStackOperator
+          .parseOperator(new String(ch, start, length));
     } else if (mMode.equals("search")) {
       mSearch = new String(ch, start, length);
     } else {

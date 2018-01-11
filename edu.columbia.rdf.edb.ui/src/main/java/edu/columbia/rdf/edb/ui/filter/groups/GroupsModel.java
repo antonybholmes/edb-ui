@@ -16,7 +16,8 @@ import edu.columbia.rdf.edb.Group;
 import edu.columbia.rdf.edb.Groups;
 import edu.columbia.rdf.edb.ui.Repository;
 
-public abstract class GroupsModel extends ChangeListeners implements Iterable<Group>, XmlRepresentation {
+public abstract class GroupsModel extends ChangeListeners
+    implements Iterable<Group>, XmlRepresentation {
   private static final long serialVersionUID = 1L;
 
   protected Map<Group, Boolean> mGroupMap = new TreeMap<Group, Boolean>();

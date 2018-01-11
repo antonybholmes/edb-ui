@@ -15,7 +15,8 @@ import org.w3c.dom.Element;
 import edu.columbia.rdf.edb.Species;
 import edu.columbia.rdf.edb.ui.Repository;
 
-public class OrganismsModel extends ChangeListeners implements Iterable<Species>, XmlRepresentation {
+public class OrganismsModel extends ChangeListeners
+    implements Iterable<Species>, XmlRepresentation {
   private static final long serialVersionUID = 1L;
 
   protected Map<Species, Boolean> mTypeMap = new TreeMap<Species, Boolean>();

@@ -21,9 +21,11 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class SearchCategoryService implements Iterable<SearchCategoryGroup> {
-  public static final File DEFAULT_SEARCH_CATEGORIES_XML_FILE = new File("res/search.categories.xml");
+  public static final File DEFAULT_SEARCH_CATEGORIES_XML_FILE = new File(
+      "res/search.categories.xml");
 
-  private final static Logger LOG = LoggerFactory.getLogger(SearchCategoryService.class);
+  private final static Logger LOG = LoggerFactory
+      .getLogger(SearchCategoryService.class);
 
   private List<SearchCategoryGroup> groups = new ArrayList<SearchCategoryGroup>();
 

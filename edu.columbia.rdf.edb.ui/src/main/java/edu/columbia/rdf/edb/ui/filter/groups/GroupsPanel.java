@@ -40,7 +40,8 @@ import edu.columbia.rdf.edb.Group;
  * @author Antony Holmes Holmes
  *
  */
-public class GroupsPanel extends ModernComponent implements ModernClickListener {
+public class GroupsPanel extends ModernComponent
+    implements ModernClickListener {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 1L;
@@ -51,7 +52,8 @@ public class GroupsPanel extends ModernComponent implements ModernClickListener 
 
   private ModernTwoStateWidget mCheckAll = new ModernCheckSwitch("Select All");
 
-  private ModernTwoStateWidget mCheckAllMode = new ModernCheckSwitch("In All Groups");
+  private ModernTwoStateWidget mCheckAllMode = new ModernCheckSwitch(
+      "In All Groups");
 
   public GroupsPanel(GroupsModel model) {
     mModel = model;
@@ -67,7 +69,8 @@ public class GroupsPanel extends ModernComponent implements ModernClickListener 
     box.add(UI.createVGap(10));
 
     for (Group g : model) {
-      ModernTwoStateWidget check = new ModernCheckSwitch(g.getName(), model.getUse(g), g.getColor());
+      ModernTwoStateWidget check = new ModernCheckSwitch(g.getName(),
+          model.getUse(g), g.getColor());
 
       box.add(check);
 
@@ -88,7 +91,8 @@ public class GroupsPanel extends ModernComponent implements ModernClickListener 
 
     collapsePane.setExpanded(true);
 
-    setBody(new ModernScrollPane(collapsePane).setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
+    setBody(new ModernScrollPane(collapsePane)
+        .setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
         .setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
 
     // setBorder(BORDER);

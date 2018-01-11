@@ -51,14 +51,17 @@ import edu.columbia.rdf.edb.ui.filter.groups.GroupsService;
 import edu.columbia.rdf.edb.ui.filter.organisms.OrganismsPanel;
 import edu.columbia.rdf.edb.ui.filter.organisms.OrganismsService;
 
-public class SamplesDialog extends ModernDialogHelpWindow implements ModernClickListener {
+public class SamplesDialog extends ModernDialogHelpWindow
+    implements ModernClickListener {
   private static final long serialVersionUID = 1L;
 
   private ModernTree<Sample> mTree = new ModernTree<Sample>();
 
-  private ModernButton mExpandButton = new ModernButton(UIService.getInstance().loadIcon(PlusVectorIcon.class, 16));
+  private ModernButton mExpandButton = new ModernButton(
+      UIService.getInstance().loadIcon(PlusVectorIcon.class, 16));
 
-  private ModernButton mCollapseButton = new ModernButton(UIService.getInstance().loadIcon(MinusVectorIcon.class, 16));
+  private ModernButton mCollapseButton = new ModernButton(
+      UIService.getInstance().loadIcon(MinusVectorIcon.class, 16));
 
   private SampleSortModel mSortModel;
 
@@ -119,13 +122,12 @@ public class SamplesDialog extends ModernDialogHelpWindow implements ModernClick
    * @param parent
    * @param title
    * @param help
-   * @param repName
-   *          The repository name to use for searching.
+   * @param repName The repository name to use for searching.
    * @param sortModel
    * @param searchModel
    */
-  public SamplesDialog(ModernWindow parent, String title, String help, String repName, SampleSortModel sortModel,
-      SearchModel searchModel) {
+  public SamplesDialog(ModernWindow parent, String title, String help,
+      String repName, SampleSortModel sortModel, SearchModel searchModel) {
     super(parent, help);
 
     mRepName = repName;
@@ -185,9 +187,11 @@ public class SamplesDialog extends ModernDialogHelpWindow implements ModernClick
 
     getIconTabs().addTab("GROUPS", 'G', userGroupsPanel);
     // addLeftTab("DATA TYPES", 'D', dataTypesPanel);
-    getIconTabs().addTab("ORGANISMS", 'O', new TabPanel("Organisms", organismsPanel));
+    getIconTabs()
+        .addTab("ORGANISMS", 'O', new TabPanel("Organisms", organismsPanel));
 
-    // IconTabsPanel viewPanel = new IconTabsPanel(groupTabsModel, 36, 22); //new
+    // IconTabsPanel viewPanel = new IconTabsPanel(groupTabsModel, 36, 22);
+    // //new
     // ModernComponent(new IconTabsPanel(groupTabsModel, 30, 20),
     // ModernWidget.DOUBLE_BORDER);
 
@@ -202,7 +206,8 @@ public class SamplesDialog extends ModernDialogHelpWindow implements ModernClick
 
     ModernComponent panel = new ModernComponent();
 
-    panel.setHeader(new ModernComponent(mSearchPanel, BorderService.getInstance().createBottomBorder(20)));
+    panel.setHeader(new ModernComponent(mSearchPanel,
+        BorderService.getInstance().createBottomBorder(20)));
 
     mSamplesPanel = new SamplesTreePanel(mParent, mSampleModel, mSortModel);
 
@@ -214,8 +219,11 @@ public class SamplesDialog extends ModernDialogHelpWindow implements ModernClick
       panel.setFooter(c);
     }
 
-    getTabsPane().getModel().setCenterTab(new ModernComponent(
-        new CardPanel(new ModernComponent(panel, ModernWidget.DOUBLE_BORDER)), ModernWidget.DOUBLE_BORDER));
+    getTabsPane().getModel()
+        .setCenterTab(new ModernComponent(
+            new CardPanel(
+                new ModernComponent(panel, ModernWidget.DOUBLE_BORDER)),
+            ModernWidget.DOUBLE_BORDER));
 
     // setDialogCardContent(panel); //new ModernPaddedPanel(new
     // ModernLineBorderPanel(panel)));
@@ -242,7 +250,8 @@ public class SamplesDialog extends ModernDialogHelpWindow implements ModernClick
 
     Repository store = RepositoryService.getInstance().getRepository(mRepName);
 
-    List<Sample> samples = store.searchSamples(mSearchPanel.getText(), mOrganismsModel.getOrganisms(),
+    List<Sample> samples = store.searchSamples(mSearchPanel.getText(),
+        mOrganismsModel.getOrganisms(),
         mUserGroupsModel.getGroups());
 
     mSampleModel.set(samples);

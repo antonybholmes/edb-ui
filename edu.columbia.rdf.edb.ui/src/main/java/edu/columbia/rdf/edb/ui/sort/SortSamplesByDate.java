@@ -18,7 +18,10 @@ import edu.columbia.rdf.edb.Sample;
 public class SortSamplesByDate extends SampleSorter {
 
   @Override
-  public void arrange(Collection<Sample> samples, ModernTree<Sample> tree, boolean ascending, FilterModel filterModel) {
+  public void arrange(Collection<Sample> samples,
+      ModernTree<Sample> tree,
+      boolean ascending,
+      FilterModel filterModel) {
 
     ListMultiMap<Date, Sample> map = ArrayListMultiMap.create();
 

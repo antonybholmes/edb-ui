@@ -20,10 +20,10 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 
+import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.core.json.Json;
 import org.jebtk.core.json.JsonParser;
 import org.jebtk.core.path.Path;
-import org.jebtk.bioinformatics.annotation.Type;
 
 import edu.columbia.rdf.edb.EDBWLogin;
 import edu.columbia.rdf.edb.Groups;
@@ -46,10 +46,8 @@ public class RestrictedRepository extends EDBRepository {
   /**
    * Instantiates a new chip seq repository.
    *
-   * @param login
-   *          the login
-   * @throws IOException
-   *           Signals that an I/O exception has occurred.
+   * @param login the login
+   * @throws IOException Signals that an I/O exception has occurred.
    */
   public RestrictedRepository(EDBWLogin login, Path path) throws IOException {
     super(login);
@@ -68,10 +66,13 @@ public class RestrictedRepository extends EDBRepository {
   }
 
   @Override
-  public List<Sample> searchSamples(String query, Path path, Collection<Type> dataTypes, Collection<Species> organisms,
+  public List<Sample> searchSamples(String query,
+      Path path,
+      Collection<Type> dataTypes,
+      Collection<Species> organisms,
       Groups groups) throws IOException {
-    URL url = getSearchSamplesUrl().param("p", path.toString()).param("q", query).param("ext", "persons")
-        .param("ext", "tags").toUrl();
+    URL url = getSearchSamplesUrl().param("p", path.toString())
+        .param("q", query).param("ext", "persons").param("ext", "tags").toUrl();
 
     System.err.println(url);
 

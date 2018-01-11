@@ -12,8 +12,10 @@ import org.w3c.dom.Element;
  * @author Antony Holmes Holmes
  *
  */
-public class UserSearchEntry implements XmlRepresentation, Comparable<UserSearchEntry> {
-  public static final SearchCategory DEFAULT_FIELD = new SearchCategory("All Categories", new Path("/All"));
+public class UserSearchEntry
+    implements XmlRepresentation, Comparable<UserSearchEntry> {
+  public static final SearchCategory DEFAULT_FIELD = new SearchCategory(
+      "All Categories", new Path("/All"));
 
   public static final SearchStackOperator DEFAULT_BOOL_TERM = SearchStackOperator.AND;
 
@@ -29,7 +31,8 @@ public class UserSearchEntry implements XmlRepresentation, Comparable<UserSearch
    * @param value
    * @throws MatchStackException
    */
-  public UserSearchEntry(SearchStackOperator operator, SearchCategory field, String search) {
+  public UserSearchEntry(SearchStackOperator operator, SearchCategory field,
+      String search) {
 
     mOperator = operator;
     mField = field;
@@ -37,8 +40,8 @@ public class UserSearchEntry implements XmlRepresentation, Comparable<UserSearch
   }
 
   /**
-   * Returns an operator which must be one of the logical operators (and, or, xor
-   * etc).
+   * Returns an operator which must be one of the logical operators (and, or,
+   * xor etc).
    * 
    * @return
    */
@@ -62,7 +65,9 @@ public class UserSearchEntry implements XmlRepresentation, Comparable<UserSearch
     return create(DEFAULT_BOOL_TERM, field, "");
   }
 
-  public static UserSearchEntry create(SearchStackOperator operator, SearchCategory field, String text) {
+  public static UserSearchEntry create(SearchStackOperator operator,
+      SearchCategory field,
+      String text) {
     return new UserSearchEntry(operator, field, text);
   }
 

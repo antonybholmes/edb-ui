@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.core.NetworkFileException;
 import org.jebtk.core.io.ByteStreams;
 import org.jebtk.core.json.Json;
@@ -21,7 +22,6 @@ import org.jebtk.core.json.JsonParser;
 import org.jebtk.core.network.UrlBuilder;
 import org.jebtk.core.path.Path;
 import org.jebtk.core.search.SearchStackElement;
-import org.jebtk.bioinformatics.annotation.Type;
 
 import edu.columbia.rdf.edb.EDB;
 import edu.columbia.rdf.edb.EDBWLogin;
@@ -62,11 +62,14 @@ public class EDBRepository extends CacheRepository {
   }
 
   @Override
-  public List<Sample> searchSamples(List<SearchStackElement<Sample>> searchStack, Path path) {
+  public List<Sample> searchSamples(
+      List<SearchStackElement<Sample>> searchStack,
+      Path path) {
     return null;
   }
 
-  protected UrlBuilder getSearchSamplesUrl() throws UnsupportedEncodingException {
+  protected UrlBuilder getSearchSamplesUrl()
+      throws UnsupportedEncodingException {
     return getSamplesUrl().resolve("search");
   }
 
@@ -74,15 +77,18 @@ public class EDBRepository extends CacheRepository {
     return mLogin.getOTKAuthUrl().resolve("experiments");
   }
 
-  private UrlBuilder getExperimentsUrl(int id) throws UnsupportedEncodingException {
+  private UrlBuilder getExperimentsUrl(int id)
+      throws UnsupportedEncodingException {
     return getExperimentsUrl().resolve(id);
   }
 
-  private UrlBuilder getExperimentFilesUrl(int id) throws UnsupportedEncodingException {
+  private UrlBuilder getExperimentFilesUrl(int id)
+      throws UnsupportedEncodingException {
     return getExperimentsUrl(id).resolve("files");
   }
 
-  private UrlBuilder getExperimentFilesDirUrl(int id) throws UnsupportedEncodingException {
+  private UrlBuilder getExperimentFilesDirUrl(int id)
+      throws UnsupportedEncodingException {
     return getExperimentFilesUrl(id).resolve("dir");
   }
 
@@ -94,38 +100,49 @@ public class EDBRepository extends CacheRepository {
     return getSamplesUrl().resolve(id);
   }
 
-  private UrlBuilder getSampleFilesUrl(int id) throws UnsupportedEncodingException {
+  private UrlBuilder getSampleFilesUrl(int id)
+      throws UnsupportedEncodingException {
     return getSamplesUrl(id).resolve("files");
   }
 
-  private UrlBuilder getSampleTagsUrl(int id) throws UnsupportedEncodingException {
+  private UrlBuilder getSampleTagsUrl(int id)
+      throws UnsupportedEncodingException {
     return getSamplesUrl(id).resolve("tags");
   }
 
-  private UrlBuilder getSampleTagUrl(int sampleId, int tagId) throws UnsupportedEncodingException {
+  private UrlBuilder getSampleTagUrl(int sampleId, int tagId)
+      throws UnsupportedEncodingException {
     return getSamplesUrl(sampleId).resolve("tags").resolve(tagId);
   }
 
-  private UrlBuilder getSamplePersonsUrl(int sampleId) throws UnsupportedEncodingException {
+  private UrlBuilder getSamplePersonsUrl(int sampleId)
+      throws UnsupportedEncodingException {
     return getSamplesUrl(sampleId).resolve("persons");
   }
 
-  private UrlBuilder getSampleGeoUrl(Sample sample) throws UnsupportedEncodingException {
+  private UrlBuilder getSampleGeoUrl(Sample sample)
+      throws UnsupportedEncodingException {
     return getSampleGeoUrl(sample.getId());
   }
 
-  private UrlBuilder getSampleGeoUrl(int id) throws UnsupportedEncodingException {
+  private UrlBuilder getSampleGeoUrl(int id)
+      throws UnsupportedEncodingException {
     return getSamplesUrl(id).resolve("geo");
   }
 
-  private UrlBuilder getSamplesUrl(String name) throws UnsupportedEncodingException {
+  private UrlBuilder getSamplesUrl(String name)
+      throws UnsupportedEncodingException {
     return getSamplesUrl().resolve("alias").resolve(name);
   }
 
   @Override
-  public List<Sample> searchSamples(String query, Path path, Collection<Type> dataTypes, Collection<Species> organisms,
+  public List<Sample> searchSamples(String query,
+      Path path,
+      Collection<Type> dataTypes,
+      Collection<Species> organisms,
       Groups groups) throws IOException {
-    UrlBuilder url = getSearchSamplesUrl().param("p", path.toString()).param("q", query);
+    UrlBuilder url = getSearchSamplesUrl().param("p", path.toString())
+        .param("q", query);
     // .param("v", "all")
     // .param("m", 1000)
 
@@ -178,11 +195,14 @@ public class EDBRepository extends CacheRepository {
 
       int sampleId = sampleJSON.get(EDB.HEADING_ID).getAsInt();
 
-      Experiment experiment = mExperiments.get(sampleJSON.get(EDB.HEADING_EXPERIMENT).getAsInt());
+      Experiment experiment = mExperiments
+          .get(sampleJSON.get(EDB.HEADING_EXPERIMENT).getAsInt());
 
-      Type expression = mDataTypes.get(sampleJSON.get(EDB.HEADING_TYPE).getAsInt());
+      Type expression = mDataTypes
+          .get(sampleJSON.get(EDB.HEADING_TYPE).getAsInt());
 
-      Species species = mSpecies.get(sampleJSON.get(EDB.HEADING_ORGANISM).getAsInt());
+      Species species = mSpecies
+          .get(sampleJSON.get(EDB.HEADING_ORGANISM).getAsInt());
 
       String name = sampleJSON.get(EDB.HEADING_NAME).getAsString();
 
@@ -205,13 +225,16 @@ public class EDBRepository extends CacheRepository {
        * SampleState.UNLOCKED; }
        */
 
-      Sample sample = new SampleAutoCache(sampleId, experiment, expression, name, species, date);
+      Sample sample = new SampleAutoCache(sampleId, experiment, expression,
+          name, species, date);
 
       tempJSON = sampleJSON.get("geo");
 
       if (tempJSON != null) {
-        GEO geo = new GEO(tempJSON.get(EDB.HEADING_ID).getAsInt(), tempJSON.get("geo_series_accession").getAsString(),
-            tempJSON.get("geo_accession").getAsString(), tempJSON.get("geo_platform").getAsString());
+        GEO geo = new GEO(tempJSON.get(EDB.HEADING_ID).getAsInt(),
+            tempJSON.get("geo_series_accession").getAsString(),
+            tempJSON.get("geo_accession").getAsString(),
+            tempJSON.get("geo_platform").getAsString());
 
         sample.setGEO(geo);
       }
@@ -223,8 +246,8 @@ public class EDBRepository extends CacheRepository {
       /*
        * Json tagsJson = sampleJSON.get("tags");
        * 
-       * if (tagsJson != null) { for (int j = 0; j < tagsJson.size(); ++j) { Json
-       * tagJson = tagsJson.get(j);
+       * if (tagsJson != null) { for (int j = 0; j < tagsJson.size(); ++j) {
+       * Json tagJson = tagsJson.get(j);
        * 
        * int id = tagJson.get("id").getAsInt();
        * 
@@ -273,8 +296,8 @@ public class EDBRepository extends CacheRepository {
       /*
        * Json personsJson = sampleJSON.get("persons");
        * 
-       * if (personsJson != null) { for (int j = 0; j < personsJson.size(); ++j) {
-       * Json personJSON = personsJson.get(j);
+       * if (personsJson != null) { for (int j = 0; j < personsJson.size(); ++j)
+       * { Json personJSON = personsJson.get(j);
        * 
        * Person person = mPersons.get(personJSON.get("id").getAsInt());
        * 
@@ -288,13 +311,13 @@ public class EDBRepository extends CacheRepository {
       /*
        * Json filesJson = sampleJSON.get("files");
        * 
-       * if (filesJson != null) { for (int j = 0; j < filesJson.size(); ++j) { Json
-       * fileJSON = filesJson.get(j);
+       * if (filesJson != null) { for (int j = 0; j < filesJson.size(); ++j) {
+       * Json fileJSON = filesJson.get(j);
        * 
        * String fileName = fileJSON.get("name").getAsString();
        * 
-       * FileDescriptor file = new FileDescriptor(fileJSON.getAsInt("id"), fileName,
-       * FileType.parse(fileJSON.get("type").getAsInt()),
+       * FileDescriptor file = new FileDescriptor(fileJSON.getAsInt("id"),
+       * fileName, FileType.parse(fileJSON.get("type").getAsInt()),
        * formatter.parse(fileJSON.get("created").getAsString()));
        * 
        * sample.getFiles().add(file); } }
@@ -313,14 +336,16 @@ public class EDBRepository extends CacheRepository {
   }
 
   @Override
-  public FileDescriptor getExperimentFilesDir(int experimentId) throws IOException {
+  public FileDescriptor getExperimentFilesDir(int experimentId)
+      throws IOException {
     URL url = getExperimentFilesDirUrl(experimentId).toUrl();
 
     return getFiles(url, true).get(0);
   }
 
   @Override
-  public List<FileDescriptor> getExperimentFiles(int experimentId) throws IOException {
+  public List<FileDescriptor> getExperimentFiles(int experimentId)
+      throws IOException {
     URL url = getExperimentFilesUrl(experimentId).toUrl();
 
     return getFiles(url);
@@ -350,7 +375,8 @@ public class EDBRepository extends CacheRepository {
    * @throws IOException
    * @throws ParseException
    */
-  private static List<FileDescriptor> getFiles(URL url, boolean showDirs) throws IOException {
+  private static List<FileDescriptor> getFiles(URL url, boolean showDirs)
+      throws IOException {
     System.err.println(url);
 
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -372,7 +398,8 @@ public class EDBRepository extends CacheRepository {
         e.printStackTrace();
       }
 
-      FileDescriptor file = new FileDescriptor(fileJSON.getAsInt(EDB.HEADING_ID), fileName,
+      FileDescriptor file = new FileDescriptor(
+          fileJSON.getAsInt(EDB.HEADING_ID), fileName,
           FileType.parse(fileJSON.get(EDB.HEADING_TYPE).getAsInt()), date);
 
       // Don't show directories
@@ -386,9 +413,8 @@ public class EDBRepository extends CacheRepository {
 
   /*
    * private void cacheArrayDesign(Sample sample) throws IOException { URL url =
-   * new
-   * UrlBuilder(sampleUrl).addPath(sample.getUid()).addPath("gep").addPath("array"
-   * ).toUrl();
+   * new UrlBuilder(sampleUrl).addPath(sample.getUid()).addPath("gep").addPath(
+   * "array" ).toUrl();
    * 
    * JsonValue json = mJsonParser.parse(url);
    * 
@@ -405,8 +431,11 @@ public class EDBRepository extends CacheRepository {
    */
 
   @Override
-  public void cachePersons(int sampleId, Collection<Person> persons) throws IOException {
-    URL url = getSamplePersonsUrl(sampleId).toUrl(); // ("p", path.toString()).addParam("q", query).toUrl();
+  public void cachePersons(int sampleId, Collection<Person> persons)
+      throws IOException {
+    URL url = getSamplePersonsUrl(sampleId).toUrl(); // ("p",
+                                                     // path.toString()).addParam("q",
+                                                     // query).toUrl();
 
     // System.err.println(url);
 
@@ -435,7 +464,8 @@ public class EDBRepository extends CacheRepository {
     return null;
   }
 
-  public void downloadFile(URL urlFile, File localFile) throws NetworkFileException, IOException {
+  public void downloadFile(URL urlFile, File localFile)
+      throws NetworkFileException, IOException {
 
     FileOutputStream output = new FileOutputStream(localFile);
 
@@ -450,7 +480,8 @@ public class EDBRepository extends CacheRepository {
   }
 
   @Override
-  public FileDownloader getFileDownloader() throws UnsupportedEncodingException {
+  public FileDownloader getFileDownloader()
+      throws UnsupportedEncodingException {
     return mFileDownloader;
   }
 
@@ -461,7 +492,8 @@ public class EDBRepository extends CacheRepository {
 
   @Override
   public Sample getSample(int id) throws IOException {
-    URL url = getSamplesUrl(id).toUrl(); // ("p", path.toString()).addParam("q", query).toUrl();
+    URL url = getSamplesUrl(id).toUrl(); // ("p", path.toString()).addParam("q",
+                                         // query).toUrl();
 
     System.err.println(url);
 
@@ -478,7 +510,9 @@ public class EDBRepository extends CacheRepository {
 
   @Override
   public Sample getSample(String name) throws IOException {
-    URL url = getSamplesUrl(name).toUrl(); // ("p", path.toString()).addParam("q", query).toUrl();
+    URL url = getSamplesUrl(name).toUrl(); // ("p",
+                                           // path.toString()).addParam("q",
+                                           // query).toUrl();
 
     // System.err.println(url);
 
@@ -508,7 +542,8 @@ public class EDBRepository extends CacheRepository {
 
       Tag field = mTags.get(id);
 
-      SampleTag sampleTag = new SampleTag(id, field, tagJson.get(EDB.HEADING_VALUE).getAsString());
+      SampleTag sampleTag = new SampleTag(id, field,
+          tagJson.get(EDB.HEADING_VALUE).getAsString());
 
       // System.err.println("tags " + field.toString());
       // System.err.println("tags " + tagJson.get("value").getAsString());
@@ -518,7 +553,8 @@ public class EDBRepository extends CacheRepository {
   }
 
   @Override
-  public void cacheTag(int sampleId, int tagId, SampleTags tags) throws IOException {
+  public void cacheTag(int sampleId, int tagId, SampleTags tags)
+      throws IOException {
     URL url = getSampleTagUrl(sampleId, tagId).toUrl();
 
     Json json = new JsonParser().parse(url);
@@ -530,7 +566,8 @@ public class EDBRepository extends CacheRepository {
 
       Tag field = mTags.get(id);
 
-      SampleTag sampleTag = new SampleTag(id, field, tagJson.get(EDB.HEADING_VALUE).getAsString());
+      SampleTag sampleTag = new SampleTag(id, field,
+          tagJson.get(EDB.HEADING_VALUE).getAsString());
 
       // System.err.println("tags " + field.toString());
       // System.err.println("tags " + tagJson.get("value").getAsString());
@@ -550,8 +587,10 @@ public class EDBRepository extends CacheRepository {
     if (json.size() > 0) {
       json = json.get(0);
 
-      GEO geo = new GEO(json.get("id").getAsInt(), json.get("series_accession").getAsString(),
-          json.get("accession").getAsString(), json.get("platform").getAsString());
+      GEO geo = new GEO(json.get("id").getAsInt(),
+          json.get("series_accession").getAsString(),
+          json.get("accession").getAsString(),
+          json.get("platform").getAsString());
 
       sample.setGEO(geo);
     }
@@ -595,8 +634,8 @@ public class EDBRepository extends CacheRepository {
    * String peakCallerParameters =
    * peaksJson.get("peak_caller_parameters").getAsString();
    * 
-   * SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); Date date =
-   * formatter.parse(peaksJson.get("release_date").getAsString());
+   * SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); Date date
+   * = formatter.parse(peaksJson.get("release_date").getAsString());
    * 
    * Peaks peaks = new Peaks(id, name, genome, readLength, peakCaller,
    * peakCallerParameters, date);

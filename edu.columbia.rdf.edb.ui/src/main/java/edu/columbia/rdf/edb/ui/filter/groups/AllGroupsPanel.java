@@ -24,7 +24,9 @@ public class AllGroupsPanel extends ModernWidget {
 
     setBorder(BORDER);
 
-    UI.setSize(this, Short.MAX_VALUE, mGroups.size() * BLOCK_SIZE + getPagePadding());
+    UI.setSize(this,
+        Short.MAX_VALUE,
+        mGroups.size() * BLOCK_SIZE + getPagePadding());
   }
 
   @Override

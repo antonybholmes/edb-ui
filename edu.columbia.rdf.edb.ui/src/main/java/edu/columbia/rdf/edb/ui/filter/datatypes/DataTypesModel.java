@@ -7,15 +7,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.core.event.ChangeListeners;
 import org.jebtk.core.xml.XmlRepresentation;
-import org.jebtk.bioinformatics.annotation.Type;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import edu.columbia.rdf.edb.ui.Repository;
 
-public class DataTypesModel extends ChangeListeners implements Iterable<Type>, XmlRepresentation {
+public class DataTypesModel extends ChangeListeners
+    implements Iterable<Type>, XmlRepresentation {
   private static final long serialVersionUID = 1L;
 
   protected Map<Type, Boolean> mTypeMap = new TreeMap<Type, Boolean>();

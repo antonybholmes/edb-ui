@@ -33,9 +33,11 @@ public class GroupsService extends GroupsModel implements ChangeListener {
     return ServiceLoader.INSTANCE;
   }
 
-  private static final Path GROUPS_FILE = PathUtils.getPath("res/default.groups.xml");
+  private static final Path GROUPS_FILE = PathUtils
+      .getPath("res/default.groups.xml");
 
-  private static final Path USER_GROUPS_FILE = AppService.getInstance().getFile("user.groups.xml");
+  private static final Path USER_GROUPS_FILE = AppService.getInstance()
+      .getFile("user.groups.xml");
 
   private boolean mAutoLoad = true;
 
@@ -58,7 +60,8 @@ public class GroupsService extends GroupsModel implements ChangeListener {
       return;
     }
 
-    Collection<Group> groups = RepositoryService.getInstance().getCurrentRepository().getUserGroups();
+    Collection<Group> groups = RepositoryService.getInstance()
+        .getCurrentRepository().getUserGroups();
 
     for (Group g : groups) {
       mGroupMap.put(g, false);
@@ -73,10 +76,12 @@ public class GroupsService extends GroupsModel implements ChangeListener {
       e.printStackTrace();
     }
 
-    mAllGroups = RepositoryService.getInstance().getCurrentRepository().getGroups();
+    mAllGroups = RepositoryService.getInstance().getCurrentRepository()
+        .getGroups();
   }
 
-  private void autoLoadXml(Path file) throws SAXException, IOException, ParserConfigurationException {
+  private void autoLoadXml(Path file)
+      throws SAXException, IOException, ParserConfigurationException {
     if (!FileUtils.exists(file)) {
       return;
     }
@@ -93,17 +98,12 @@ public class GroupsService extends GroupsModel implements ChangeListener {
   /**
    * Load xml.
    *
-   * @param is
-   *          the is
-   * @param update
-   *          the update
+   * @param is the is
+   * @param update the update
    * @return true, if successful
-   * @throws SAXException
-   *           the SAX exception
-   * @throws IOException
-   *           Signals that an I/O exception has occurred.
-   * @throws ParserConfigurationException
-   *           the parser configuration exception
+   * @throws SAXException the SAX exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ParserConfigurationException the parser configuration exception
    */
   private synchronized boolean autoLoadXml(InputStream is)
       throws SAXException, IOException, ParserConfigurationException {
@@ -131,7 +131,8 @@ public class GroupsService extends GroupsModel implements ChangeListener {
     }
   }
 
-  private void save() throws TransformerException, ParserConfigurationException {
+  private void save()
+      throws TransformerException, ParserConfigurationException {
     XmlUtils.writeXml(this, USER_GROUPS_FILE);
   }
 

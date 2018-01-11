@@ -15,8 +15,8 @@
  */
 package edu.columbia.rdf.edb.ui.filter.datatypes;
 
-import org.jebtk.core.text.TextUtils;
 import org.jebtk.bioinformatics.annotation.Type;
+import org.jebtk.core.text.TextUtils;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -32,8 +32,7 @@ public class DataTypesXmlHandler extends DefaultHandler {
   /**
    * Instantiates a new key xml handler.
    *
-   * @param service
-   *          the service
+   * @param service the service
    */
   public DataTypesXmlHandler(DataTypesModel model) {
     mModel = model;
@@ -45,7 +44,10 @@ public class DataTypesXmlHandler extends DefaultHandler {
    * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String,
    * java.lang.String, java.lang.String, org.xml.sax.Attributes)
    */
-  public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+  public void startElement(String uri,
+      String localName,
+      String qName,
+      Attributes attributes) throws SAXException {
 
     if (qName.equals("type")) {
       String name = attributes.getValue("name").toLowerCase();

@@ -6,8 +6,8 @@ import java.util.Collection;
 import java.util.Deque;
 import java.util.List;
 
-import org.jebtk.core.collections.CollectionUtils;
 import org.jebtk.bioinformatics.annotation.Type;
+import org.jebtk.core.collections.CollectionUtils;
 
 import edu.columbia.rdf.edb.Groups;
 import edu.columbia.rdf.edb.Sample;
@@ -40,8 +40,12 @@ public class ArraySearchRT {
    * return ArrayUtils.toList(experiments); }
    */
 
-  public List<Sample> searchSamples(Deque<SearchStackElementCategory> searchStack) throws IOException {
-    return searchSamples(searchStack, Repository.ALL_TYPES, Repository.ALL_ORGANISMS, Repository.ALL_GROUPS);
+  public List<Sample> searchSamples(
+      Deque<SearchStackElementCategory> searchStack) throws IOException {
+    return searchSamples(searchStack,
+        Repository.ALL_TYPES,
+        Repository.ALL_ORGANISMS,
+        Repository.ALL_GROUPS);
   }
 
   /**
@@ -52,20 +56,25 @@ public class ArraySearchRT {
    * @return
    * @throws IOException
    */
-  public List<Sample> searchSamples(Deque<SearchStackElementCategory> searchStack, Collection<Type> dataTypes,
-      Collection<Species> organisms, Groups groups) throws IOException {
+  public List<Sample> searchSamples(
+      Deque<SearchStackElementCategory> searchStack,
+      Collection<Type> dataTypes,
+      Collection<Species> organisms,
+      Groups groups) throws IOException {
     // Stack<Integer> indexes = new Stack<Integer>();
 
     // for speed use a custom stack
     // int indexTop = -1;
     // int[] indexStack = new int[16];
 
-    // If no search criteria are specified or the search is an empty string, return
+    // If no search criteria are specified or the search is an empty string,
+    // return
     // all experiments.
 
     Repository store = RepositoryService.getInstance().getRepository();
 
-    if (searchStack.size() == 0 || (searchStack.size() == 1 && searchStack.peek().getSearch() == null)) {
+    if (searchStack.size() == 0 || (searchStack.size() == 1
+        && searchStack.peek().getSearch() == null)) {
       return store.getAllSamples();
     }
 
@@ -97,8 +106,11 @@ public class ArraySearchRT {
         searchField = op.getSearchField();
 
         // The path to the words of interest
-        resultStack
-            .push(store.searchSamples(op.getSearch().search, searchField.getPath(), dataTypes, organisms, groups));
+        resultStack.push(store.searchSamples(op.getSearch().search,
+            searchField.getPath(),
+            dataTypes,
+            organisms,
+            groups));
 
         break;
       case AND:

@@ -33,12 +33,15 @@ public class Vfs {
    * @throws IOException
    * @throws java.text.ParseException
    */
-  public List<FileDescriptor> ls() throws ParseException, MalformedURLException, IOException, java.text.ParseException {
+  public List<FileDescriptor> ls() throws ParseException, MalformedURLException,
+      IOException, java.text.ParseException {
     return ls(-1);
   }
 
-  public List<FileDescriptor> ls(int vfsId) throws ParseException, MalformedURLException, IOException {
-    UrlBuilder urlFile = mLogin.getOTKAuthUrl().resolve("vfs").resolve("ls").resolve(vfsId);
+  public List<FileDescriptor> ls(int vfsId)
+      throws ParseException, MalformedURLException, IOException {
+    UrlBuilder urlFile = mLogin.getOTKAuthUrl().resolve("vfs").resolve("ls")
+        .resolve(vfsId);
 
     System.err.println(urlFile);
 
@@ -49,8 +52,9 @@ public class Vfs {
     for (int i = 0; i < json.size(); ++i) {
       Json fileJson = json.get(i);
 
-      FileDescriptor f = new FileDescriptor(fileJson.getAsInt("id"), fileJson.getAsString("n"),
-          FileType.parse(fileJson.getAsInt("t")), DateUtils.parseRevFormattedDate(fileJson.getAsString("d")));
+      FileDescriptor f = new FileDescriptor(fileJson.getAsInt("id"),
+          fileJson.getAsString("n"), FileType.parse(fileJson.getAsInt("t")),
+          DateUtils.parseRevFormattedDate(fileJson.getAsString("d")));
 
       files.add(f);
     }
@@ -60,7 +64,8 @@ public class Vfs {
     return files;
   }
 
-  public List<Tag> tags() throws MalformedURLException, IOException, ParseException {
+  public List<Tag> tags()
+      throws MalformedURLException, IOException, ParseException {
     UrlBuilder urlFile = mLogin.getOTKAuthUrl().resolve("vfs").resolve("tags");
 
     System.err.println(urlFile);

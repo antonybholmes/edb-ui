@@ -28,7 +28,6 @@ import org.jebtk.modern.event.ModernClickListener;
 import org.jebtk.modern.panel.VBox;
 import org.jebtk.modern.scrollpane.ModernScrollPane;
 import org.jebtk.modern.scrollpane.ScrollBarPolicy;
-import org.jebtk.modern.text.ModernSubHeadingLabel;
 import org.jebtk.modern.widget.ModernTwoStateWidget;
 
 import edu.columbia.rdf.edb.Species;
@@ -39,7 +38,8 @@ import edu.columbia.rdf.edb.Species;
  * @author Antony Holmes
  *
  */
-public class OrganismsPanel extends ModernComponent implements ModernClickListener {
+public class OrganismsPanel extends ModernComponent
+    implements ModernClickListener {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 1L;
@@ -48,7 +48,8 @@ public class OrganismsPanel extends ModernComponent implements ModernClickListen
 
   private Map<ModernTwoStateWidget, Species> mCheckMap = new HashMap<ModernTwoStateWidget, Species>();
 
-  private ModernTwoStateWidget mCheckAll = new ModernCheckSwitch("Select All", true);
+  private ModernTwoStateWidget mCheckAll = new ModernCheckSwitch("Select All",
+      true);
 
   public OrganismsPanel(OrganismsModel model) {
     mModel = model;
@@ -71,7 +72,8 @@ public class OrganismsPanel extends ModernComponent implements ModernClickListen
     });
 
     for (Species t : model) {
-      ModernTwoStateWidget check = new ModernCheckSwitch(t.getName(), model.getUse(t));
+      ModernTwoStateWidget check = new ModernCheckSwitch(t.getName(),
+          model.getUse(t));
 
       box.add(check);
 
@@ -80,7 +82,8 @@ public class OrganismsPanel extends ModernComponent implements ModernClickListen
       check.addClickListener(this);
     }
 
-    setBody(new ModernScrollPane(box).setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
+    setBody(new ModernScrollPane(box)
+        .setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
         .setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
 
     // setBorder(DOUBLE_BORDER);

@@ -51,7 +51,8 @@ public class ResultsPanel extends ModernComponent {
 
   private Map<ModernTwoStateWidget, String> mCheckMap = new HashMap<ModernTwoStateWidget, String>();
 
-  private ModernTwoStateWidget mCheckAll = new ModernCheckSwitch("Select All", true);
+  private ModernTwoStateWidget mCheckAll = new ModernCheckSwitch("Select All",
+      true);
 
   private SampleSortModel mSortModel;
 
@@ -84,7 +85,8 @@ public class ResultsPanel extends ModernComponent {
   public void setup() {
     Box box = VBox.create();
 
-    box.add(new ModernSubHeadingLabel("Sort By " + mSortModel.getSorter().getName()));
+    box.add(new ModernSubHeadingLabel(
+        "Sort By " + mSortModel.getSorter().getName()));
     box.add(UI.createVGap(10));
     box.add(mCheckAll);
     box.add(UI.createVGap(10));
@@ -117,7 +119,8 @@ public class ResultsPanel extends ModernComponent {
       check.addClickListener(l);
     }
 
-    setBody(new ModernScrollPane(box).setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
+    setBody(new ModernScrollPane(box)
+        .setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
         .setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
 
     mCheckAll.setSelected(true);

@@ -10,7 +10,8 @@ import org.jebtk.core.xml.XmlRepresentation;
  * @author Antony Holmes Holmes
  *
  */
-public abstract class Login implements Comparable<Login>, XmlRepresentation, Serializable {
+public abstract class Login
+    implements Comparable<Login>, XmlRepresentation, Serializable {
   private static final long serialVersionUID = 1L;
 
   public abstract String getUser();

@@ -29,7 +29,6 @@ package edu.columbia.rdf.edb.ui.login;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Point;
 
 import org.jebtk.modern.UI;
 import org.jebtk.modern.dialog.ModernDialogFlatButton;
@@ -57,7 +56,8 @@ public class LoginButton extends ModernDialogFlatButton {
    */
   private static final int LW = 10;
 
-  private static final Color BORDER_COLOR = ThemeService.getInstance().colors().getColorHighlight32(16); // ColorUtils.getTransparentColor20(Color.WHITE);
+  private static final Color BORDER_COLOR = ThemeService.getInstance().colors()
+      .getColorHighlight32(16); // ColorUtils.getTransparentColor20(Color.WHITE);
 
   /**
    * The height.
@@ -83,7 +83,8 @@ public class LoginButton extends ModernDialogFlatButton {
   /*
    * (non-Javadoc)
    * 
-   * @see org.abh.lib.ui.modern.button.ModernButtonWidget#drawBackground(java.awt.
+   * @see
+   * org.abh.lib.ui.modern.button.ModernButtonWidget#drawBackground(java.awt.
    * Graphics2D)
    */
   @Override

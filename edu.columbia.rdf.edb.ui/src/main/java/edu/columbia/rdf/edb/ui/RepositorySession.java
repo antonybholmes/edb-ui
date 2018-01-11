@@ -17,7 +17,8 @@ import edu.columbia.rdf.edb.ui.network.ServerException;
 public abstract class RepositorySession {
   public static final File SESSION_FILE = new File("cache/session.dat");
 
-  public Repository restore() throws IOException, ClassNotFoundException, ServerException {
+  public Repository restore()
+      throws IOException, ClassNotFoundException, ServerException {
     return restore(SESSION_FILE);
   }
 
@@ -29,5 +30,6 @@ public abstract class RepositorySession {
   }
 
   public abstract Repository restore(File sessionFile)
-      throws FileNotFoundException, IOException, ClassNotFoundException, ServerException;
+      throws FileNotFoundException, IOException, ClassNotFoundException,
+      ServerException;
 }

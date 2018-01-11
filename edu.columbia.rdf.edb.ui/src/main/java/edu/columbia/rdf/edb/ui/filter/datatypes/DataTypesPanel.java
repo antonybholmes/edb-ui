@@ -52,7 +52,8 @@ public class DataTypesPanel extends ModernComponent {
 
   private Map<ModernTwoStateWidget, Species> mCheckOrganismsMap = new HashMap<ModernTwoStateWidget, Species>();
 
-  private ModernTwoStateWidget mCheckAll = new ModernCheckSwitch("Select All", true);
+  private ModernTwoStateWidget mCheckAll = new ModernCheckSwitch("Select All",
+      true);
 
   private OrganismsModel mOrganismsModel;
 
@@ -87,7 +88,8 @@ public class DataTypesPanel extends ModernComponent {
     };
 
     for (Type t : model) {
-      ModernTwoStateWidget check = new ModernCheckSwitch(t.getName(), model.getUse(t));
+      ModernTwoStateWidget check = new ModernCheckSwitch(t.getName(),
+          model.getUse(t));
 
       box.add(check);
 
@@ -115,7 +117,8 @@ public class DataTypesPanel extends ModernComponent {
     };
 
     for (Species t : organismsModel) {
-      ModernTwoStateWidget check = new ModernCheckSwitch(t.getName(), organismsModel.getUse(t));
+      ModernTwoStateWidget check = new ModernCheckSwitch(t.getName(),
+          organismsModel.getUse(t));
 
       box.add(check);
 
@@ -124,7 +127,8 @@ public class DataTypesPanel extends ModernComponent {
       check.addClickListener(l);
     }
 
-    setBody(new ModernScrollPane(box).setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
+    setBody(new ModernScrollPane(box)
+        .setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
         .setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
 
     setBorder(BORDER);

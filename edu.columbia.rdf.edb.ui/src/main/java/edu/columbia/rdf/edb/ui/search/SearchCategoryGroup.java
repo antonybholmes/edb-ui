@@ -12,7 +12,8 @@ import java.util.Map;
  * @author Antony Holmes Holmes
  *
  */
-public class SearchCategoryGroup implements Iterable<SearchCategory>, Comparable<SearchCategoryGroup> {
+public class SearchCategoryGroup
+    implements Iterable<SearchCategory>, Comparable<SearchCategoryGroup> {
   private String mName;
 
   private boolean mDisplay;

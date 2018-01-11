@@ -20,7 +20,10 @@ public abstract class SortSamplesByTag extends SampleSorter {
   }
 
   @Override
-  public void arrange(Collection<Sample> samples, ModernTree<Sample> tree, boolean ascending, FilterModel filterModel) {
+  public void arrange(Collection<Sample> samples,
+      ModernTree<Sample> tree,
+      boolean ascending,
+      FilterModel filterModel) {
     sortByField(samples, tree, mPath, ascending, filterModel);
   }
 

@@ -54,7 +54,8 @@ public class LoginService implements Iterable<Login> {
     logins.add(login);
   }
 
-  public void write() throws ParserConfigurationException, TransformerException {
+  public void write()
+      throws ParserConfigurationException, TransformerException {
     write(true, false);
   }
 

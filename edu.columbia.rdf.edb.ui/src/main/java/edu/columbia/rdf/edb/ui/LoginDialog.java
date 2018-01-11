@@ -43,7 +43,8 @@ import edu.columbia.rdf.edb.ui.login.LoginDetailsPanel;
 /**
  * The class LoginDialog.
  */
-public class LoginDialog extends ModernSplashScreen implements ModernClickListener {
+public class LoginDialog extends ModernSplashScreen
+    implements ModernClickListener {
 
   /**
    * The constant serialVersionUID.
@@ -94,8 +95,7 @@ public class LoginDialog extends ModernSplashScreen implements ModernClickListen
   /**
    * Instantiates a new login dialog.
    *
-   * @param login
-   *          the login
+   * @param login the login
    */
   public LoginDialog(GuiAppInfo appInfo, EDBWLogin login) {
     super(appInfo);
@@ -125,7 +125,8 @@ public class LoginDialog extends ModernSplashScreen implements ModernClickListen
     // topPanel.add(Ui.createHorizontalGap(10));
 
     // ModernImagePanel image =
-    // new ModernImagePanel(getAppInfo().getLargeIcon(), new Dimension(128, 128));
+    // new ModernImagePanel(getAppInfo().getLargeIcon(), new Dimension(128,
+    // 128));
 
     // topPanel.add(image);
 
@@ -199,8 +200,7 @@ public class LoginDialog extends ModernSplashScreen implements ModernClickListen
   /**
    * Sets the up.
    *
-   * @param login
-   *          the new up
+   * @param login the new up
    */
   public void setup(EDBWLogin login) {
     mLoginPanel.set(login);
@@ -210,8 +210,8 @@ public class LoginDialog extends ModernSplashScreen implements ModernClickListen
    * (non-Javadoc)
    * 
    * @see
-   * org.abh.common.ui.ui.event.ModernClickListener#clicked(org.abh.common.ui.ui.
-   * event.ModernClickEvent)
+   * org.abh.common.ui.ui.event.ModernClickListener#clicked(org.abh.common.ui.
+   * ui. event.ModernClickEvent)
    */
   @Override
   public final void clicked(ModernClickEvent e) {
@@ -243,7 +243,9 @@ public class LoginDialog extends ModernSplashScreen implements ModernClickListen
     EDBWLogin.saveSettings(mLogin);
 
     if (mLogin == null) {
-      ModernMessageDialog.createDialog(null, getAppInfo().getName(), "The Experiment Store server is not responding.",
+      ModernMessageDialog.createDialog(null,
+          getAppInfo().getName(),
+          "The Experiment Store server is not responding.",
           MessageDialogType.WARNING);
 
       return;

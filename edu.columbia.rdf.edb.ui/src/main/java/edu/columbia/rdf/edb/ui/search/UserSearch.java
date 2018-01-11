@@ -12,7 +12,8 @@ import org.w3c.dom.Element;
  * @author Antony Holmes Holmes
  *
  */
-public class UserSearch extends ArrayList<UserSearchEntry> implements XmlRepresentation {
+public class UserSearch extends ArrayList<UserSearchEntry>
+    implements XmlRepresentation {
   private static final long serialVersionUID = 1L;
 
   // empty search for reuse

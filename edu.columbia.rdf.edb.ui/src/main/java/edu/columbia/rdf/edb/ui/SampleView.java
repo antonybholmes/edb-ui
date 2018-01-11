@@ -14,9 +14,12 @@ import edu.columbia.rdf.edb.ui.sort.SampleSorter;
 public abstract class SampleView extends SampleSorter {
 
   @Override
-  public <X extends Comparable<? super X>> void arrange(Map<X, ? extends Iterable<Sample>> map, boolean ascending,
+  public <X extends Comparable<? super X>> void arrange(
+      Map<X, ? extends Iterable<Sample>> map,
+      boolean ascending,
       ModernTree<Sample> tree) {
-    List<String> sortedNames = CollectionUtils.toString(CollectionUtils.sortKeys(map, ascending));
+    List<String> sortedNames = CollectionUtils
+        .toString(CollectionUtils.sortKeys(map, ascending));
 
     tree.clear();
 

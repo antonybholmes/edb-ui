@@ -34,12 +34,11 @@ public class RestrictedRepositoryCache extends EDBRepositorySession {
   /**
    * Instantiates a new chip seq repository cache.
    *
-   * @param login
-   *          the login
-   * @throws UnsupportedEncodingException
-   *           the unsupported encoding exception
+   * @param login the login
+   * @throws UnsupportedEncodingException the unsupported encoding exception
    */
-  public RestrictedRepositoryCache(EDBWLogin login, Path path) throws UnsupportedEncodingException {
+  public RestrictedRepositoryCache(EDBWLogin login, Path path)
+      throws UnsupportedEncodingException {
     super(login);
 
     mPath = path;
@@ -51,7 +50,8 @@ public class RestrictedRepositoryCache extends EDBRepositorySession {
    * @see edu.columbia.lib.rdf.edb.EDBRepositorySession#restore(java.io.File)
    */
   @Override
-  public CacheRepository restore(File sessionFile) throws IOException, ClassNotFoundException {
+  public CacheRepository restore(File sessionFile)
+      throws IOException, ClassNotFoundException {
     EDBRepository repository = new RestrictedRepository(mLogin, mPath);
 
     repository.cache();

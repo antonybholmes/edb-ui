@@ -13,12 +13,15 @@ import org.jebtk.modern.panel.VBox;
 import org.jebtk.modern.widget.ModernTwoStateWidget;
 import org.jebtk.modern.window.ModernWindow;
 
-public class Mas5Dialog extends NormalizationDialog implements ModernClickListener {
+public class Mas5Dialog extends NormalizationDialog
+    implements ModernClickListener {
   private static final long serialVersionUID = 1L;
 
-  private ModernTwoStateWidget checkSignal = new ModernCheckSwitch("Signal", true);
+  private ModernTwoStateWidget checkSignal = new ModernCheckSwitch("Signal",
+      true);
 
-  private ModernTwoStateWidget checkDetected = new ModernCheckSwitch("Detected");
+  private ModernTwoStateWidget checkDetected = new ModernCheckSwitch(
+      "Detected");
 
   private ModernTwoStateWidget checkPValue = new ModernCheckSwitch("P-Value");
 

@@ -50,17 +50,21 @@ public class LoginDetailsPanel extends MatrixPanel {
     mKeyField.setText(details.getFullKey());
   }
 
-  public final EDBWLogin getLoginDetails() throws NumberFormatException, UnsupportedEncodingException {
-    return EDBWLogin.create(mServerField.getText(), mUserField.getText(), mKeyField.getText());
+  public final EDBWLogin getLoginDetails()
+      throws NumberFormatException, UnsupportedEncodingException {
+    return EDBWLogin.create(mServerField.getText(),
+        mUserField.getText(),
+        mKeyField.getText());
   }
 
   /*
-   * public final void paintComponent(Graphics g) { Graphics2D g2 = (Graphics2D)g;
+   * public final void paintComponent(Graphics g) { Graphics2D g2 =
+   * (Graphics2D)g;
    * 
    * g2.setColor(DialogButton.COLOR_2);
    * 
-   * int x = 0;//ModernTheme.getInstance().getClass("widget").getInt("padding") *
-   * 2;
+   * int x = 0;//ModernTheme.getInstance().getClass("widget").getInt("padding")
+   * * 2;
    * 
    * g2.drawLine(x, 0, x, getHeight()); }
    */

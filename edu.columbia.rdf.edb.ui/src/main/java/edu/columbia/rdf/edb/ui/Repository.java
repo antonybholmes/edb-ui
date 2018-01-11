@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.core.collections.CollectionUtils;
 import org.jebtk.core.json.Json;
 import org.jebtk.core.path.Path;
 import org.jebtk.core.search.SearchStackElement;
-import org.jebtk.bioinformatics.annotation.Type;
 
 import edu.columbia.rdf.edb.Experiment;
 import edu.columbia.rdf.edb.FileDescriptor;
@@ -39,8 +39,10 @@ public abstract class Repository implements Serializable {
   private static final long serialVersionUID = 1L;
   public static final Path ALL_PATH = new Path("/All");
   public static final Collection<Type> ALL_TYPES = Collections.emptySet();
-  public static final Collection<Species> ALL_ORGANISMS = Collections.emptySet();
-  public static final Groups ALL_GROUPS = new Groups(new HashSet<Group>(), true);
+  public static final Collection<Species> ALL_ORGANISMS = Collections
+      .emptySet();
+  public static final Groups ALL_GROUPS = new Groups(new HashSet<Group>(),
+      true);
 
   public abstract Experiment getExperiment(int id);
 
@@ -48,15 +50,19 @@ public abstract class Repository implements Serializable {
 
   public abstract Sample getSample(String name) throws IOException;
 
-  public abstract List<FileDescriptor> getExperimentFiles(int experimentId) throws IOException;
+  public abstract List<FileDescriptor> getExperimentFiles(int experimentId)
+      throws IOException;
 
-  public FileDescriptor getExperimentFilesDir(Experiment experiment) throws IOException {
+  public FileDescriptor getExperimentFilesDir(Experiment experiment)
+      throws IOException {
     return getExperimentFilesDir(experiment.getId());
   }
 
-  public abstract FileDescriptor getExperimentFilesDir(int experimentId) throws IOException;
+  public abstract FileDescriptor getExperimentFilesDir(int experimentId)
+      throws IOException;
 
-  public Set<FileDescriptor> getSampleFiles(Collection<Sample> samples) throws IOException {
+  public Set<FileDescriptor> getSampleFiles(Collection<Sample> samples)
+      throws IOException {
     Set<FileDescriptor> ret = new TreeSet<FileDescriptor>();
 
     for (Sample sample : samples) {
@@ -80,7 +86,8 @@ public abstract class Repository implements Serializable {
    * @throws IOException
    * @throws ParseException
    */
-  public abstract List<FileDescriptor> getSampleFiles(int id) throws IOException;
+  public abstract List<FileDescriptor> getSampleFiles(int id)
+      throws IOException;
 
   /**
    * Should return a file downloader.
@@ -88,7 +95,8 @@ public abstract class Repository implements Serializable {
    * @return
    * @throws UnsupportedEncodingException
    */
-  public abstract FileDownloader getFileDownloader() throws UnsupportedEncodingException;
+  public abstract FileDownloader getFileDownloader()
+      throws UnsupportedEncodingException;
 
   public abstract Vfs vfs();
 
@@ -104,19 +112,28 @@ public abstract class Repository implements Serializable {
    * @param path
    * @return
    */
-  public abstract List<Sample> searchSamples(List<SearchStackElement<Sample>> searchQueue, Path path);
+  public abstract List<Sample> searchSamples(
+      List<SearchStackElement<Sample>> searchQueue,
+      Path path);
 
   public List<Sample> searchSamples(String query) throws IOException {
     return searchSamples(query, ALL_PATH, ALL_TYPES, ALL_ORGANISMS, ALL_GROUPS);
   }
 
-  public List<Sample> searchSamples(String query, Path path, Type dataType) throws IOException {
+  public List<Sample> searchSamples(String query, Path path, Type dataType)
+      throws IOException {
     return searchSamples(query, path, dataType, ALL_ORGANISMS);
   }
 
-  public List<Sample> searchSamples(String query, Path path, Type dataType, Collection<Species> organisms)
-      throws IOException {
-    return searchSamples(query, path, CollectionUtils.asSet(dataType), organisms, ALL_GROUPS);
+  public List<Sample> searchSamples(String query,
+      Path path,
+      Type dataType,
+      Collection<Species> organisms) throws IOException {
+    return searchSamples(query,
+        path,
+        CollectionUtils.asSet(dataType),
+        organisms,
+        ALL_GROUPS);
   }
 
   /**
@@ -128,7 +145,8 @@ public abstract class Repository implements Serializable {
    * @return
    * @throws IOException
    */
-  public List<Sample> searchSamples(String query, Groups groups) throws IOException {
+  public List<Sample> searchSamples(String query, Groups groups)
+      throws IOException {
     return searchSamples(query, ALL_PATH, ALL_TYPES, ALL_ORGANISMS, groups);
   }
 
@@ -141,20 +159,28 @@ public abstract class Repository implements Serializable {
    * @return
    * @throws IOException
    */
-  public List<Sample> searchSamples(String query, Collection<Species> organisms, Groups groups) throws IOException {
+  public List<Sample> searchSamples(String query,
+      Collection<Species> organisms,
+      Groups groups) throws IOException {
     return searchSamples(query, ALL_PATH, ALL_TYPES, organisms, groups);
   }
 
-  public List<Sample> searchSamples(String query, Collection<Type> dataTypes, Collection<Species> organisms,
+  public List<Sample> searchSamples(String query,
+      Collection<Type> dataTypes,
+      Collection<Species> organisms,
       Groups groups) throws IOException {
     return searchSamples(query, ALL_PATH, dataTypes, organisms, groups);
   }
 
-  public abstract List<Sample> searchSamples(String query, Path path, Collection<Type> dataTypes,
-      Collection<Species> organisms, Groups groups) throws IOException;
+  public abstract List<Sample> searchSamples(String query,
+      Path path,
+      Collection<Type> dataTypes,
+      Collection<Species> organisms,
+      Groups groups) throws IOException;
 
   /**
-   * Returns the peaks associated with a list of samples. Duplicates are removed.
+   * Returns the peaks associated with a list of samples. Duplicates are
+   * removed.
    * 
    * @param samples
    * @return
@@ -164,8 +190,8 @@ public abstract class Repository implements Serializable {
    */
   /*
    * public List<Peaks> searchChipSeqPeaks(List<Sample> samples) throws
-   * ParseException, IOException, java.text.ParseException { List<Peaks> allPeaks
-   * = new UniqueList<Peaks>();
+   * ParseException, IOException, java.text.ParseException { List<Peaks>
+   * allPeaks = new UniqueList<Peaks>();
    * 
    * for (Sample sample : samples) { for (Peaks peaks :
    * searchChipSeqPeaks(sample)) { allPeaks.add(peaks); } }
@@ -185,7 +211,8 @@ public abstract class Repository implements Serializable {
     // Do nothing
   }
 
-  public void cacheTag(int sampleId, int tagId, SampleTags sampleTags) throws IOException {
+  public void cacheTag(int sampleId, int tagId, SampleTags sampleTags)
+      throws IOException {
     // TODO Auto-generated method stub
 
   }
@@ -194,7 +221,8 @@ public abstract class Repository implements Serializable {
     // TODO Auto-generated method stub
   }
 
-  public void cachePersons(int sampleId, Collection<Person> persons) throws IOException {
+  public void cachePersons(int sampleId, Collection<Person> persons)
+      throws IOException {
     // TODO Auto-generated method stub
   }
 

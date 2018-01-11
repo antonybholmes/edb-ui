@@ -39,7 +39,8 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
   private static final int HEIGHT = 60;
   // private static final int LINE_HEIGHT = Resources.ICON_SIZE_24;
 
-  private static final Color FILL_COLOR = ThemeService.getInstance().colors().getHighlight(2);
+  private static final Color FILL_COLOR = ThemeService.getInstance().colors()
+      .getHighlight(2);
 
   private static final int ORB_SIZE = 8;
   private static final int ORB_GAP = 2;
@@ -61,11 +62,13 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
     if (mNode.isParent()) {
       fill(g2, FILL_COLOR, mRect);
     } else if (mNodeIsSelected) {
-      getWidgetRenderer().buttonFillPaint(g2, mRect, RenderMode.SELECTED, false);
+      getWidgetRenderer()
+          .buttonFillPaint(g2, mRect, RenderMode.SELECTED, false);
 
       ImageUtils.fillRect(g2, mRect);
     } else if (mNodeIsHighlighted) {
-      getWidgetRenderer().buttonFillPaint(g2, mRect, RenderMode.HIGHLIGHT, false);
+      getWidgetRenderer()
+          .buttonFillPaint(g2, mRect, RenderMode.HIGHLIGHT, false);
 
       ImageUtils.fillRect(g2, mRect);
     } else {
@@ -136,7 +139,8 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
       //
 
       y = (getHeight() - ORB_SIZE) / 2;
-      x = mRect.getW() - ModernWidget.TRIPLE_PADDING - mColors.size() * ORB_SIZE - (mColors.size() - 1) * ORB_GAP;
+      x = mRect.getW() - ModernWidget.TRIPLE_PADDING - mColors.size() * ORB_SIZE
+          - (mColors.size() - 1) * ORB_GAP;
 
       Graphics2D g2Temp = ImageUtils.createAAStrokeGraphics(g2);
 
@@ -172,9 +176,22 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
   }
 
   @Override
-  public ModernTreeNodeRenderer getRenderer(Tree<?> tree, TreeNode<?> node, boolean nodeIsHighlighted,
-      boolean nodeIsSelected, boolean hasFocus, boolean isDragToNode, int depth, int row) {
-    super.getRenderer(tree, node, nodeIsHighlighted, nodeIsSelected, hasFocus, isDragToNode, depth, row);
+  public ModernTreeNodeRenderer getRenderer(Tree<?> tree,
+      TreeNode<?> node,
+      boolean nodeIsHighlighted,
+      boolean nodeIsSelected,
+      boolean hasFocus,
+      boolean isDragToNode,
+      int depth,
+      int row) {
+    super.getRenderer(tree,
+        node,
+        nodeIsHighlighted,
+        nodeIsSelected,
+        hasFocus,
+        isDragToNode,
+        depth,
+        row);
 
     if (node.isParent()) {
       mText1 = node.getName();
@@ -192,7 +209,8 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
       mColors = Group.formatColors(sample.getGroups());
 
       // SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-      // mText4 = formatter.format(sample.getDate()); //sample.getDate().toString();
+      // mText4 = formatter.format(sample.getDate());
+      // //sample.getDate().toString();
     }
 
     return this;

@@ -33,9 +33,11 @@ public class OrganismsService extends OrganismsModel implements ChangeListener {
     return ServiceLoader.INSTANCE;
   }
 
-  private static final Path ORGANISMS_FILE = PathUtils.getPath("res/organisms.xml");
+  private static final Path ORGANISMS_FILE = PathUtils
+      .getPath("res/organisms.xml");
 
-  private static final Path USER_ORGANISMS_FILE = AppService.getInstance().getFile("user.organisms.xml");
+  private static final Path USER_ORGANISMS_FILE = AppService.getInstance()
+      .getFile("user.organisms.xml");
 
   private boolean mAutoLoad = true;
 
@@ -56,7 +58,8 @@ public class OrganismsService extends OrganismsModel implements ChangeListener {
       return;
     }
 
-    Collection<Species> groups = RepositoryService.getInstance().getCurrentRepository().getOrganisms();
+    Collection<Species> groups = RepositoryService.getInstance()
+        .getCurrentRepository().getOrganisms();
 
     for (Species g : groups) {
       mTypeMap.put(g, true);
@@ -72,7 +75,8 @@ public class OrganismsService extends OrganismsModel implements ChangeListener {
     }
   }
 
-  private void autoLoadXml(Path file) throws SAXException, IOException, ParserConfigurationException {
+  private void autoLoadXml(Path file)
+      throws SAXException, IOException, ParserConfigurationException {
     if (!FileUtils.exists(file)) {
       return;
     }
@@ -89,17 +93,12 @@ public class OrganismsService extends OrganismsModel implements ChangeListener {
   /**
    * Load xml.
    *
-   * @param is
-   *          the is
-   * @param update
-   *          the update
+   * @param is the is
+   * @param update the update
    * @return true, if successful
-   * @throws SAXException
-   *           the SAX exception
-   * @throws IOException
-   *           Signals that an I/O exception has occurred.
-   * @throws ParserConfigurationException
-   *           the parser configuration exception
+   * @throws SAXException the SAX exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ParserConfigurationException the parser configuration exception
    */
   private synchronized boolean autoLoadXml(InputStream is)
       throws SAXException, IOException, ParserConfigurationException {
@@ -127,7 +126,8 @@ public class OrganismsService extends OrganismsModel implements ChangeListener {
     }
   }
 
-  private void save() throws TransformerException, ParserConfigurationException {
+  private void save()
+      throws TransformerException, ParserConfigurationException {
     XmlUtils.writeXml(this, USER_ORGANISMS_FILE);
   }
 }

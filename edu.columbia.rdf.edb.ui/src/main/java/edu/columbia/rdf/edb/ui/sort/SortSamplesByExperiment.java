@@ -25,11 +25,16 @@ import edu.columbia.rdf.edb.Sample;
  */
 public class SortSamplesByExperiment extends SampleSorter {
   @Override
-  public void arrange(Collection<Sample> samples, ModernTree<Sample> tree, boolean ascending, FilterModel filterModel) {
+  public void arrange(Collection<Sample> samples,
+      ModernTree<Sample> tree,
+      boolean ascending,
+      FilterModel filterModel) {
 
-    Map<Experiment, Set<Sample>> experiments = Experiment.sortSamplesByExperiment(samples);
+    Map<Experiment, Set<Sample>> experiments = Experiment
+        .sortSamplesByExperiment(samples);
 
-    List<Experiment> sortedExperiments = sortByTitle(experiments.keySet(), ascending);
+    List<Experiment> sortedExperiments = sortByTitle(experiments.keySet(),
+        ascending);
 
     tree.clear();
 
@@ -42,7 +47,8 @@ public class SortSamplesByExperiment extends SampleSorter {
 
       TreeNode<Sample> node = new TreeNode<Sample>(experiment.getName());
 
-      List<Sample> sortedSamples = sortByName(experiments.get(experiment), ascending);
+      List<Sample> sortedSamples = sortByName(experiments.get(experiment),
+          ascending);
 
       for (Sample sample : sortedSamples) {
         node.addChild(new TreeNode<Sample>(sample.getName(), sample));
@@ -58,7 +64,8 @@ public class SortSamplesByExperiment extends SampleSorter {
   public void filter(Collection<Sample> samples, FilterModel filterModel) {
     super.filter(samples, filterModel);
 
-    Map<Experiment, Set<Sample>> experiments = Experiment.sortSamplesByExperiment(samples);
+    Map<Experiment, Set<Sample>> experiments = Experiment
+        .sortSamplesByExperiment(samples);
 
     Set<String> names = new HashSet<String>();
 
@@ -73,7 +80,8 @@ public class SortSamplesByExperiment extends SampleSorter {
     return "Experiment";
   }
 
-  public static List<Experiment> sortByTitle(Collection<Experiment> experiments, boolean ascending) {
+  public static List<Experiment> sortByTitle(Collection<Experiment> experiments,
+      boolean ascending) {
 
     List<String> names = new ArrayList<String>();
 

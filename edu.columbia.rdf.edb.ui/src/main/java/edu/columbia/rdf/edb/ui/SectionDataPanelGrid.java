@@ -76,7 +76,8 @@ public class SectionDataPanelGrid extends ModernPlotCanvas {
         SampleTag fieldValue = mSample.getTags().getTag(field);
 
         if (fieldValue != null) {
-          g2.drawString(SubstitutionService.getInstance().getSubstitute(fieldValue.getValue()), x2, y);
+          g2.drawString(SubstitutionService.getInstance()
+              .getSubstitute(fieldValue.getValue()), x2, y);
         } else {
           g2.drawString(TextUtils.NA, x2, y);
         }

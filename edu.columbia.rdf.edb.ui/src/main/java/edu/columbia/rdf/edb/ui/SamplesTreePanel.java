@@ -50,7 +50,8 @@ import org.jebtk.modern.window.ModernWindow;
 
 import edu.columbia.rdf.edb.Sample;
 
-public class SamplesTreePanel extends ModernPanel implements ModernClickListener {
+public class SamplesTreePanel extends ModernPanel
+    implements ModernClickListener {
   private static final long serialVersionUID = 1L;
 
   private static final ModernTreeNodeRenderer TREE_RENDERER = new TreeNodeFileCountRenderer();
@@ -65,16 +66,18 @@ public class SamplesTreePanel extends ModernPanel implements ModernClickListener
 
   private ModernPopupMenu menu;
 
-  private ModernTwoStateWidget mSortMenuItem = new ModernCheckBoxMenuItem("Sort Descending");
+  private ModernTwoStateWidget mSortMenuItem = new ModernCheckBoxMenuItem(
+      "Sort Descending");
 
-  private ModernIconMenuItem expandMenuItem = new ModernIconMenuItem("Expand All",
-      UIService.getInstance().loadIcon(PlusVectorIcon.class, 16));
+  private ModernIconMenuItem expandMenuItem = new ModernIconMenuItem(
+      "Expand All", UIService.getInstance().loadIcon(PlusVectorIcon.class, 16));
 
-  private ModernIconMenuItem collapseMenuItem = new ModernIconMenuItem("Collapse All",
+  private ModernIconMenuItem collapseMenuItem = new ModernIconMenuItem(
+      "Collapse All",
       UIService.getInstance().loadIcon(MinusVectorIcon.class, 16));
 
-  private ViewModel mViewModel = new ViewModel(
-      SettingsService.getInstance().getAsString("edb.reads.chip-seq.default-view"));
+  private ViewModel mViewModel = new ViewModel(SettingsService.getInstance()
+      .getAsString("edb.reads.chip-seq.default-view"));
 
   private SampleModel mSampleModel;
 
@@ -146,11 +149,13 @@ public class SamplesTreePanel extends ModernPanel implements ModernClickListener
 
   }
 
-  public SamplesTreePanel(ModernWindow parent, SampleModel sampleModel, SampleSortModel sortModel) {
+  public SamplesTreePanel(ModernWindow parent, SampleModel sampleModel,
+      SampleSortModel sortModel) {
     mSampleModel = sampleModel;
     mSortModel = sortModel;
 
-    mSamplesSortPanel = new SortPanel<Sample>(parent, mSortModel, mFilterModel, mViewModel);
+    mSamplesSortPanel = new SortPanel<Sample>(parent, mSortModel, mFilterModel,
+        mViewModel);
 
     setup();
   }
@@ -173,13 +178,15 @@ public class SamplesTreePanel extends ModernPanel implements ModernClickListener
 
     // mTree.setBorder(RIGHT_BORDER);
 
-    ModernScrollPane scrollPane = new ModernScrollPane(mTree).setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
+    ModernScrollPane scrollPane = new ModernScrollPane(mTree)
+        .setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
         .setVScrollSep(PADDING);
     // scrollPane.setOpaque(true);
     // scrollPane.setBackground(Color.WHITE);
     // scrollPane.setBorder(DialogButton.DARK_BORDER);
 
-    setBody(scrollPane); // new ModernDialogContentPanel(new ModernComponent(scrollPane, PADDING)));
+    setBody(scrollPane); // new ModernDialogContentPanel(new
+                         // ModernComponent(scrollPane, PADDING)));
 
     createMenu();
 
@@ -195,7 +202,8 @@ public class SamplesTreePanel extends ModernPanel implements ModernClickListener
 
     menu.addClickListener(this);
 
-    menu.add(new ModernIconMenuItem(UI.MENU_COPY, UIService.getInstance().loadIcon("copy", 16)));
+    menu.add(new ModernIconMenuItem(UI.MENU_COPY,
+        UIService.getInstance().loadIcon("copy", 16)));
 
     menu.add(new ModernTitleIconMenuItem("Sort Options"));
 
@@ -216,8 +224,8 @@ public class SamplesTreePanel extends ModernPanel implements ModernClickListener
    * 
    * SampleSearchResult sample;
    * 
-   * for (ModernTreeNode<SampleSearchResult> node : tree.getSelectedNodes()) { if
-   * (node.getData() == null) { continue; }
+   * for (ModernTreeNode<SampleSearchResult> node : tree.getSelectedNodes()) {
+   * if (node.getData() == null) { continue; }
    * 
    * sample = node.getData();
    * 
@@ -240,7 +248,10 @@ public class SamplesTreePanel extends ModernPanel implements ModernClickListener
 
   public void loadSamples() {
 
-    mSortModel.getSorter().arrange(mSampleModel.getItems(), mTree, mSortModel.getSortAscending(), mFilterModel);
+    mSortModel.getSorter().arrange(mSampleModel.getItems(),
+        mTree,
+        mSortModel.getSortAscending(),
+        mFilterModel);
 
     mTree.getRoot().setChildrenAreExpanded(mSortModel.getExpanded());
 
@@ -308,7 +319,8 @@ public class SamplesTreePanel extends ModernPanel implements ModernClickListener
       mTree.setNodeRenderer(LIST_RENDERER);
     }
 
-    SettingsService.getInstance().update("edb.reads.chip-seq.default-view", mViewModel.getView());
+    SettingsService.getInstance().update("edb.reads.chip-seq.default-view",
+        mViewModel.getView());
   }
 
 }

@@ -17,7 +17,8 @@ public class EDBRepositorySession extends RepositorySession {
   // private UrlBuilder mRestAuthUrl;
   private UrlBuilder mVersionUrl;
 
-  public EDBRepositorySession(EDBWLogin login) throws UnsupportedEncodingException {
+  public EDBRepositorySession(EDBWLogin login)
+      throws UnsupportedEncodingException {
     mLogin = login;
 
     // mRestAuthUrl = login.getAuthUrl();
@@ -26,7 +27,8 @@ public class EDBRepositorySession extends RepositorySession {
   }
 
   @Override
-  public CacheRepository restore(File sessionFile) throws IOException, ClassNotFoundException {
+  public CacheRepository restore(File sessionFile)
+      throws IOException, ClassNotFoundException {
     EDBRepository repository = new EDBRepository(mLogin);
 
     repository.cache();

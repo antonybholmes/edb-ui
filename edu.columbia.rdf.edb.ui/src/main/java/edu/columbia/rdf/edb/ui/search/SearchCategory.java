@@ -11,7 +11,8 @@ import org.w3c.dom.Element;
  * @author Antony Holmes Holmes
  *
  */
-public class SearchCategory implements XmlRepresentation, Comparable<SearchCategory> {
+public class SearchCategory
+    implements XmlRepresentation, Comparable<SearchCategory> {
   private String mName;
   private Path mPath;
   private String mDescription;
@@ -46,8 +47,10 @@ public class SearchCategory implements XmlRepresentation, Comparable<SearchCateg
   public Element toXml(Document doc) {
     Element category = doc.createElement("category");
 
-    category.appendChild(doc.createElement("path").appendChild(doc.createTextNode(mPath.toString())));
-    category.appendChild(doc.createElement("description").appendChild(doc.createTextNode(mDescription)));
+    category.appendChild(doc.createElement("path")
+        .appendChild(doc.createTextNode(mPath.toString())));
+    category.appendChild(doc.createElement("description")
+        .appendChild(doc.createTextNode(mDescription)));
 
     return category;
   }

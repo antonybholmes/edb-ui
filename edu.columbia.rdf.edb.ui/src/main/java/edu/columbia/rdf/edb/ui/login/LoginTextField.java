@@ -13,7 +13,8 @@ public class LoginTextField extends ModernTextField {
    */
   private static final long serialVersionUID = 1L;
 
-  private static final Color FILL = ColorUtils.getTransparentColor60(Color.WHITE);
+  private static final Color FILL = ColorUtils
+      .getTransparentColor60(Color.WHITE);
 
   public LoginTextField() {
     setup();

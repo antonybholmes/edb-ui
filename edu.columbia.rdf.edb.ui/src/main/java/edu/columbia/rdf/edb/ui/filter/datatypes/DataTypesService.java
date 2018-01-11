@@ -11,13 +11,13 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.TransformerException;
 
+import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.core.AppService;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.io.FileUtils;
 import org.jebtk.core.io.PathUtils;
 import org.jebtk.core.xml.XmlUtils;
-import org.jebtk.bioinformatics.annotation.Type;
 import org.xml.sax.SAXException;
 
 import edu.columbia.rdf.edb.ui.RepositoryService;
@@ -33,9 +33,11 @@ public class DataTypesService extends DataTypesModel implements ChangeListener {
     return ServiceLoader.INSTANCE;
   }
 
-  private static final Path DATA_TYPES_FILE = PathUtils.getPath("res/default.data.types.xml");
+  private static final Path DATA_TYPES_FILE = PathUtils
+      .getPath("res/default.data.types.xml");
 
-  private static final Path USER_DATA_TYPES_FILE = AppService.getInstance().getFile("user.data.types.xml");
+  private static final Path USER_DATA_TYPES_FILE = AppService.getInstance()
+      .getFile("user.data.types.xml");
 
   private boolean mAutoLoad = true;
 
@@ -56,7 +58,8 @@ public class DataTypesService extends DataTypesModel implements ChangeListener {
       return;
     }
 
-    Collection<Type> groups = RepositoryService.getInstance().getCurrentRepository().getDataTypes();
+    Collection<Type> groups = RepositoryService.getInstance()
+        .getCurrentRepository().getDataTypes();
 
     for (Type g : groups) {
       mTypeMap.put(g, true);
@@ -72,7 +75,8 @@ public class DataTypesService extends DataTypesModel implements ChangeListener {
     }
   }
 
-  private void autoLoadXml(Path file) throws SAXException, IOException, ParserConfigurationException {
+  private void autoLoadXml(Path file)
+      throws SAXException, IOException, ParserConfigurationException {
     if (!FileUtils.exists(file)) {
       return;
     }
@@ -89,17 +93,12 @@ public class DataTypesService extends DataTypesModel implements ChangeListener {
   /**
    * Load xml.
    *
-   * @param is
-   *          the is
-   * @param update
-   *          the update
+   * @param is the is
+   * @param update the update
    * @return true, if successful
-   * @throws SAXException
-   *           the SAX exception
-   * @throws IOException
-   *           Signals that an I/O exception has occurred.
-   * @throws ParserConfigurationException
-   *           the parser configuration exception
+   * @throws SAXException the SAX exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws ParserConfigurationException the parser configuration exception
    */
   private synchronized boolean autoLoadXml(InputStream is)
       throws SAXException, IOException, ParserConfigurationException {
@@ -127,7 +126,8 @@ public class DataTypesService extends DataTypesModel implements ChangeListener {
     }
   }
 
-  private void save() throws TransformerException, ParserConfigurationException {
+  private void save()
+      throws TransformerException, ParserConfigurationException {
     XmlUtils.writeXml(this, USER_DATA_TYPES_FILE);
   }
 }

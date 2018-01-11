@@ -33,12 +33,13 @@ public abstract class SampleSorter extends Sorter<Sample> {
     return "Common Properties";
   }
 
-  // public abstract void arrange(Experiments experiments, DefaultListModel model,
+  // public abstract void arrange(Experiments experiments, DefaultListModel
+  // model,
   // boolean ascending);
 
   /*
-   * public void sort(Collection<Sample> samples, ModernTree<Sample> tree, boolean
-   * ascending, FilterModel filterModel) { filter(samples, filterModel);
+   * public void sort(Collection<Sample> samples, ModernTree<Sample> tree,
+   * boolean ascending, FilterModel filterModel) { filter(samples, filterModel);
    * 
    * arrange(samples, tree, ascending, filterModel); }
    */
@@ -79,7 +80,10 @@ public abstract class SampleSorter extends Sorter<Sample> {
    * @param field
    * @param ascending
    */
-  protected static void sortByField(Collection<Sample> samples, ModernTree<Sample> tree, Path path, boolean ascending,
+  protected static void sortByField(Collection<Sample> samples,
+      ModernTree<Sample> tree,
+      Path path,
+      boolean ascending,
       FilterModel filterModel) {
     ListMultiMap<String, Sample> map = ArrayListMultiMap.create();
 
