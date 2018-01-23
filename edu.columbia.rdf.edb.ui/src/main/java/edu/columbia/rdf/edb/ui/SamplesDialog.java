@@ -221,8 +221,7 @@ public class SamplesDialog extends ModernDialogHelpWindow
 
     getTabsPane().getModel()
         .setCenterTab(new ModernComponent(
-            new CardPanel(
-                new ModernComponent(panel, ModernWidget.DOUBLE_BORDER)),
+            new CardPanel(panel),
             ModernWidget.DOUBLE_BORDER));
 
     // setDialogCardContent(panel); //new ModernPaddedPanel(new
