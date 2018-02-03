@@ -10,7 +10,6 @@ import org.jebtk.modern.SelectionModel;
 import org.jebtk.modern.menu.ModernPopupMenu;
 import org.jebtk.modern.search.SortModel;
 import org.jebtk.modern.status.StatusModel;
-import org.jebtk.modern.tooltip.ModernToolTipModel;
 import org.jebtk.modern.window.ModernRibbonWindow;
 
 import edu.columbia.rdf.edb.DataView;
@@ -68,7 +67,6 @@ public abstract class ViewPlugin implements Comparable<ViewPlugin> {
 
   public void init(ModernRibbonWindow parent,
       StatusModel statusModel,
-      ModernToolTipModel toolTipModel,
       SelectionModel<Sample> selectedSamples) {
     // Do nothing
   }
