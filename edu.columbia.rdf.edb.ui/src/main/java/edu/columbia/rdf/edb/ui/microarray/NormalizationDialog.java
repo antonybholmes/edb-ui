@@ -115,7 +115,7 @@ public class NormalizationDialog extends ModernDialogTaskWindow
     // panel.add(buttonPanel, BorderLayout.PAGE_END);
     // box.setBorder(ModernWidget.LARGE_BORDER);
 
-    setDialogCardContent(box);
+    setCard(box);
   }
 
   private void setup() {

@@ -224,7 +224,7 @@ public class SamplesDialog extends ModernDialogHelpWindow
             new CardPanel(panel),
             ModernWidget.DOUBLE_BORDER));
 
-    // setDialogCardContent(panel); //new ModernPaddedPanel(new
+    // setCard(panel); //new ModernPaddedPanel(new
     // ModernLineBorderPanel(panel)));
 
     setDarkBackground();
