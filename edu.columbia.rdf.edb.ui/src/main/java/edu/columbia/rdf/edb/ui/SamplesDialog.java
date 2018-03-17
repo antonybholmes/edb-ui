@@ -219,7 +219,7 @@ public class SamplesDialog extends ModernDialogHelpWindow
       panel.setFooter(c);
     }
 
-    getTabsPane().getModel()
+    getTabsPane().tabs()
         .setCenterTab(new ModernComponent(
             new CardPanel(panel),
             ModernWidget.DOUBLE_BORDER));
