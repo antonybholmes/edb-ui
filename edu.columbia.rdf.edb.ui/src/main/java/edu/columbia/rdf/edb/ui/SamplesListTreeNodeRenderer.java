@@ -22,6 +22,7 @@ import java.util.List;
 import org.jebtk.core.tree.TreeNode;
 import org.jebtk.modern.UIService;
 import org.jebtk.modern.graphics.ImageUtils;
+import org.jebtk.modern.theme.MaterialService;
 import org.jebtk.modern.theme.RenderMode;
 import org.jebtk.modern.theme.ThemeService;
 import org.jebtk.modern.tree.ModernTreeNodeRenderer;
@@ -59,20 +60,38 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
 
   @Override
   public final void drawBackground(Graphics2D g2) {
+    /*
     if (mNode.isParent()) {
       fill(g2, FILL_COLOR, mRect);
     } else if (mNodeIsSelected) {
       getWidgetRenderer()
-          .buttonFillPaint(g2, mRect, RenderMode.SELECTED, false);
+      .buttonFillPaint(g2, mRect, RenderMode.SELECTED, false);
 
       ImageUtils.fillRect(g2, mRect);
     } else if (mNodeIsHighlighted) {
       getWidgetRenderer()
-          .buttonFillPaint(g2, mRect, RenderMode.HIGHLIGHT, false);
+      .buttonFillPaint(g2, mRect, RenderMode.HIGHLIGHT, false);
 
       ImageUtils.fillRect(g2, mRect);
     } else {
       // do nothing
+    }
+    */
+
+    if (!mNode.isParent()) {
+      if (mNodeIsSelected) {
+        getWidgetRenderer()
+        .buttonFillPaint(g2, mRect, RenderMode.SELECTED, false);
+
+        ImageUtils.fillRect(g2, mRect);
+      } else if (mNodeIsHighlighted) {
+        getWidgetRenderer()
+        .buttonFillPaint(g2, mRect, RenderMode.HIGHLIGHT, false);
+
+        ImageUtils.fillRect(g2, mRect);
+      } else {
+        // do nothing
+      }
     }
   }
 
@@ -97,14 +116,14 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
       }
 
       x += TreeIconNodeCountRenderer.BRANCH_OPEN_ICON.getWidth() + PADDING; // +
-                                                                            // ModernTheme.getInstance().getClass("widget").getInt("padding");
+      // ModernTheme.getInstance().getClass("widget").getInt("padding");
 
       // (HEADER_HEIGHT + g2.getFontMetrics().getAscent()) / 2;
 
       // g2.clipRect(0, 0, getWidth(), getHeight());
 
-      g2.setFont(ModernWidget.BOLD_FONT);
-      g2.setColor(TEXT_COLOR);
+      g2.setFont(MaterialService.instance().fonts().bold());
+      g2.setColor(ALT_TEXT_COLOR);
 
       y = ModernWidget.getTextYPosCenter(g2, HEADER_HEIGHT);
       g2.drawString(getTruncatedText(g2, mText1, x, mRect.getW()), x, y);
@@ -114,13 +133,13 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
       // g2.drawLine(0, 0, mRect.getW() - 1, 0);
 
       y = mRect.getH() - 1;
-      g2.drawLine(0, y, mRect.getW() - 1, y);
+      //g2.drawLine(0, y, mRect.getW() - 1, y);
     } else {
       x = DOUBLE_PADDING;
       // x += PADDINTreeIconNodeCountRenderer.BRANCH_OPEN_ICON.getWidth(); // +
       // ModernTheme.getInstance().getClass("widget").getInt("padding");
 
-      g2.setFont(ModernWidget.SUB_SUB_HEADING_FONT);
+      g2.setFont(MaterialService.instance().fonts().subHeading());
       g2.setColor(TEXT_COLOR);
       y = 20;
       g2.drawString(getTruncatedText(g2, mText1, x, mRect.getW()), x, y);
@@ -168,10 +187,10 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
 
       // g2.drawString(getTruncatedText(g2, mText4, x, mRect.getW()), x, y);
 
-      if (!mNodeIsHighlighted) {
-        g2.setColor(ModernWidget.LINE_COLOR);
-        g2.drawLine(0, mRect.getH() - 1, mRect.getW() - 1, mRect.getH() - 1);
-      }
+      //if (!mNodeIsHighlighted) {
+      //  g2.setColor(ModernWidget.LINE_COLOR);
+      //  g2.drawLine(0, mRect.getH() - 1, mRect.getW() - 1, mRect.getH() - 1);
+      //}
     }
   }
 

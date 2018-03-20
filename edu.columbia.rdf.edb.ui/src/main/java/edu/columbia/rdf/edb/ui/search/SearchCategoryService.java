@@ -1,18 +1,22 @@
 package edu.columbia.rdf.edb.ui.search;
 
-import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.jebtk.core.io.PathUtils;
 import org.jebtk.core.path.Path;
+import org.jebtk.core.settings.SettingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 
 /**
  * Represents all of the search fields available for the search component.
@@ -21,8 +25,8 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class SearchCategoryService implements Iterable<SearchCategoryGroup> {
-  public static final File DEFAULT_SEARCH_CATEGORIES_XML_FILE = new File(
-      "res/search.categories.xml");
+  public static final java.nio.file.Path SEARCH_CATEGORIES_XML_FILE = 
+      PathUtils.getPath("res/search.categories.xml");
 
   private final static Logger LOG = LoggerFactory
       .getLogger(SearchCategoryService.class);
@@ -35,10 +39,42 @@ public class SearchCategoryService implements Iterable<SearchCategoryGroup> {
 
   private Map<Path, SearchCategory> pathMap = new HashMap<Path, SearchCategory>();
 
-  private static SearchCategoryService instance = new SearchCategoryService();
+  private boolean mAutoLoad = true;
 
+
+  private static class SearchCategoryServiceLoader {
+
+    /** The Constant INSTANCE. */
+    private static final SearchCategoryService INSTANCE = new SearchCategoryService();
+  }
+
+  /**
+   * Gets the single instance of SettingsService.
+   *
+   * @return single instance of SettingsService
+   */
   public static SearchCategoryService getInstance() {
-    return instance;
+    return SearchCategoryServiceLoader.INSTANCE;
+  }
+
+  private void autoLoad() {
+    if (mAutoLoad ) {
+      // Set this here to stop recursive infinite calling
+      // of this method.
+      mAutoLoad = false;
+
+      try {
+        autoLoadXml();
+      } catch (SAXException | IOException | ParserConfigurationException e) {
+        e.printStackTrace();
+      }
+      // autoLoadJson();
+
+    }
+  }
+
+  private void autoLoadXml() throws SAXException, IOException, ParserConfigurationException {
+    loadXml(SEARCH_CATEGORIES_XML_FILE);
   }
 
   public void addGroup(SearchCategoryGroup group) {
@@ -53,28 +89,28 @@ public class SearchCategoryService implements Iterable<SearchCategoryGroup> {
   }
 
   public SearchCategoryGroup getGroup(String name) {
+    autoLoad();
+    
     return groupMap.get(name);
   }
 
   public SearchCategory get(Path path) {
+    autoLoad();
+    
     return pathMap.get(path);
   }
 
-  public void loadXml(File file) {
+  public void loadXml(java.nio.file.Path file) throws SAXException, IOException, ParserConfigurationException {
     LOG.info("Parsing search catergories in {}...", file);
 
     clear();
 
-    try {
-      SAXParserFactory factory = SAXParserFactory.newInstance();
-      SAXParser saxParser = factory.newSAXParser();
+    SAXParserFactory factory = SAXParserFactory.newInstance();
+    SAXParser saxParser = factory.newSAXParser();
 
-      SearchCategoryXmlHandler handler = new SearchCategoryXmlHandler();
+    SearchCategoryXmlHandler handler = new SearchCategoryXmlHandler();
 
-      saxParser.parse(file.getAbsolutePath(), handler);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    saxParser.parse(file.toFile(), handler);
   }
 
   private void clear() {
@@ -84,11 +120,15 @@ public class SearchCategoryService implements Iterable<SearchCategoryGroup> {
   }
 
   public SearchCategory getSearchCategory(String name) {
+    autoLoad();
+    
     return categoryMap.get(name);
   }
 
   @Override
   public Iterator<SearchCategoryGroup> iterator() {
+    autoLoad();
+    
     return groups.iterator();
   }
 }

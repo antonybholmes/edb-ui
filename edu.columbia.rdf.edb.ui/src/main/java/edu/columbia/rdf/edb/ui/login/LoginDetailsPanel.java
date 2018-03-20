@@ -15,10 +15,10 @@ public class LoginDetailsPanel extends MatrixPanel {
   private static final int[] ROWS = { WIDGET_HEIGHT };
   private static final int[] COLS = { 80, 450 };
 
-  private ModernTextField mServerField = new LoginTextField();
-  private ModernTextField mUserField = new LoginTextField();
+  private ModernTextField mServerField = new ModernTextField();
+  private ModernTextField mKeyField = new ModernTextField();
   // private ModernTextField portField = new ModernClipboardTextField();
-  private ModernTextField mKeyField = new LoginTextField();
+  private ModernTextField mTotpField = new ModernTextField();
 
   public LoginDetailsPanel() {
     super(ROWS, COLS, PADDING, PADDING);
@@ -31,30 +31,30 @@ public class LoginDetailsPanel extends MatrixPanel {
     // mServerField.setBorder(BORDER);
     // mServerField.setOpaque(false);
 
-    mKeyField.setBorder(BORDER);
+    mTotpField.setBorder(BORDER);
 
     add(new ModernLabel("Server"));
     add(new ModernTextBorderPanel(mServerField));
-    add(new ModernLabel("User"));
-    add(new ModernTextBorderPanel(mUserField));
-    add(new ModernLabel("Key"));
+    add(new ModernLabel("API Key"));
     add(new ModernTextBorderPanel(mKeyField));
+    add(new ModernLabel("TOTP"));
+    add(new ModernTextBorderPanel(mTotpField));
   }
 
   public final void set(EDBWLogin details) {
     mServerField.setText(details.getServer());
     // portField.setText(Integer.toString(details.getPort()));
 
-    mUserField.setText(details.getUser());
+    mKeyField.setText(details.getKey());
 
-    mKeyField.setText(details.getFullKey());
+    mTotpField.setText(details.getTOTP());
   }
 
   public final EDBWLogin getLoginDetails()
       throws NumberFormatException, UnsupportedEncodingException {
     return EDBWLogin.create(mServerField.getText(),
-        mUserField.getText(),
-        mKeyField.getText());
+        mKeyField.getText(),
+        mTotpField.getText());
   }
 
   /*
