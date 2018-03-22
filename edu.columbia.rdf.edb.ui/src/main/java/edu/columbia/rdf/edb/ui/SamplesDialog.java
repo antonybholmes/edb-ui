@@ -33,7 +33,6 @@ import org.jebtk.modern.event.ModernClickEvent;
 import org.jebtk.modern.event.ModernClickListener;
 import org.jebtk.modern.graphics.icons.MinusVectorIcon;
 import org.jebtk.modern.graphics.icons.PlusVectorIcon;
-import org.jebtk.modern.panel.CardPanel;
 import org.jebtk.modern.search.ModernSearchPanel;
 import org.jebtk.modern.search.SearchModel;
 import org.jebtk.modern.tabs.TabPanel;
@@ -218,11 +217,8 @@ public class SamplesDialog extends ModernDialogHelpWindow
     if (c != null) {
       panel.setFooter(c);
     }
-
-    getTabsPane().tabs()
-        .setCenterTab(new ModernComponent(
-            new CardPanel(panel),
-            ModernWidget.DOUBLE_BORDER));
+    
+    setCard(panel);
 
     // setCard(panel); //new ModernPaddedPanel(new
     // ModernLineBorderPanel(panel)));

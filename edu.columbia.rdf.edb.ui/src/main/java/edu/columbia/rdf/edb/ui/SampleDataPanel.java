@@ -4,12 +4,14 @@ import java.awt.Component;
 import java.io.IOException;
 
 import org.jebtk.core.text.TextUtils;
+import org.jebtk.modern.BorderService;
 import org.jebtk.modern.ModernComponent;
 import org.jebtk.modern.UI;
 import org.jebtk.modern.clipboard.ClipboardService;
 import org.jebtk.modern.clipboard.ModernClipboardWidget;
 import org.jebtk.modern.panel.ModernLineBottomBorderPanel;
 import org.jebtk.modern.scrollpane.ModernScrollPane;
+import org.jebtk.modern.scrollpane.ScrollBarLocation;
 import org.jebtk.modern.scrollpane.ScrollBarPolicy;
 import org.jebtk.modern.widget.ModernWidget;
 
@@ -45,10 +47,12 @@ public class SampleDataPanel extends ModernClipboardWidget {
 
     SectionDataPanelGrid2 grid = new SectionDataPanelGrid2(sample, view);
 
-    ModernScrollPane scrollPane = new ModernScrollPane(grid);
-    scrollPane.setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER);
-    // scrollPane.setScrollBarLocation(ScrollBarLocation.FLOATING);
-    scrollPane.setBorder(LARGE_BORDER);
+    ModernScrollPane scrollPane = new ModernScrollPane(grid)
+        .setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
+        .setVScrollBarLocation(ScrollBarLocation.FLOATING)
+        .setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW);
+
+    // scrollPane.setBorder(LARGE_BORDER);
     // scrollPane.setBackground(Color.WHITE);
     // scrollPane.setViewportBorder(BorderFactory.createEmptyBorder());
     // scrollPane.getViewport().setBackground(Color.WHITE);
@@ -62,8 +66,7 @@ public class SampleDataPanel extends ModernClipboardWidget {
   public void setHeader(Component c) {
     super.setHeader(new ModernComponent(
         new ModernLineBottomBorderPanel(
-            new ModernComponent(c, UI.createBottomBorder(10))),
-        ModernWidget.LARGE_BORDER));
+            new ModernComponent(c)), BorderService.getInstance().createBottomBorder(10)));
   }
 
   public Sample getSample() {

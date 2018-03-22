@@ -25,7 +25,7 @@ public class ViewPluginService implements Iterable<ViewPlugin>, Serializable {
 
   private static final ViewPluginService INSTANCE = new ViewPluginService();
 
-  public static final ViewPluginService getInstance() {
+  public static final ViewPluginService instance() {
     return INSTANCE;
   }
 
@@ -37,9 +37,11 @@ public class ViewPluginService implements Iterable<ViewPlugin>, Serializable {
     // load();
   }
 
-  public void register(ViewPlugin view) {
-    mViews.add(view);
-    mViewMap.put(view.getExpressionType(), view);
+  public void add(ViewPlugin plugin) {
+    mViews.add(plugin);
+    mViewMap.put(plugin.getExpressionType(), plugin);
+    
+    plugin.init();
   }
 
   @Override

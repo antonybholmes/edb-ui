@@ -7,14 +7,12 @@ import java.util.List;
 import org.jebtk.core.path.Path;
 import org.jebtk.modern.ModernComponent;
 import org.jebtk.modern.SelectionModel;
-import org.jebtk.modern.menu.ModernPopupMenu;
-import org.jebtk.modern.search.SortModel;
+import org.jebtk.modern.menu.ModernPopupMenu2;
 import org.jebtk.modern.status.StatusModel;
 import org.jebtk.modern.window.ModernRibbonWindow;
 
 import edu.columbia.rdf.edb.DataView;
 import edu.columbia.rdf.edb.Sample;
-import edu.columbia.rdf.edb.ui.search.SearchCategoryService;
 
 /**
  * All custom data views for the experimentdb should implement this.
@@ -24,13 +22,22 @@ import edu.columbia.rdf.edb.ui.search.SearchCategoryService;
 public abstract class ViewPlugin implements Comparable<ViewPlugin> {
 
   /**
+   * Initialize services related to the plugin
+   */
+  public void init() {
+    initSampleSorters();
+    initSampleFolders();
+    initSearchCategories();
+  }
+  
+  /**
    * Should add sample sorters specific to the type of view this plugin
    * represents. E.g. for microarray this could be the addition of a sorter to
    * sort samples by array platform.
    * 
    * @param sampleSortModel
    */
-  public void initSampleSorters(SortModel<Sample> sampleSortModel) {
+  public void initSampleSorters() {
     // Do nothing
   }
 
@@ -41,7 +48,7 @@ public abstract class ViewPlugin implements Comparable<ViewPlugin> {
    * 
    * @param views
    */
-  public void initSampleFolders(SortModel<Sample> views) {
+  public void initSampleFolders() {
     // do nothing
   }
 
@@ -52,8 +59,7 @@ public abstract class ViewPlugin implements Comparable<ViewPlugin> {
    * 
    * @param searchCategoryService
    */
-  public void initSearchCategories(
-      SearchCategoryService searchCategoryService) {
+  public void initSearchCategories() {
     // do nothing
   }
 
@@ -65,6 +71,14 @@ public abstract class ViewPlugin implements Comparable<ViewPlugin> {
    */
   public abstract String getExpressionType();
 
+  /**
+   * Called once to initialize the plugin so that it can integrate itself
+   * into the Experiments UI.
+   * 
+   * @param parent
+   * @param statusModel
+   * @param selectedSamples
+   */
   public void init(ModernRibbonWindow parent,
       StatusModel statusModel,
       SelectionModel<Sample> selectedSamples) {
@@ -89,7 +103,7 @@ public abstract class ViewPlugin implements Comparable<ViewPlugin> {
 
   public abstract DataView getDataView();
 
-  public void customizeSampleMenu(ModernPopupMenu menu) {
+  public void customizeSampleMenu(ModernPopupMenu2 menu) {
     // TODO Auto-generated method stub
   }
 

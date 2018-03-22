@@ -13,7 +13,6 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.jebtk.core.io.PathUtils;
 import org.jebtk.core.path.Path;
-import org.jebtk.core.settings.SettingsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXException;
@@ -78,6 +77,8 @@ public class SearchCategoryService implements Iterable<SearchCategoryGroup> {
   }
 
   public void addGroup(SearchCategoryGroup group) {
+    autoLoad();
+    
     groups.add(group);
 
     groupMap.put(group.getName(), group);
@@ -103,7 +104,7 @@ public class SearchCategoryService implements Iterable<SearchCategoryGroup> {
   public void loadXml(java.nio.file.Path file) throws SAXException, IOException, ParserConfigurationException {
     LOG.info("Parsing search catergories in {}...", file);
 
-    clear();
+    //clear();
 
     SAXParserFactory factory = SAXParserFactory.newInstance();
     SAXParser saxParser = factory.newSAXParser();

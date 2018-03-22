@@ -20,14 +20,15 @@ import java.awt.Graphics2D;
 import java.util.List;
 
 import org.jebtk.core.tree.TreeNode;
-import org.jebtk.modern.UIService;
 import org.jebtk.modern.graphics.ImageUtils;
+import org.jebtk.modern.graphics.icons.CheveronDownVectorIcon;
+import org.jebtk.modern.graphics.icons.CheveronRightVectorIcon;
+import org.jebtk.modern.graphics.icons.RasterIcon;
 import org.jebtk.modern.theme.MaterialService;
 import org.jebtk.modern.theme.RenderMode;
 import org.jebtk.modern.theme.ThemeService;
 import org.jebtk.modern.tree.ModernTreeNodeRenderer;
 import org.jebtk.modern.tree.Tree;
-import org.jebtk.modern.tree.TreeIconNodeCountRenderer;
 import org.jebtk.modern.widget.ModernWidget;
 
 import edu.columbia.rdf.edb.Group;
@@ -36,7 +37,7 @@ import edu.columbia.rdf.edb.Sample;
 public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
   private static final long serialVersionUID = 1L;
 
-  private static final int HEADER_HEIGHT = 32;
+  private static final int HEADER_HEIGHT = 30;
   private static final int HEIGHT = 60;
   // private static final int LINE_HEIGHT = Resources.ICON_SIZE_24;
 
@@ -50,6 +51,18 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
 
   /** The maximum number of groups to show */
   private static final int MAX_GROUP_DISPLAY = 5;
+
+  private static final Color PARENT_TEXT_COLOR = 
+      ThemeService.getInstance().colors().getHighlight32(16);
+  
+  public static final RasterIcon BRANCH_OPEN_ICON = new RasterIcon(
+      new CheveronDownVectorIcon(PARENT_TEXT_COLOR), 12); // new
+                                             // TriangleDownVectorIcon());
+                                             // //CheveronDownVectorIcon());
+
+  /** The Constant BRANCH_CLOSED_ICON. */
+  public static final RasterIcon BRANCH_CLOSED_ICON = new RasterIcon(
+      new CheveronRightVectorIcon(PARENT_TEXT_COLOR), 12);
 
   private String mText1 = null;
   private String mText2 = null;
@@ -107,15 +120,21 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
 
     if (mNode.isParent()) {
       x = PADDING;
-      y = (HEADER_HEIGHT - UIService.ICON_SIZE_16) / 2;
+      y = (HEADER_HEIGHT - 16) / 2;
 
+      g2.setColor(PARENT_TEXT_COLOR);
+      
+      //if (mRow > 0) {
+      //  g2.drawLine(0, y, mRect.getW() - 1, y);
+      //}
+      
       if (mNode.isExpanded()) {
-        TreeIconNodeCountRenderer.BRANCH_OPEN_ICON.drawIcon(g2, x, y, 16);
+        BRANCH_OPEN_ICON.drawIcon(g2, x, y, 16);
       } else {
-        TreeIconNodeCountRenderer.BRANCH_CLOSED_ICON.drawIcon(g2, x, y, 16);
+        BRANCH_CLOSED_ICON.drawIcon(g2, x, y, 16);
       }
 
-      x += TreeIconNodeCountRenderer.BRANCH_OPEN_ICON.getWidth() + PADDING; // +
+      x += BRANCH_OPEN_ICON.getWidth() + PADDING; // +
       // ModernTheme.getInstance().getClass("widget").getInt("padding");
 
       // (HEADER_HEIGHT + g2.getFontMetrics().getAscent()) / 2;
@@ -123,17 +142,17 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
       // g2.clipRect(0, 0, getWidth(), getHeight());
 
       g2.setFont(MaterialService.instance().fonts().bold());
-      g2.setColor(ALT_TEXT_COLOR);
+      
 
       y = ModernWidget.getTextYPosCenter(g2, HEADER_HEIGHT);
       g2.drawString(getTruncatedText(g2, mText1, x, mRect.getW()), x, y);
 
-      g2.setColor(ModernWidget.LINE_COLOR);
+      //g2.setColor(ModernWidget.LINE_COLOR);
 
       // g2.drawLine(0, 0, mRect.getW() - 1, 0);
 
-      y = mRect.getH() - 1;
-      //g2.drawLine(0, y, mRect.getW() - 1, y);
+      //y = mRect.getH() - 1;
+     
     } else {
       x = DOUBLE_PADDING;
       // x += PADDINTreeIconNodeCountRenderer.BRANCH_OPEN_ICON.getWidth(); // +

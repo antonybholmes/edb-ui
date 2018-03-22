@@ -57,9 +57,7 @@ public class DataViewXmlHandler extends DefaultHandler {
       String qName,
       Attributes attributes) throws SAXException {
 
-    if (qName.equals("view")) {
-      // mDataView = new DataView(attributes.getValue("name"));
-    } else if (qName.equals("section")) {
+    if (qName.equals("section")) {
       mSection = new DataViewSection("Source");
 
       mDataView.addSection(mSection);

@@ -18,14 +18,14 @@ import edu.columbia.rdf.edb.ui.DataViewXmlHandler;
  */
 public class MicroarrayDataView extends DataView {
 
-  private static final java.nio.file.Path VIEW_FILE = PathUtils
-      .getPath("res/views/microarray.xml");
+  public static final java.nio.file.Path XML_VIEW_FILE = PathUtils
+      .getPath("res/modules/microarray.xml");
 
   public MicroarrayDataView() {
     super("Microarray");
 
     try {
-      DataViewXmlHandler.loadXml(VIEW_FILE, this);
+      DataViewXmlHandler.loadXml(XML_VIEW_FILE, this);
     } catch (SAXException | IOException | ParserConfigurationException e) {
       e.printStackTrace();
     }
