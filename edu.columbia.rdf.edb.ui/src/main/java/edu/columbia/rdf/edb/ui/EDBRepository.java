@@ -204,7 +204,7 @@ public class EDBRepository extends CacheRepository {
       Species species = mSpecies
           .get(sampleJSON.get(EDB.HEADING_ORGANISM).getAsInt());
 
-      String name = sampleJSON.get(EDB.HEADING_NAME).getAsString();
+      String name = sampleJSON.get(EDB.HEADING_NAME_SHORT).getAsString();
 
       // String description = sampleJSON.get("description").getAsString();
 
@@ -388,7 +388,7 @@ public class EDBRepository extends CacheRepository {
     for (int j = 0; j < json.size(); ++j) {
       Json fileJSON = json.get(j);
 
-      String fileName = fileJSON.get(EDB.HEADING_NAME).getAsString();
+      String fileName = fileJSON.get(EDB.HEADING_NAME_SHORT).getAsString();
 
       Date date = null;
 
