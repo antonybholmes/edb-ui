@@ -23,7 +23,7 @@ public class EDBRepositorySession extends RepositorySession {
 
     // mRestAuthUrl = login.getAuthUrl();
 
-    mVersionUrl = login.getApiUrl().resolve("version");
+    mVersionUrl = login.getURL().resolve("version");
   }
 
   @Override
@@ -37,7 +37,7 @@ public class EDBRepositorySession extends RepositorySession {
   }
 
   public int getCurrentDbVersion() throws IOException {
-    URL url = mVersionUrl.toUrl();
+    URL url = mVersionUrl.toURL();
 
     Json json;
 

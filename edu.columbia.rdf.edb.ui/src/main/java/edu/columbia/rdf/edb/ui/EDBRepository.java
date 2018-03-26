@@ -74,7 +74,7 @@ public class EDBRepository extends CacheRepository {
   }
 
   private UrlBuilder getExperimentsUrl() throws UnsupportedEncodingException {
-    return mLogin.getOTKAuthUrl().resolve("experiments");
+    return mLogin.getURL().resolve("experiments");
   }
 
   private UrlBuilder getExperimentsUrl(int id)
@@ -93,7 +93,7 @@ public class EDBRepository extends CacheRepository {
   }
 
   private UrlBuilder getSamplesUrl() throws UnsupportedEncodingException {
-    return mLogin.getOTKAuthUrl().resolve("samples");
+    return mLogin.getURL().resolve("samples");
   }
 
   private UrlBuilder getSamplesUrl(int id) throws UnsupportedEncodingException {
@@ -170,7 +170,7 @@ public class EDBRepository extends CacheRepository {
 
     System.err.println(url);
 
-    Json json = new JsonParser().parse(url.toUrl());
+    Json json = new JsonParser().parse(url.toURL());
 
     List<Sample> ret = parseSampleJson(json);
 
@@ -338,7 +338,7 @@ public class EDBRepository extends CacheRepository {
   @Override
   public FileDescriptor getExperimentFilesDir(int experimentId)
       throws IOException {
-    URL url = getExperimentFilesDirUrl(experimentId).toUrl();
+    URL url = getExperimentFilesDirUrl(experimentId).toURL();
 
     return getFiles(url, true).get(0);
   }
@@ -346,14 +346,14 @@ public class EDBRepository extends CacheRepository {
   @Override
   public List<FileDescriptor> getExperimentFiles(int experimentId)
       throws IOException {
-    URL url = getExperimentFilesUrl(experimentId).toUrl();
+    URL url = getExperimentFilesUrl(experimentId).toURL();
 
     return getFiles(url);
   }
 
   @Override
   public List<FileDescriptor> getSampleFiles(int sampleId) throws IOException {
-    URL url = getSampleFilesUrl(sampleId).toUrl();
+    URL url = getSampleFilesUrl(sampleId).toURL();
 
     List<FileDescriptor> files = null;
 
@@ -433,7 +433,7 @@ public class EDBRepository extends CacheRepository {
   @Override
   public void cachePersons(int sampleId, Collection<Person> persons)
       throws IOException {
-    URL url = getSamplePersonsUrl(sampleId).toUrl(); // ("p",
+    URL url = getSamplePersonsUrl(sampleId).toURL(); // ("p",
                                                      // path.toString()).addParam("q",
                                                      // query).toUrl();
 
@@ -492,7 +492,7 @@ public class EDBRepository extends CacheRepository {
 
   @Override
   public Sample getSample(int id) throws IOException {
-    URL url = getSamplesUrl(id).toUrl(); // ("p", path.toString()).addParam("q",
+    URL url = getSamplesUrl(id).toURL(); // ("p", path.toString()).addParam("q",
                                          // query).toUrl();
 
     System.err.println(url);
@@ -510,7 +510,7 @@ public class EDBRepository extends CacheRepository {
 
   @Override
   public Sample getSample(String name) throws IOException {
-    URL url = getSamplesUrl(name).toUrl(); // ("p",
+    URL url = getSamplesUrl(name).toURL(); // ("p",
                                            // path.toString()).addParam("q",
                                            // query).toUrl();
 
@@ -529,7 +529,7 @@ public class EDBRepository extends CacheRepository {
 
   @Override
   public void cacheTags(int sampleId, SampleTags tags) throws IOException {
-    URL url = getSampleTagsUrl(sampleId).toUrl();
+    URL url = getSampleTagsUrl(sampleId).toURL();
 
     // System.err.println(url);
 
@@ -555,7 +555,7 @@ public class EDBRepository extends CacheRepository {
   @Override
   public void cacheTag(int sampleId, int tagId, SampleTags tags)
       throws IOException {
-    URL url = getSampleTagUrl(sampleId, tagId).toUrl();
+    URL url = getSampleTagUrl(sampleId, tagId).toURL();
 
     Json json = new JsonParser().parse(url);
 
@@ -578,7 +578,7 @@ public class EDBRepository extends CacheRepository {
 
   @Override
   public void cacheGEO(Sample sample) throws IOException {
-    URL url = getSampleGeoUrl(sample).toUrl();
+    URL url = getSampleGeoUrl(sample).toURL();
 
     // System.err.println(url);
 

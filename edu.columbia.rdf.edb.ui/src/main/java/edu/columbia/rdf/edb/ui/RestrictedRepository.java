@@ -72,7 +72,7 @@ public class RestrictedRepository extends EDBRepository {
       Collection<Species> organisms,
       Groups groups) throws IOException {
     URL url = getSearchSamplesUrl().param("p", path.toString())
-        .param("q", query).param("ext", "persons").param("ext", "tags").toUrl();
+        .param("q", query).param("ext", "persons").param("ext", "tags").toURL();
 
     System.err.println(url);
 

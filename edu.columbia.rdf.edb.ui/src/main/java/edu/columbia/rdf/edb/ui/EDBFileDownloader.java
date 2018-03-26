@@ -58,7 +58,7 @@ public class EDBFileDownloader implements FileDownloader {
    */
 
   public void downloadFile(UrlBuilder url, Path localFile) throws IOException {
-    downloadFile(url.toUrl(), localFile);
+    downloadFile(url.toURL(), localFile);
   }
 
   public void downloadFile(URL urlFile, Path localFile) throws IOException {
@@ -85,7 +85,7 @@ public class EDBFileDownloader implements FileDownloader {
   @Override
   public void downloadFile(FileDescriptor file, Path localFile)
       throws IOException {
-    UrlBuilder urlFile = mLogin.getOTKAuthUrl().resolve("download")
+    UrlBuilder urlFile = mLogin.getURL().resolve("download")
         .resolve("files").resolve(file.getId());
 
     downloadFile(urlFile, localFile);
@@ -94,7 +94,7 @@ public class EDBFileDownloader implements FileDownloader {
   @Override
   public void downloadZip(Set<FileDescriptor> files, Path localFile)
       throws IOException {
-    UrlBuilder url = mLogin.getOTKAuthUrl().resolve("download").resolve("files")
+    UrlBuilder url = mLogin.getURL().resolve("download").resolve("files")
         .resolve("zip");
 
     // Add the file ids we want to download
@@ -102,6 +102,6 @@ public class EDBFileDownloader implements FileDownloader {
       url = url.param("id", file.getId());
     }
 
-    downloadFile(url.toUrl(), localFile);
+    downloadFile(url.toURL(), localFile);
   }
 }

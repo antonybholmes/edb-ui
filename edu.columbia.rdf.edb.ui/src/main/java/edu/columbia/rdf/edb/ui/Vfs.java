@@ -40,12 +40,12 @@ public class Vfs {
 
   public List<FileDescriptor> ls(int vfsId)
       throws ParseException, MalformedURLException, IOException {
-    UrlBuilder urlFile = mLogin.getOTKAuthUrl().resolve("vfs").resolve("ls")
+    UrlBuilder urlFile = mLogin.getURL().resolve("vfs").resolve("ls")
         .resolve(vfsId);
 
     System.err.println(urlFile);
 
-    Json json = new JsonParser().parse(urlFile.toUrl());
+    Json json = new JsonParser().parse(urlFile.toURL());
 
     List<FileDescriptor> files = new ArrayList<FileDescriptor>();
 
@@ -66,11 +66,11 @@ public class Vfs {
 
   public List<Tag> tags()
       throws MalformedURLException, IOException, ParseException {
-    UrlBuilder urlFile = mLogin.getOTKAuthUrl().resolve("vfs").resolve("tags");
+    UrlBuilder urlFile = mLogin.getURL().resolve("vfs").resolve("tags");
 
     System.err.println(urlFile);
 
-    Json json = new JsonParser().parse(urlFile.toUrl());
+    Json json = new JsonParser().parse(urlFile.toURL());
 
     List<Tag> tags = new ArrayList<Tag>();
 
