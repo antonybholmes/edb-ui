@@ -22,7 +22,6 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import edu.columbia.rdf.edb.Group;
 
-// TODO: Auto-generated Javadoc
 /**
  * The class KeyXmlHandler.
  */

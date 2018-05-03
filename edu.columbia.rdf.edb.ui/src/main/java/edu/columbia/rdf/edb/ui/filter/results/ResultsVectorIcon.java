@@ -29,7 +29,6 @@ package edu.columbia.rdf.edb.ui.filter.results;
 
 import org.jebtk.modern.tabs.IconTabsVectorIcon;
 
-// TODO: Auto-generated Javadoc
 /**
  * Group vector icon showing 3 colored balls spaced equally around a circle.
  * 

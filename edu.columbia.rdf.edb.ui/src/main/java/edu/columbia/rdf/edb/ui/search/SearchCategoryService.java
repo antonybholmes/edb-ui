@@ -24,8 +24,8 @@ import org.xml.sax.SAXException;
  *
  */
 public class SearchCategoryService implements Iterable<SearchCategoryGroup> {
-  public static final java.nio.file.Path SEARCH_CATEGORIES_XML_FILE = 
-      PathUtils.getPath("res/search.categories.xml");
+  public static final java.nio.file.Path SEARCH_CATEGORIES_XML_FILE = PathUtils
+      .getPath("res/search.categories.xml");
 
   private final static Logger LOG = LoggerFactory
       .getLogger(SearchCategoryService.class);
@@ -39,7 +39,6 @@ public class SearchCategoryService implements Iterable<SearchCategoryGroup> {
   private Map<Path, SearchCategory> pathMap = new HashMap<Path, SearchCategory>();
 
   private boolean mAutoLoad = true;
-
 
   private static class SearchCategoryServiceLoader {
 
@@ -57,7 +56,7 @@ public class SearchCategoryService implements Iterable<SearchCategoryGroup> {
   }
 
   private void autoLoad() {
-    if (mAutoLoad ) {
+    if (mAutoLoad) {
       // Set this here to stop recursive infinite calling
       // of this method.
       mAutoLoad = false;
@@ -72,13 +71,14 @@ public class SearchCategoryService implements Iterable<SearchCategoryGroup> {
     }
   }
 
-  private void autoLoadXml() throws SAXException, IOException, ParserConfigurationException {
+  private void autoLoadXml()
+      throws SAXException, IOException, ParserConfigurationException {
     loadXml(SEARCH_CATEGORIES_XML_FILE);
   }
 
   public void addGroup(SearchCategoryGroup group) {
     autoLoad();
-    
+
     groups.add(group);
 
     groupMap.put(group.getName(), group);
@@ -91,20 +91,21 @@ public class SearchCategoryService implements Iterable<SearchCategoryGroup> {
 
   public SearchCategoryGroup getGroup(String name) {
     autoLoad();
-    
+
     return groupMap.get(name);
   }
 
   public SearchCategory get(Path path) {
     autoLoad();
-    
+
     return pathMap.get(path);
   }
 
-  public void loadXml(java.nio.file.Path file) throws SAXException, IOException, ParserConfigurationException {
+  public void loadXml(java.nio.file.Path file)
+      throws SAXException, IOException, ParserConfigurationException {
     LOG.info("Parsing search catergories in {}...", file);
 
-    //clear();
+    // clear();
 
     SAXParserFactory factory = SAXParserFactory.newInstance();
     SAXParser saxParser = factory.newSAXParser();
@@ -122,14 +123,14 @@ public class SearchCategoryService implements Iterable<SearchCategoryGroup> {
 
   public SearchCategory getSearchCategory(String name) {
     autoLoad();
-    
+
     return categoryMap.get(name);
   }
 
   @Override
   public Iterator<SearchCategoryGroup> iterator() {
     autoLoad();
-    
+
     return groups.iterator();
   }
 }

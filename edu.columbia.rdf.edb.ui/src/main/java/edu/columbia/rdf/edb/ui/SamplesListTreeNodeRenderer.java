@@ -52,13 +52,13 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
   /** The maximum number of groups to show */
   private static final int MAX_GROUP_DISPLAY = 5;
 
-  private static final Color PARENT_TEXT_COLOR = 
-      ThemeService.getInstance().colors().getHighlight32(16);
-  
+  private static final Color PARENT_TEXT_COLOR = ThemeService.getInstance()
+      .colors().getHighlight32(16);
+
   public static final RasterIcon BRANCH_OPEN_ICON = new RasterIcon(
       new CheveronDownVectorIcon(PARENT_TEXT_COLOR), 12); // new
-                                             // TriangleDownVectorIcon());
-                                             // //CheveronDownVectorIcon());
+  // TriangleDownVectorIcon());
+  // //CheveronDownVectorIcon());
 
   /** The Constant BRANCH_CLOSED_ICON. */
   public static final RasterIcon BRANCH_CLOSED_ICON = new RasterIcon(
@@ -74,32 +74,26 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
   @Override
   public final void drawBackground(Graphics2D g2) {
     /*
-    if (mNode.isParent()) {
-      fill(g2, FILL_COLOR, mRect);
-    } else if (mNodeIsSelected) {
-      getWidgetRenderer()
-      .buttonFillPaint(g2, mRect, RenderMode.SELECTED, false);
-
-      ImageUtils.fillRect(g2, mRect);
-    } else if (mNodeIsHighlighted) {
-      getWidgetRenderer()
-      .buttonFillPaint(g2, mRect, RenderMode.HIGHLIGHT, false);
-
-      ImageUtils.fillRect(g2, mRect);
-    } else {
-      // do nothing
-    }
-    */
+     * if (mNode.isParent()) { fill(g2, FILL_COLOR, mRect); } else if
+     * (mNodeIsSelected) { getWidgetRenderer() .buttonFillPaint(g2, mRect,
+     * RenderMode.SELECTED, false);
+     * 
+     * ImageUtils.fillRect(g2, mRect); } else if (mNodeIsHighlighted) {
+     * getWidgetRenderer() .buttonFillPaint(g2, mRect, RenderMode.HIGHLIGHT,
+     * false);
+     * 
+     * ImageUtils.fillRect(g2, mRect); } else { // do nothing }
+     */
 
     if (!mNode.isParent()) {
       if (mNodeIsSelected) {
         getWidgetRenderer()
-        .buttonFillPaint(g2, mRect, RenderMode.SELECTED, false);
+            .buttonFillPaint(g2, mRect, RenderMode.SELECTED, false);
 
         ImageUtils.fillRect(g2, mRect);
       } else if (mNodeIsHighlighted) {
         getWidgetRenderer()
-        .buttonFillPaint(g2, mRect, RenderMode.HIGHLIGHT, false);
+            .buttonFillPaint(g2, mRect, RenderMode.HIGHLIGHT, false);
 
         ImageUtils.fillRect(g2, mRect);
       } else {
@@ -123,11 +117,11 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
       y = (HEADER_HEIGHT - 16) / 2;
 
       g2.setColor(PARENT_TEXT_COLOR);
-      
-      //if (mRow > 0) {
-      //  g2.drawLine(0, y, mRect.getW() - 1, y);
-      //}
-      
+
+      // if (mRow > 0) {
+      // g2.drawLine(0, y, mRect.getW() - 1, y);
+      // }
+
       if (mNode.isExpanded()) {
         BRANCH_OPEN_ICON.drawIcon(g2, x, y, 16);
       } else {
@@ -142,17 +136,16 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
       // g2.clipRect(0, 0, getWidth(), getHeight());
 
       g2.setFont(MaterialService.instance().fonts().bold());
-      
 
       y = ModernWidget.getTextYPosCenter(g2, HEADER_HEIGHT);
       g2.drawString(getTruncatedText(g2, mText1, x, mRect.getW()), x, y);
 
-      //g2.setColor(ModernWidget.LINE_COLOR);
+      // g2.setColor(ModernWidget.LINE_COLOR);
 
       // g2.drawLine(0, 0, mRect.getW() - 1, 0);
 
-      //y = mRect.getH() - 1;
-     
+      // y = mRect.getH() - 1;
+
     } else {
       x = DOUBLE_PADDING;
       // x += PADDINTreeIconNodeCountRenderer.BRANCH_OPEN_ICON.getWidth(); // +
@@ -206,10 +199,10 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
 
       // g2.drawString(getTruncatedText(g2, mText4, x, mRect.getW()), x, y);
 
-      //if (!mNodeIsHighlighted) {
-      //  g2.setColor(ModernWidget.LINE_COLOR);
-      //  g2.drawLine(0, mRect.getH() - 1, mRect.getW() - 1, mRect.getH() - 1);
-      //}
+      // if (!mNodeIsHighlighted) {
+      // g2.setColor(ModernWidget.LINE_COLOR);
+      // g2.drawLine(0, mRect.getH() - 1, mRect.getW() - 1, mRect.getH() - 1);
+      // }
     }
   }
 

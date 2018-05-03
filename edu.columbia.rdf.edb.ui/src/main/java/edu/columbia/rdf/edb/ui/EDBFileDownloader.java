@@ -85,8 +85,8 @@ public class EDBFileDownloader implements FileDownloader {
   @Override
   public void downloadFile(FileDescriptor file, Path localFile)
       throws IOException {
-    UrlBuilder urlFile = mLogin.getURL().resolve("download")
-        .resolve("files").resolve(file.getId());
+    UrlBuilder urlFile = mLogin.getURL().resolve("download").resolve("files")
+        .resolve(file.getId());
 
     downloadFile(urlFile, localFile);
   }

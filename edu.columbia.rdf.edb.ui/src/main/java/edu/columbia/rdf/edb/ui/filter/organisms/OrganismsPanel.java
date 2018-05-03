@@ -18,17 +18,13 @@ package edu.columbia.rdf.edb.ui.filter.organisms;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.Box;
-
-import org.jebtk.modern.ModernComponent;
 import org.jebtk.modern.UI;
 import org.jebtk.modern.button.ModernCheckSwitch;
 import org.jebtk.modern.event.ModernClickEvent;
 import org.jebtk.modern.event.ModernClickListener;
 import org.jebtk.modern.panel.VBox;
-import org.jebtk.modern.scrollpane.ModernScrollPane;
-import org.jebtk.modern.scrollpane.ScrollBarPolicy;
 import org.jebtk.modern.widget.ModernTwoStateWidget;
+import org.jebtk.modern.widget.ModernWidget;
 
 import edu.columbia.rdf.edb.Species;
 
@@ -38,7 +34,7 @@ import edu.columbia.rdf.edb.Species;
  * @author Antony Holmes
  *
  */
-public class OrganismsPanel extends ModernComponent
+public class OrganismsPanel extends VBox
     implements ModernClickListener {
 
   /** The Constant serialVersionUID. */
@@ -54,14 +50,14 @@ public class OrganismsPanel extends ModernComponent
   public OrganismsPanel(OrganismsModel model) {
     mModel = model;
 
-    Box box = VBox.create();
+    //Box box = VBox.create();
 
     // box.add(new ModernSubHeadingLabel("Organisms"));
 
-    box.add(UI.createVGap(10));
+    add(UI.createVGap(10));
 
-    box.add(mCheckAll);
-    box.add(UI.createVGap(10));
+    add(mCheckAll);
+    add(UI.createVGap(10));
 
     mCheckAll.addClickListener(new ModernClickListener() {
 
@@ -75,18 +71,18 @@ public class OrganismsPanel extends ModernComponent
       ModernTwoStateWidget check = new ModernCheckSwitch(t.getName(),
           model.getUse(t));
 
-      box.add(check);
+      add(check);
 
       mCheckMap.put(check, t);
 
       check.addClickListener(this);
     }
 
-    setBody(new ModernScrollPane(box)
-        .setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
-        .setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
+    //setBody(new ModernScrollPane(box)
+    //    .setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
+    //   .setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
 
-    // setBorder(DOUBLE_BORDER);
+    setBorder(ModernWidget.BORDER);
   }
 
   @Override

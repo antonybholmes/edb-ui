@@ -28,16 +28,17 @@ import org.jebtk.modern.ModernComponent;
 import org.jebtk.modern.UI;
 import org.jebtk.modern.UIService;
 import org.jebtk.modern.button.ModernButton;
+import org.jebtk.modern.collapsepane.ModernSubCollapsePane;
 import org.jebtk.modern.dialog.ModernDialogHelpWindow;
 import org.jebtk.modern.event.ModernClickEvent;
 import org.jebtk.modern.event.ModernClickListener;
 import org.jebtk.modern.graphics.icons.MinusVectorIcon;
 import org.jebtk.modern.graphics.icons.PlusVectorIcon;
+import org.jebtk.modern.scrollpane.ModernScrollPane;
+import org.jebtk.modern.scrollpane.ScrollBarPolicy;
 import org.jebtk.modern.search.ModernSearchPanel;
 import org.jebtk.modern.search.SearchModel;
-import org.jebtk.modern.tabs.TabPanel;
 import org.jebtk.modern.tree.ModernTree;
-import org.jebtk.modern.widget.ModernWidget;
 import org.jebtk.modern.window.ModernWindow;
 import org.jebtk.modern.window.WindowWidgetFocusEvents;
 
@@ -173,9 +174,25 @@ public class SamplesDialog extends ModernDialogHelpWindow
       }
     };
 
-    GroupsPanel userGroupsPanel = new GroupsPanel(mUserGroupsModel);
+    
+    ModernSubCollapsePane collapsePane = new ModernSubCollapsePane();
+    
+    
+    GroupsPanel userGroupsPanel = new GroupsPanel(mParent, mUserGroupsModel);
     // Respond when a user group is changed
     mUserGroupsModel.addChangeListener(l);
+    
+    
+    
+    collapsePane.addTab("Groups", userGroupsPanel);
+
+    //collapsePane.addTab("Groups", new AllGroupsPanel(model.getAllGroups()));
+
+    
+    
+    
+    
+    
 
     // DataTypesPanel dataTypesPanel = new DataTypesPanel(mDataTypesModel,
     // mOrganismsModel);
@@ -183,19 +200,31 @@ public class SamplesDialog extends ModernDialogHelpWindow
 
     mDataTypesModel.addChangeListener(l);
     mOrganismsModel.addChangeListener(l);
+    
+    
+    collapsePane.addTab("Organisms", organismsPanel);
 
-    getIconTabs().addTab("GROUPS", 'G', userGroupsPanel);
+    
+    collapsePane.setExpanded(true);
+
+    
+    
+    getTabsPane().tabs().left().add("Groups", new ModernScrollPane(collapsePane)
+        .setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
+        .setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW), 
+        200,
+        100,
+        500);
+    
+    //this.getIconTabs();
+
+    //getIconTabs().addTab("GROUPS", 'G', userGroupsPanel);
     // addLeftTab("DATA TYPES", 'D', dataTypesPanel);
-    getIconTabs()
-        .addTab("ORGANISMS", 'O', new TabPanel("Organisms", organismsPanel));
-
-    // IconTabsPanel viewPanel = new IconTabsPanel(groupTabsModel, 36, 22);
-    // //new
-    // ModernComponent(new IconTabsPanel(groupTabsModel, 30, 20),
-    // ModernWidget.DOUBLE_BORDER);
+    //getIconTabs()
+    //    .addTab("ORGANISMS", 'O', new TabPanel("Organisms", organismsPanel));
 
     // Show the column groups by default
-    getIconTabs().changeTab(0);
+    //getIconTabs().changeTab(0);
 
     // getTabsPane().getModel().addLeftTab("Filter", viewPanel, 200, 100, 500);
 
@@ -217,13 +246,13 @@ public class SamplesDialog extends ModernDialogHelpWindow
     if (c != null) {
       panel.setFooter(c);
     }
-    
+
     setCard(panel);
 
     // setCard(panel); //new ModernPaddedPanel(new
     // ModernLineBorderPanel(panel)));
 
-    setDarkBackground();
+    //setDarkBackground();
   }
 
   protected Component footer() {

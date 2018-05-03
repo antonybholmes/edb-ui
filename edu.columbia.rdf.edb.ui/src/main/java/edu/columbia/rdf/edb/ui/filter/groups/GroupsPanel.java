@@ -18,18 +18,16 @@ package edu.columbia.rdf.edb.ui.filter.groups;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.Box;
-
-import org.jebtk.modern.ModernComponent;
 import org.jebtk.modern.UI;
+import org.jebtk.modern.button.ModernButton;
 import org.jebtk.modern.button.ModernCheckSwitch;
-import org.jebtk.modern.collapsepane.ModernSubCollapsePane;
+import org.jebtk.modern.button.ModernTextLink;
 import org.jebtk.modern.event.ModernClickEvent;
 import org.jebtk.modern.event.ModernClickListener;
 import org.jebtk.modern.panel.VBox;
-import org.jebtk.modern.scrollpane.ModernScrollPane;
-import org.jebtk.modern.scrollpane.ScrollBarPolicy;
 import org.jebtk.modern.widget.ModernTwoStateWidget;
+import org.jebtk.modern.widget.ModernWidget;
+import org.jebtk.modern.window.ModernWindow;
 
 import edu.columbia.rdf.edb.Group;
 
@@ -40,7 +38,7 @@ import edu.columbia.rdf.edb.Group;
  * @author Antony Holmes Holmes
  *
  */
-public class GroupsPanel extends ModernComponent
+public class GroupsPanel extends VBox
     implements ModernClickListener {
 
   /** The Constant serialVersionUID. */
@@ -54,46 +52,60 @@ public class GroupsPanel extends ModernComponent
 
   private ModernTwoStateWidget mCheckAllMode = new ModernCheckSwitch(
       "In All Groups");
+  
+  private ModernButton mAllGroupsButton =
+      new ModernTextLink("All groups");
 
-  public GroupsPanel(GroupsModel model) {
+  private ModernWindow mParent;
+
+  public GroupsPanel(ModernWindow parent, GroupsModel model) {
+    mParent = parent;
     mModel = model;
 
-    ModernSubCollapsePane collapsePane = new ModernSubCollapsePane();
+    //ModernSubCollapsePane collapsePane = new ModernSubCollapsePane();
 
-    Box box = VBox.create();
+    //Box box = VBox.create();
 
     /// box.add(new ModernSubHeadingLabel("My Groups"));
     // box.add(UI.createVGap(10));
 
-    box.add(mCheckAll);
-    box.add(UI.createVGap(10));
+    add(mCheckAll);
+    add(UI.createVGap(10));
 
     for (Group g : model) {
       ModernTwoStateWidget check = new ModernCheckSwitch(g.getName(),
-          model.getUse(g), g.getColor());
+          model.getUse(g), g.getColor(), g.getColor());
 
-      box.add(check);
+      add(check);
 
       mCheckMap.put(check, g);
 
       check.addClickListener(this);
     }
 
-    box.add(UI.createVGap(10));
+    //add(UI.createVGap(10));
 
-    mCheckAllMode.setSelected(model.getAllMode());
-    box.add(mCheckAllMode);
-    box.setBorder(BORDER);
+    //mCheckAllMode.setSelected(model.getAllMode());
+    //add(mCheckAllMode);
+    
+    
+    add(UI.createVGap(20));
+    
+    add(mAllGroupsButton);
+    
+    add(UI.createVGap(10));
+    
+    setBorder(ModernWidget.BORDER);
 
-    collapsePane.addTab("My Groups", box);
+    //collapsePane.addTab("My Groups", box);
 
-    collapsePane.addTab("Groups", new AllGroupsPanel(model.getAllGroups()));
+    //collapsePane.addTab("Groups", new AllGroupsPanel(model.getAllGroups()));
 
-    collapsePane.setExpanded(true);
+    //collapsePane.setExpanded(true);
 
-    setBody(new ModernScrollPane(collapsePane)
-        .setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
-        .setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
+    //setBody(new ModernScrollPane(collapsePane)
+    //    .setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
+     //   .setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
 
     // setBorder(BORDER);
 
@@ -110,6 +122,19 @@ public class GroupsPanel extends ModernComponent
         mModel.setAllMode(mCheckAllMode.isSelected());
       }
     });
+    
+    mAllGroupsButton.addClickListener(new ModernClickListener() {
+
+      @Override
+      public void clicked(ModernClickEvent e) {
+        allGroups();
+      }});
+  }
+  
+  private void allGroups() {
+    AllGroupsDialog dialog = new AllGroupsDialog(mParent, mModel);
+    
+    dialog.setVisible(true);
   }
 
   @Override

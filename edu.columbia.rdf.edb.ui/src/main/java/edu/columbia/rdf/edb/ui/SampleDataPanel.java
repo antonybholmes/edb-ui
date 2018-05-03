@@ -6,14 +6,12 @@ import java.io.IOException;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.modern.BorderService;
 import org.jebtk.modern.ModernComponent;
-import org.jebtk.modern.UI;
 import org.jebtk.modern.clipboard.ClipboardService;
 import org.jebtk.modern.clipboard.ModernClipboardWidget;
 import org.jebtk.modern.panel.ModernLineBottomBorderPanel;
 import org.jebtk.modern.scrollpane.ModernScrollPane;
 import org.jebtk.modern.scrollpane.ScrollBarLocation;
 import org.jebtk.modern.scrollpane.ScrollBarPolicy;
-import org.jebtk.modern.widget.ModernWidget;
 
 import edu.columbia.rdf.edb.DataView;
 import edu.columbia.rdf.edb.Sample;
@@ -65,8 +63,8 @@ public class SampleDataPanel extends ModernClipboardWidget {
   @Override
   public void setHeader(Component c) {
     super.setHeader(new ModernComponent(
-        new ModernLineBottomBorderPanel(
-            new ModernComponent(c)), BorderService.getInstance().createBottomBorder(10)));
+        new ModernLineBottomBorderPanel(new ModernComponent(c)),
+        BorderService.getInstance().createBottomBorder(10)));
   }
 
   public Sample getSample() {

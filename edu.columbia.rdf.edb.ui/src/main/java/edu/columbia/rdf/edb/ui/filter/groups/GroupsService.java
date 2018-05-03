@@ -34,10 +34,10 @@ public class GroupsService extends GroupsModel implements ChangeListener {
   }
 
   private static final Path GROUPS_FILE = PathUtils
-      .getPath("res/default.groups.xml");
+      .getPath("res/groups.xml");
 
   private static final Path USER_GROUPS_FILE = AppService.getInstance()
-      .getFile("user.groups.xml");
+      .getFile("groups.xml");
 
   private boolean mAutoLoad = true;
 
@@ -52,13 +52,14 @@ public class GroupsService extends GroupsModel implements ChangeListener {
     autoLoad();
 
     return mGroupMap.keySet().iterator();
-
   }
 
   private void autoLoad() {
     if (!mAutoLoad) {
       return;
     }
+    
+    mAutoLoad = false;
 
     Collection<Group> groups = RepositoryService.getInstance()
         .getCurrentRepository().getUserGroups();
@@ -67,8 +68,9 @@ public class GroupsService extends GroupsModel implements ChangeListener {
       mGroupMap.put(g, false);
     }
 
-    mAutoLoad = false;
-
+    
+    // Override or add groups using configurable files.
+    
     try {
       autoLoadXml(GROUPS_FILE);
       autoLoadXml(USER_GROUPS_FILE);
@@ -76,6 +78,8 @@ public class GroupsService extends GroupsModel implements ChangeListener {
       e.printStackTrace();
     }
 
+    // Maintain a list of all groups regardless of whether user is part of
+    // them or not
     mAllGroups = RepositoryService.getInstance().getCurrentRepository()
         .getGroups();
   }
@@ -85,40 +89,19 @@ public class GroupsService extends GroupsModel implements ChangeListener {
     if (!FileUtils.exists(file)) {
       return;
     }
-
-    InputStream stream = FileUtils.newBufferedInputStream(file);
+    
+    InputStream is = FileUtils.newBufferedInputStream(file);
 
     try {
-      autoLoadXml(stream);
+      SAXParserFactory factory = SAXParserFactory.newInstance();
+      SAXParser saxParser = factory.newSAXParser();
+
+      GroupsXmlHandler handler = new GroupsXmlHandler(this);
+
+      saxParser.parse(is, handler);
     } finally {
-      stream.close();
+      is.close();
     }
-  }
-
-  /**
-   * Load xml.
-   *
-   * @param is the is
-   * @param update the update
-   * @return true, if successful
-   * @throws SAXException the SAX exception
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws ParserConfigurationException the parser configuration exception
-   */
-  private synchronized boolean autoLoadXml(InputStream is)
-      throws SAXException, IOException, ParserConfigurationException {
-    if (is == null) {
-      return false;
-    }
-
-    SAXParserFactory factory = SAXParserFactory.newInstance();
-    SAXParser saxParser = factory.newSAXParser();
-
-    GroupsXmlHandler handler = new GroupsXmlHandler(this);
-
-    saxParser.parse(is, handler);
-
-    return true;
   }
 
   @Override

@@ -29,7 +29,7 @@ public abstract class ViewPlugin implements Comparable<ViewPlugin> {
     initSampleFolders();
     initSearchCategories();
   }
-  
+
   /**
    * Should add sample sorters specific to the type of view this plugin
    * represents. E.g. for microarray this could be the addition of a sorter to
@@ -72,8 +72,8 @@ public abstract class ViewPlugin implements Comparable<ViewPlugin> {
   public abstract String getExpressionType();
 
   /**
-   * Called once to initialize the plugin so that it can integrate itself
-   * into the Experiments UI.
+   * Called once to initialize the plugin so that it can integrate itself into
+   * the Experiments UI.
    * 
    * @param parent
    * @param statusModel

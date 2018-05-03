@@ -22,7 +22,7 @@ public class AllGroupsPanel extends ModernWidget {
   public AllGroupsPanel(Collection<Group> groups) {
     mGroups = CollectionUtils.sort(groups);
 
-    setBorder(BORDER);
+    //setBorder(BORDER);
 
     UI.setSize(this,
         Short.MAX_VALUE,

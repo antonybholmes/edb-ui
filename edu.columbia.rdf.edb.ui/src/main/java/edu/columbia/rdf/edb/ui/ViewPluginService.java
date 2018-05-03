@@ -40,7 +40,7 @@ public class ViewPluginService implements Iterable<ViewPlugin>, Serializable {
   public void add(ViewPlugin plugin) {
     mViews.add(plugin);
     mViewMap.put(plugin.getExpressionType(), plugin);
-    
+
     plugin.init();
   }
 

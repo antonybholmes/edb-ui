@@ -34,7 +34,6 @@ import java.awt.Point;
 import org.jebtk.modern.graphics.icons.ModernVectorIcon;
 import org.jebtk.modern.widget.ModernWidget;
 
-// TODO: Auto-generated Javadoc
 /**
  * Group vector icon showing 3 colored balls spaced equally around a circle.
  * 
