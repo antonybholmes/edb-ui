@@ -57,7 +57,7 @@ public class LoginButton extends ModernDialogFlatButton {
   private static final int LW = 10;
 
   private static final Color BORDER_COLOR = ThemeService.getInstance().colors()
-      .getColorHighlight32(16); // ColorUtils.getTransparentColor20(Color.WHITE);
+      .getTheme32(16); // ColorUtils.getTransparentColor20(Color.WHITE);
 
   /**
    * The height.

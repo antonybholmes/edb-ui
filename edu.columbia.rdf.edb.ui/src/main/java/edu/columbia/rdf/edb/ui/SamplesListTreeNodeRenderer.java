@@ -42,7 +42,7 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
   // private static final int LINE_HEIGHT = Resources.ICON_SIZE_24;
 
   private static final Color FILL_COLOR = ThemeService.getInstance().colors()
-      .getHighlight(2);
+      .getGray(2);
 
   private static final int ORB_SIZE = 8;
   private static final int ORB_GAP = 2;
@@ -53,7 +53,7 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
   private static final int MAX_GROUP_DISPLAY = 5;
 
   private static final Color PARENT_TEXT_COLOR = ThemeService.getInstance()
-      .colors().getHighlight32(16);
+      .colors().getGray32(16);
 
   public static final RasterIcon BRANCH_OPEN_ICON = new RasterIcon(
       new CheveronDownVectorIcon(PARENT_TEXT_COLOR), 12); // new
