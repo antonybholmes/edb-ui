@@ -25,7 +25,7 @@ import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.settings.SettingsService;
 import org.jebtk.core.tree.TreeNode;
 import org.jebtk.modern.UI;
-import org.jebtk.modern.UIService;
+import org.jebtk.modern.AssetService;
 import org.jebtk.modern.event.ModernClickEvent;
 import org.jebtk.modern.event.ModernClickListener;
 import org.jebtk.modern.event.ModernSelectionListener;
@@ -70,14 +70,14 @@ public class SamplesTreePanel extends ModernPanel
       "Sort Descending");
 
   private ModernIconMenuItem expandMenuItem = new ModernIconMenuItem(
-      "Expand All", UIService.getInstance().loadIcon(PlusVectorIcon.class, 16));
+      "Expand All", AssetService.getInstance().loadIcon(PlusVectorIcon.class, 16));
 
   private ModernIconMenuItem collapseMenuItem = new ModernIconMenuItem(
       "Collapse All",
-      UIService.getInstance().loadIcon(MinusVectorIcon.class, 16));
+      AssetService.getInstance().loadIcon(MinusVectorIcon.class, 16));
 
   private ViewModel mViewModel = new ViewModel(SettingsService.getInstance()
-      .getAsString("edb.reads.chip-seq.default-view"));
+      .getString("edb.reads.chip-seq.default-view"));
 
   private SampleModel mSampleModel;
 
@@ -203,7 +203,7 @@ public class SamplesTreePanel extends ModernPanel
     menu.addClickListener(this);
 
     menu.add(new ModernIconMenuItem(UI.MENU_COPY,
-        UIService.getInstance().loadIcon("copy", 16)));
+        AssetService.getInstance().loadIcon("copy", 16)));
 
     menu.add(new ModernTitleIconMenuItem("Sort Options"));
 

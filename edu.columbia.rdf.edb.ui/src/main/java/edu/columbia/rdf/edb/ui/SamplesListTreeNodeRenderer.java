@@ -24,8 +24,8 @@ import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.graphics.icons.CheveronDownVectorIcon;
 import org.jebtk.modern.graphics.icons.CheveronRightVectorIcon;
 import org.jebtk.modern.graphics.icons.RasterIcon;
+import org.jebtk.modern.theme.DrawUIService;
 import org.jebtk.modern.theme.MaterialService;
-import org.jebtk.modern.theme.RenderMode;
 import org.jebtk.modern.theme.ThemeService;
 import org.jebtk.modern.tree.ModernTreeNodeRenderer;
 import org.jebtk.modern.tree.Tree;
@@ -41,9 +41,6 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
   private static final int HEIGHT = 60;
   // private static final int LINE_HEIGHT = Resources.ICON_SIZE_24;
 
-  private static final Color FILL_COLOR = ThemeService.getInstance().colors()
-      .getGray(2);
-
   private static final int ORB_SIZE = 8;
   private static final int ORB_GAP = 2;
 
@@ -53,7 +50,7 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
   private static final int MAX_GROUP_DISPLAY = 5;
 
   private static final Color PARENT_TEXT_COLOR = ThemeService.getInstance()
-      .colors().getGray32(16);
+      .getColors().getGray32(16);
 
   public static final RasterIcon BRANCH_OPEN_ICON = new RasterIcon(
       new CheveronDownVectorIcon(PARENT_TEXT_COLOR), 12); // new
@@ -86,18 +83,10 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
      */
 
     if (!mNode.isParent()) {
-      if (mNodeIsSelected) {
-        getWidgetRenderer()
-            .buttonFillPaint(g2, mRect, RenderMode.SELECTED, false);
+      if (mNodeIsSelected || mNodeIsHighlighted) {
+        DrawUIService.getInstance().getRenderer("button-fill").draw(g2, mRect);
 
         ImageUtils.fillRect(g2, mRect);
-      } else if (mNodeIsHighlighted) {
-        getWidgetRenderer()
-            .buttonFillPaint(g2, mRect, RenderMode.HIGHLIGHT, false);
-
-        ImageUtils.fillRect(g2, mRect);
-      } else {
-        // do nothing
       }
     }
   }
@@ -135,7 +124,7 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
 
       // g2.clipRect(0, 0, getWidth(), getHeight());
 
-      g2.setFont(MaterialService.instance().fonts().bold());
+      g2.setFont(MaterialService.getInstance().getFonts().bold());
 
       y = ModernWidget.getTextYPosCenter(g2, HEADER_HEIGHT);
       g2.drawString(getTruncatedText(g2, mText1, x, mRect.getW()), x, y);
@@ -151,7 +140,7 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
       // x += PADDINTreeIconNodeCountRenderer.BRANCH_OPEN_ICON.getWidth(); // +
       // ModernTheme.getInstance().getClass("widget").getInt("padding");
 
-      g2.setFont(MaterialService.instance().fonts().subHeading());
+      g2.setFont(MaterialService.getInstance().getFonts().subHeading());
       g2.setColor(TEXT_COLOR);
       y = 20;
       g2.drawString(getTruncatedText(g2, mText1, x, mRect.getW()), x, y);

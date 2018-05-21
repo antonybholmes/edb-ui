@@ -43,6 +43,6 @@ public class EDBRepositorySession extends RepositorySession {
 
     json = new JsonParser().parse(url);
 
-    return json.get(0).get("version").getAsInt();
+    return json.get(0).get("version").getInt();
   }
 }

@@ -85,7 +85,7 @@ public class DownloadManager {
   public static Path chooseDownloadDirectory(Frame parent) throws IOException {
 
     Path downloadDirectory = PathUtils.getPath(
-        SettingsService.getInstance().getAsString("downloads/directory"));
+        SettingsService.getInstance().getString("downloads/directory"));
 
     // Make sure the directory exists
     FileUtils.mkdir(downloadDirectory);

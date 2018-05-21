@@ -25,7 +25,7 @@ public class ViewPluginService implements Iterable<ViewPlugin>, Serializable {
 
   private static final ViewPluginService INSTANCE = new ViewPluginService();
 
-  public static final ViewPluginService instance() {
+  public static final ViewPluginService getInstance() {
     return INSTANCE;
   }
 

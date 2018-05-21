@@ -193,25 +193,25 @@ public class EDBRepository extends CacheRepository {
     for (int i = 0; i < json.size(); ++i) {
       sampleJSON = json.get(i);
 
-      int sampleId = sampleJSON.get(EDB.HEADING_ID).getAsInt();
+      int sampleId = sampleJSON.get(EDB.HEADING_ID).getInt();
 
       Experiment experiment = mExperiments
-          .get(sampleJSON.get(EDB.HEADING_EXPERIMENT).getAsInt());
+          .get(sampleJSON.get(EDB.HEADING_EXPERIMENT).getInt());
 
       Type expression = mDataTypes
-          .get(sampleJSON.get(EDB.HEADING_TYPE).getAsInt());
+          .get(sampleJSON.get(EDB.HEADING_TYPE).getInt());
 
       Species species = mSpecies
-          .get(sampleJSON.get(EDB.HEADING_ORGANISM).getAsInt());
+          .get(sampleJSON.get(EDB.HEADING_ORGANISM).getInt());
 
-      String name = sampleJSON.get(EDB.HEADING_NAME_SHORT).getAsString();
+      String name = sampleJSON.get(EDB.HEADING_NAME_SHORT).getString();
 
-      // String description = sampleJSON.get("description").getAsString();
+      // String description = sampleJSON.get("description").getString();
 
       Date date = null;
 
       try {
-        date = formatter.parse(sampleJSON.get(EDB.HEADING_DATE).getAsString());
+        date = formatter.parse(sampleJSON.get(EDB.HEADING_DATE).getString());
       } catch (ParseException e) {
         e.printStackTrace();
       }
@@ -231,10 +231,10 @@ public class EDBRepository extends CacheRepository {
       tempJSON = sampleJSON.get("geo");
 
       if (tempJSON != null) {
-        GEO geo = new GEO(tempJSON.get(EDB.HEADING_ID).getAsInt(),
-            tempJSON.get("geo_series_accession").getAsString(),
-            tempJSON.get("geo_accession").getAsString(),
-            tempJSON.get("geo_platform").getAsString());
+        GEO geo = new GEO(tempJSON.get(EDB.HEADING_ID).getInt(),
+            tempJSON.get("geo_series_accession").getString(),
+            tempJSON.get("geo_accession").getString(),
+            tempJSON.get("geo_platform").getString());
 
         sample.setGEO(geo);
       }
@@ -249,15 +249,15 @@ public class EDBRepository extends CacheRepository {
        * if (tagsJson != null) { for (int j = 0; j < tagsJson.size(); ++j) {
        * Json tagJson = tagsJson.get(j);
        * 
-       * int id = tagJson.get("id").getAsInt();
+       * int id = tagJson.get("id").getInt();
        * 
        * Tag field = mTags.get(id);
        * 
        * SampleTag sampleTag = new SampleTag(id, field,
-       * tagJson.get("value").getAsString());
+       * tagJson.get("value").getString());
        * 
        * //System.err.println("tags " + field.toString());
-       * //System.err.println("tags " + tagJson.get("value").getAsString());
+       * //System.err.println("tags " + tagJson.get("value").getString());
        * 
        * sample.getTags().add(sampleTag); } }
        */
@@ -272,7 +272,7 @@ public class EDBRepository extends CacheRepository {
         List<Group> groups = new ArrayList<Group>(10);
 
         for (int j = 0; j < groupsJson.size(); ++j) {
-          int id = groupsJson.get(j).getAsInt();
+          int id = groupsJson.get(j).getInt();
 
           Group group = mGroups.get(id);
 
@@ -299,7 +299,7 @@ public class EDBRepository extends CacheRepository {
        * if (personsJson != null) { for (int j = 0; j < personsJson.size(); ++j)
        * { Json personJSON = personsJson.get(j);
        * 
-       * Person person = mPersons.get(personJSON.get("id").getAsInt());
+       * Person person = mPersons.get(personJSON.get("id").getInt());
        * 
        * sample.getPersons().add(person); } }
        */
@@ -314,11 +314,11 @@ public class EDBRepository extends CacheRepository {
        * if (filesJson != null) { for (int j = 0; j < filesJson.size(); ++j) {
        * Json fileJSON = filesJson.get(j);
        * 
-       * String fileName = fileJSON.get("name").getAsString();
+       * String fileName = fileJSON.get("name").getString();
        * 
-       * FileDescriptor file = new FileDescriptor(fileJSON.getAsInt("id"),
-       * fileName, FileType.parse(fileJSON.get("type").getAsInt()),
-       * formatter.parse(fileJSON.get("created").getAsString()));
+       * FileDescriptor file = new FileDescriptor(fileJSON.getInt("id"),
+       * fileName, FileType.parse(fileJSON.get("type").getInt()),
+       * formatter.parse(fileJSON.get("created").getString()));
        * 
        * sample.getFiles().add(file); } }
        */
@@ -388,19 +388,19 @@ public class EDBRepository extends CacheRepository {
     for (int j = 0; j < json.size(); ++j) {
       Json fileJSON = json.get(j);
 
-      String fileName = fileJSON.get(EDB.HEADING_NAME_SHORT).getAsString();
+      String fileName = fileJSON.get(EDB.HEADING_NAME_SHORT).getString();
 
       Date date = null;
 
       try {
-        date = formatter.parse(fileJSON.get(EDB.HEADING_DATE).getAsString());
+        date = formatter.parse(fileJSON.get(EDB.HEADING_DATE).getString());
       } catch (ParseException e) {
         e.printStackTrace();
       }
 
       FileDescriptor file = new FileDescriptor(
-          fileJSON.getAsInt(EDB.HEADING_ID), fileName,
-          FileType.parse(fileJSON.get(EDB.HEADING_TYPE).getAsInt()), date);
+          fileJSON.getInt(EDB.HEADING_ID), fileName,
+          FileType.parse(fileJSON.get(EDB.HEADING_TYPE).getInt()), date);
 
       // Don't show directories
       if (showDirs || file.getType() == FileType.FILE) {
@@ -420,10 +420,10 @@ public class EDBRepository extends CacheRepository {
    * 
    * for (int i = 0; i < json.size(); ++i) { JsonValue arrayJSON = json.get(i);
    * 
-   * //String id = arrayJSON.get("id").getAsString(); String name =
-   * arrayJSON.get("name").getAsString(); String assay =
-   * arrayJSON.get("assay_name").getAsString(); String provider =
-   * arrayJSON.get("provider_name").getAsString();
+   * //String id = arrayJSON.get("id").getString(); String name =
+   * arrayJSON.get("name").getString(); String assay =
+   * arrayJSON.get("assay_name").getString(); String provider =
+   * arrayJSON.get("provider_name").getString();
    * 
    * ArrayDesign arrayDesign = new ArrayDesign(name, assay, provider);
    * 
@@ -445,7 +445,7 @@ public class EDBRepository extends CacheRepository {
       for (int j = 0; j < json.size(); ++j) {
         Json personJSON = json.get(j);
 
-        Person person = mPersons.get(personJSON.get("id").getAsInt());
+        Person person = mPersons.get(personJSON.get("id").getInt());
 
         persons.add(person);
       }
@@ -538,15 +538,15 @@ public class EDBRepository extends CacheRepository {
     for (int i = 0; i < json.size(); ++i) {
       Json tagJson = json.get(i);
 
-      int id = tagJson.get(EDB.HEADING_ID).getAsInt();
+      int id = tagJson.get(EDB.HEADING_ID).getInt();
 
       Tag field = mTags.get(id);
 
       SampleTag sampleTag = new SampleTag(id, field,
-          tagJson.get(EDB.HEADING_VALUE).getAsString());
+          tagJson.get(EDB.HEADING_VALUE).getString());
 
       // System.err.println("tags " + field.toString());
-      // System.err.println("tags " + tagJson.get("value").getAsString());
+      // System.err.println("tags " + tagJson.get("value").getString());
 
       tags.add(sampleTag);
     }
@@ -562,15 +562,15 @@ public class EDBRepository extends CacheRepository {
     for (int i = 0; i < json.size(); ++i) {
       Json tagJson = json.get(i);
 
-      int id = tagJson.get(EDB.HEADING_ID).getAsInt();
+      int id = tagJson.get(EDB.HEADING_ID).getInt();
 
       Tag field = mTags.get(id);
 
       SampleTag sampleTag = new SampleTag(id, field,
-          tagJson.get(EDB.HEADING_VALUE).getAsString());
+          tagJson.get(EDB.HEADING_VALUE).getString());
 
       // System.err.println("tags " + field.toString());
-      // System.err.println("tags " + tagJson.get("value").getAsString());
+      // System.err.println("tags " + tagJson.get("value").getString());
 
       tags.add(sampleTag);
     }
@@ -587,10 +587,10 @@ public class EDBRepository extends CacheRepository {
     if (json.size() > 0) {
       json = json.get(0);
 
-      GEO geo = new GEO(json.get("id").getAsInt(),
-          json.get("series_accession").getAsString(),
-          json.get("accession").getAsString(),
-          json.get("platform").getAsString());
+      GEO geo = new GEO(json.get("id").getInt(),
+          json.get("series_accession").getString(),
+          json.get("accession").getString(),
+          json.get("platform").getString());
 
       sample.setGEO(geo);
     }
@@ -621,21 +621,21 @@ public class EDBRepository extends CacheRepository {
    * 
    * for (int i = 0; i < json.size(); ++i) { peaksJson = json.get(i);
    * 
-   * int id = peaksJson.get("id").getAsInt();
+   * int id = peaksJson.get("id").getInt();
    * 
-   * String name = peaksJson.get("name").getAsString();
+   * String name = peaksJson.get("name").getString();
    * 
-   * String genome = peaksJson.get("genome").getAsString();
+   * String genome = peaksJson.get("genome").getString();
    * 
-   * int readLength = peaksJson.get("read_length").getAsInt();
+   * int readLength = peaksJson.get("read_length").getInt();
    * 
-   * String peakCaller = peaksJson.get("peak_caller").getAsString();
+   * String peakCaller = peaksJson.get("peak_caller").getString();
    * 
    * String peakCallerParameters =
-   * peaksJson.get("peak_caller_parameters").getAsString();
+   * peaksJson.get("peak_caller_parameters").getString();
    * 
    * SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd"); Date date
-   * = formatter.parse(peaksJson.get("release_date").getAsString());
+   * = formatter.parse(peaksJson.get("release_date").getString());
    * 
    * Peaks peaks = new Peaks(id, name, genome, readLength, peakCaller,
    * peakCallerParameters, date);
@@ -646,8 +646,8 @@ public class EDBRepository extends CacheRepository {
    * locationsJson.get(j);
    * 
    * UCSCTrackRegion r = new
-   * UCSCTrackRegion(Chromosome.parse(locationJson.get("c").getAsString()),
-   * locationJson.get("s").getAsInt(), locationJson.get("e").getAsInt());
+   * UCSCTrackRegion(Chromosome.parse(locationJson.get("c").getString()),
+   * locationJson.get("s").getInt(), locationJson.get("e").getInt());
    * 
    * peaks.getRegions().add(r); }
    * 

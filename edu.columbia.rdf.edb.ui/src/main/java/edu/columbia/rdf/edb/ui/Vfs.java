@@ -52,9 +52,9 @@ public class Vfs {
     for (int i = 0; i < json.size(); ++i) {
       Json fileJson = json.get(i);
 
-      FileDescriptor f = new FileDescriptor(fileJson.getAsInt("id"),
-          fileJson.getAsString("n"), FileType.parse(fileJson.getAsInt("t")),
-          DateUtils.parseRevFormattedDate(fileJson.getAsString("d")));
+      FileDescriptor f = new FileDescriptor(fileJson.getInt("id"),
+          fileJson.getString("n"), FileType.parse(fileJson.getInt("t")),
+          DateUtils.parseRevFormattedDate(fileJson.getString("d")));
 
       files.add(f);
     }
@@ -77,9 +77,9 @@ public class Vfs {
     for (int i = 0; i < json.size(); ++i) {
       Json tagJson = json.get(i);
 
-      // System.err.println("vfs " + i + " " + json.get(i).getAsString("n"));
+      // System.err.println("vfs " + i + " " + json.get(i).getString("n"));
 
-      Tag tag = new Tag(tagJson.getAsInt("id"), tagJson.getAsString("n"));
+      Tag tag = new Tag(tagJson.getInt("id"), tagJson.getString("n"));
 
       tags.add(tag);
     }

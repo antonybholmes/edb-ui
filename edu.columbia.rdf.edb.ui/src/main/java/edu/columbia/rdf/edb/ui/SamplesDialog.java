@@ -26,7 +26,7 @@ import org.jebtk.core.event.ChangeListener;
 import org.jebtk.modern.BorderService;
 import org.jebtk.modern.ModernComponent;
 import org.jebtk.modern.UI;
-import org.jebtk.modern.UIService;
+import org.jebtk.modern.AssetService;
 import org.jebtk.modern.button.ModernButton;
 import org.jebtk.modern.collapsepane.ModernSubCollapsePane;
 import org.jebtk.modern.dialog.ModernDialogHelpWindow;
@@ -58,10 +58,10 @@ public class SamplesDialog extends ModernDialogHelpWindow
   private ModernTree<Sample> mTree = new ModernTree<Sample>();
 
   private ModernButton mExpandButton = new ModernButton(
-      UIService.getInstance().loadIcon(PlusVectorIcon.class, 16));
+      AssetService.getInstance().loadIcon(PlusVectorIcon.class, 16));
 
   private ModernButton mCollapseButton = new ModernButton(
-      UIService.getInstance().loadIcon(MinusVectorIcon.class, 16));
+      AssetService.getInstance().loadIcon(MinusVectorIcon.class, 16));
 
   private SampleSortModel mSortModel;
 
