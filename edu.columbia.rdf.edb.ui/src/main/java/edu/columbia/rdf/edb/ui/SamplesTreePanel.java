@@ -111,7 +111,12 @@ public class SamplesTreePanel extends ModernPanel
   private class SelectionEvents implements ModernSelectionListener {
 
     @Override
-    public void selectionChanged(ChangeEvent e) {
+    public void selectionAdded(ChangeEvent e) {
+      selectionRemoved(e);
+    }
+
+    @Override
+    public void selectionRemoved(ChangeEvent e) {
       filterSamples();
     }
 
