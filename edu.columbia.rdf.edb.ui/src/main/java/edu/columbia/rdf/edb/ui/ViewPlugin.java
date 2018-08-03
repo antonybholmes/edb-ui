@@ -69,7 +69,7 @@ public abstract class ViewPlugin implements Comparable<ViewPlugin> {
    * 
    * @return
    */
-  public abstract String getExpressionType();
+  public abstract String getDataType();
 
   /**
    * Called once to initialize the plugin so that it can integrate itself into
@@ -87,12 +87,12 @@ public abstract class ViewPlugin implements Comparable<ViewPlugin> {
 
   @Override
   public int compareTo(ViewPlugin v) {
-    return getExpressionType().compareTo(v.getExpressionType());
+    return getDataType().compareTo(v.getDataType());
   }
 
   @Override
   public int hashCode() {
-    return getExpressionType().hashCode();
+    return getDataType().hashCode();
   }
 
   public abstract ModernComponent getSamplePanel(Sample sample);

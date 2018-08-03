@@ -13,7 +13,7 @@ import org.jebtk.core.network.UrlBuilder;
 import org.jebtk.core.text.DateUtils;
 
 import edu.columbia.rdf.edb.EDBWLogin;
-import edu.columbia.rdf.edb.FileDescriptor;
+import edu.columbia.rdf.edb.VfsFile;
 import edu.columbia.rdf.edb.FileType;
 import edu.columbia.rdf.edb.Tag;
 
@@ -33,12 +33,12 @@ public class Vfs {
    * @throws IOException
    * @throws java.text.ParseException
    */
-  public List<FileDescriptor> ls() throws ParseException, MalformedURLException,
+  public List<VfsFile> ls() throws ParseException, MalformedURLException,
       IOException, java.text.ParseException {
     return ls(-1);
   }
 
-  public List<FileDescriptor> ls(int vfsId)
+  public List<VfsFile> ls(int vfsId)
       throws ParseException, MalformedURLException, IOException {
     UrlBuilder urlFile = mLogin.getURL().resolve("vfs").resolve("ls")
         .resolve(vfsId);
@@ -47,12 +47,12 @@ public class Vfs {
 
     Json json = new JsonParser().parse(urlFile.toURL());
 
-    List<FileDescriptor> files = new ArrayList<FileDescriptor>();
+    List<VfsFile> files = new ArrayList<VfsFile>();
 
     for (int i = 0; i < json.size(); ++i) {
       Json fileJson = json.get(i);
 
-      FileDescriptor f = new FileDescriptor(fileJson.getInt("id"),
+      VfsFile f = new VfsFile(fileJson.getInt("id"),
           fileJson.getString("n"), FileType.parse(fileJson.getInt("t")),
           DateUtils.parseRevFormattedDate(fileJson.getString("d")));
 

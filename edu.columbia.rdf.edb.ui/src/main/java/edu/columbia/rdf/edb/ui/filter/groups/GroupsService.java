@@ -11,7 +11,6 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.TransformerException;
 
-import org.jebtk.core.AppService;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.io.FileUtils;
@@ -36,8 +35,8 @@ public class GroupsService extends GroupsModel implements ChangeListener {
   private static final Path GROUPS_FILE = PathUtils
       .getPath("res/groups.xml");
 
-  private static final Path USER_GROUPS_FILE = AppService.getInstance()
-      .getFile("groups.xml");
+  private static final Path USER_GROUPS_FILE = PathUtils
+      .getPath("groups.xml"); //AppService.getInstance().getFile("groups.xml");
 
   private boolean mAutoLoad = true;
 

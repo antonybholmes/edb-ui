@@ -39,8 +39,6 @@ public class RepositoryService {
   public void setRepository(String name, Repository repository) {
     mRepositoryMap.put(name, repository);
 
-    System.err.println("repository " + name + " " + (repository != null));
-
     mDefaultRep = repository;
   }
 

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.jebtk.bioinformatics.annotation.Genome;
 import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.core.collections.CollectionUtils;
 import org.jebtk.core.json.Json;
@@ -19,7 +20,7 @@ import org.jebtk.core.path.Path;
 import org.jebtk.core.search.SearchStackElement;
 
 import edu.columbia.rdf.edb.Experiment;
-import edu.columbia.rdf.edb.FileDescriptor;
+import edu.columbia.rdf.edb.VfsFile;
 import edu.columbia.rdf.edb.Group;
 import edu.columbia.rdf.edb.Groups;
 import edu.columbia.rdf.edb.Person;
@@ -50,23 +51,23 @@ public abstract class Repository implements Serializable {
 
   public abstract Sample getSample(String name) throws IOException;
 
-  public abstract List<FileDescriptor> getExperimentFiles(int experimentId)
+  public abstract List<VfsFile> getExperimentFiles(int experimentId)
       throws IOException;
 
-  public FileDescriptor getExperimentFilesDir(Experiment experiment)
+  public VfsFile getExperimentFilesDir(Experiment experiment)
       throws IOException {
     return getExperimentFilesDir(experiment.getId());
   }
 
-  public abstract FileDescriptor getExperimentFilesDir(int experimentId)
+  public abstract VfsFile getExperimentFilesDir(int experimentId)
       throws IOException;
 
-  public Set<FileDescriptor> getSampleFiles(Collection<Sample> samples)
+  public Set<VfsFile> getSampleFiles(Collection<Sample> samples)
       throws IOException {
-    Set<FileDescriptor> ret = new TreeSet<FileDescriptor>();
+    Set<VfsFile> ret = new TreeSet<VfsFile>();
 
     for (Sample sample : samples) {
-      for (FileDescriptor fc : getSampleFiles(sample)) {
+      for (VfsFile fc : getSampleFiles(sample)) {
         ret.add(fc);
       }
     }
@@ -74,7 +75,7 @@ public abstract class Repository implements Serializable {
     return ret;
   }
 
-  public List<FileDescriptor> getSampleFiles(Sample sample) throws IOException {
+  public List<VfsFile> getSampleFiles(Sample sample) throws IOException {
     return getSampleFiles(sample.getId());
   }
 
@@ -86,7 +87,7 @@ public abstract class Repository implements Serializable {
    * @throws IOException
    * @throws ParseException
    */
-  public abstract List<FileDescriptor> getSampleFiles(int id)
+  public abstract List<VfsFile> getSampleFiles(int id)
       throws IOException;
 
   /**
@@ -113,7 +114,7 @@ public abstract class Repository implements Serializable {
    * @return
    */
   public abstract List<Sample> searchSamples(
-      List<SearchStackElement<Sample>> searchQueue,
+      List<SearchStackElement> searchQueue,
       Path path);
 
   public List<Sample> searchSamples(String query) throws IOException {
@@ -245,6 +246,40 @@ public abstract class Repository implements Serializable {
   }
 
   public Collection<Group> getGroups() {
+    return Collections.emptyList();
+  }
+  
+  public Iterable<Genome> getGenomes() {
+    return Collections.emptyList();
+  }
+
+  public Iterable<Genome> getGenomes(Sample sample) throws IOException {
+    return getGenomes(sample.getId());
+  }
+
+  /**
+   * Get the genomes associated with a sample.
+   * 
+   * @param sid
+   * @return
+   * @throws IOException
+   */
+  public Iterable<Genome> getGenomes(int sid) throws IOException {
+    return Collections.emptyList();
+  }
+  
+  public Iterable<VfsFile> getGenomeFiles(Sample sample, Genome genome) throws IOException {
+    return getGenomeFiles(sample.getId(), genome.getId());
+  }
+
+  /**
+   * Get the genomes associated with a sample.
+   * 
+   * @param sid
+   * @return
+   * @throws IOException
+   */
+  public Iterable<VfsFile> getGenomeFiles(int sid, int gid) throws IOException {
     return Collections.emptyList();
   }
 }

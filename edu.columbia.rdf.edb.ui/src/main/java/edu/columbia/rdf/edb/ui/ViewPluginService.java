@@ -39,7 +39,7 @@ public class ViewPluginService implements Iterable<ViewPlugin>, Serializable {
 
   public void add(ViewPlugin plugin) {
     mViews.add(plugin);
-    mViewMap.put(plugin.getExpressionType(), plugin);
+    mViewMap.put(plugin.getDataType(), plugin);
 
     plugin.init();
   }
@@ -50,11 +50,11 @@ public class ViewPluginService implements Iterable<ViewPlugin>, Serializable {
   }
 
   public ViewPlugin getView(Sample sample) {
-    return getView(sample.getExpressionType().getName());
+    return getView(sample.getDataType().getName());
   }
 
-  public ViewPlugin getView(String expressionType) {
-    return mViewMap.get(expressionType);
+  public ViewPlugin getView(String dataType) {
+    return mViewMap.get(dataType);
   }
 
   public ModernComponent getSamplePanel(Sample sample) {

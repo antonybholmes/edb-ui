@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.jebtk.bioinformatics.annotation.Genome;
 import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.core.NetworkFileException;
 import org.jebtk.core.io.ByteStreams;
@@ -26,7 +27,7 @@ import org.jebtk.core.search.SearchStackElement;
 import edu.columbia.rdf.edb.EDB;
 import edu.columbia.rdf.edb.EDBWLogin;
 import edu.columbia.rdf.edb.Experiment;
-import edu.columbia.rdf.edb.FileDescriptor;
+import edu.columbia.rdf.edb.VfsFile;
 import edu.columbia.rdf.edb.FileType;
 import edu.columbia.rdf.edb.GEO;
 import edu.columbia.rdf.edb.Group;
@@ -54,84 +55,91 @@ public class EDBRepository extends CacheRepository {
 
   private Vfs mVfs;
 
+  private final UrlBuilder mSamplesUrl;
+
+  private final UrlBuilder mRNASeqUrl;
+
+  private UrlBuilder mRNASeqGenomesUrl;
+
+  private UrlBuilder mGenomeFilessUrl;
+
   public EDBRepository(EDBWLogin login) throws IOException {
     super(login);
 
     mFileDownloader = new EDBFileDownloader(mLogin);
     mVfs = new Vfs(mLogin);
+    
+    
+    mSamplesUrl = mLogin.getURL().resolve("samples");
+    mRNASeqUrl = mLogin.getURL().resolve("rnaseq");
+    mRNASeqGenomesUrl = mRNASeqUrl.resolve("genomes");
+    mGenomeFilessUrl = mRNASeqUrl.resolve("files");
   }
 
   @Override
   public List<Sample> searchSamples(
-      List<SearchStackElement<Sample>> searchStack,
+      List<SearchStackElement> searchStack,
       Path path) {
     return null;
   }
 
-  protected UrlBuilder getSearchSamplesUrl()
-      throws UnsupportedEncodingException {
+  protected UrlBuilder getSearchSamplesUrl() {
     return getSamplesUrl().resolve("search");
   }
 
-  private UrlBuilder getExperimentsUrl() throws UnsupportedEncodingException {
+  private UrlBuilder getExperimentsUrl() {
     return mLogin.getURL().resolve("experiments");
   }
 
-  private UrlBuilder getExperimentsUrl(int id)
-      throws UnsupportedEncodingException {
+  private UrlBuilder getExperimentsUrl(int id) {
     return getExperimentsUrl().resolve(id);
   }
 
-  private UrlBuilder getExperimentFilesUrl(int id)
-      throws UnsupportedEncodingException {
+  private UrlBuilder getExperimentFilesUrl(int id) {
     return getExperimentsUrl(id).resolve("files");
   }
 
-  private UrlBuilder getExperimentFilesDirUrl(int id)
-      throws UnsupportedEncodingException {
+  private UrlBuilder getExperimentFilesDirUrl(int id) {
     return getExperimentFilesUrl(id).resolve("dir");
   }
 
-  private UrlBuilder getSamplesUrl() throws UnsupportedEncodingException {
-    return mLogin.getURL().resolve("samples");
+  private UrlBuilder getSamplesUrl() {
+    return mSamplesUrl;
+  }
+  
+  private UrlBuilder getRNASeqUrl() {
+    return mRNASeqUrl;
   }
 
-  private UrlBuilder getSamplesUrl(int id) throws UnsupportedEncodingException {
+  private UrlBuilder getSamplesUrl(int id) {
     return getSamplesUrl().resolve(id);
   }
 
-  private UrlBuilder getSampleFilesUrl(int id)
-      throws UnsupportedEncodingException {
+  private UrlBuilder getSampleFilesUrl(int id) {
     return getSamplesUrl(id).resolve("files");
   }
 
-  private UrlBuilder getSampleTagsUrl(int id)
-      throws UnsupportedEncodingException {
+  private UrlBuilder getSampleTagsUrl(int id) {
     return getSamplesUrl(id).resolve("tags");
   }
 
-  private UrlBuilder getSampleTagUrl(int sampleId, int tagId)
-      throws UnsupportedEncodingException {
+  private UrlBuilder getSampleTagUrl(int sampleId, int tagId) {
     return getSamplesUrl(sampleId).resolve("tags").resolve(tagId);
   }
 
-  private UrlBuilder getSamplePersonsUrl(int sampleId)
-      throws UnsupportedEncodingException {
+  private UrlBuilder getSamplePersonsUrl(int sampleId) {
     return getSamplesUrl(sampleId).resolve("persons");
   }
 
-  private UrlBuilder getSampleGeoUrl(Sample sample)
-      throws UnsupportedEncodingException {
+  private UrlBuilder getSampleGeoUrl(Sample sample) {
     return getSampleGeoUrl(sample.getId());
   }
 
-  private UrlBuilder getSampleGeoUrl(int id)
-      throws UnsupportedEncodingException {
+  private UrlBuilder getSampleGeoUrl(int id) {
     return getSamplesUrl(id).resolve("geo");
   }
 
-  private UrlBuilder getSamplesUrl(String name)
-      throws UnsupportedEncodingException {
+  private UrlBuilder getSamplesUrl(String name) {
     return getSamplesUrl().resolve("alias").resolve(name);
   }
 
@@ -336,7 +344,7 @@ public class EDBRepository extends CacheRepository {
   }
 
   @Override
-  public FileDescriptor getExperimentFilesDir(int experimentId)
+  public VfsFile getExperimentFilesDir(int experimentId)
       throws IOException {
     URL url = getExperimentFilesDirUrl(experimentId).toURL();
 
@@ -344,7 +352,7 @@ public class EDBRepository extends CacheRepository {
   }
 
   @Override
-  public List<FileDescriptor> getExperimentFiles(int experimentId)
+  public List<VfsFile> getExperimentFiles(int experimentId)
       throws IOException {
     URL url = getExperimentFilesUrl(experimentId).toURL();
 
@@ -352,17 +360,17 @@ public class EDBRepository extends CacheRepository {
   }
 
   @Override
-  public List<FileDescriptor> getSampleFiles(int sampleId) throws IOException {
+  public List<VfsFile> getSampleFiles(int sampleId) throws IOException {
     URL url = getSampleFilesUrl(sampleId).toURL();
 
-    List<FileDescriptor> files = null;
+    List<VfsFile> files = null;
 
     files = getFiles(url);
 
     return files;
   }
 
-  private static List<FileDescriptor> getFiles(URL url) throws IOException {
+  private static List<VfsFile> getFiles(URL url) throws IOException {
     return getFiles(url, false);
   }
 
@@ -375,32 +383,32 @@ public class EDBRepository extends CacheRepository {
    * @throws IOException
    * @throws ParseException
    */
-  private static List<FileDescriptor> getFiles(URL url, boolean showDirs)
+  private static List<VfsFile> getFiles(URL url, boolean showDirs)
       throws IOException {
     System.err.println(url);
 
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
-    List<FileDescriptor> files = new ArrayList<FileDescriptor>();
+    List<VfsFile> files = new ArrayList<VfsFile>();
 
     Json json = new JsonParser().parse(url);
 
     for (int j = 0; j < json.size(); ++j) {
       Json fileJSON = json.get(j);
 
-      String fileName = fileJSON.get(EDB.HEADING_NAME_SHORT).getString();
+      String fileName = fileJSON.getString(EDB.HEADING_NAME_SHORT);
 
       Date date = null;
 
       try {
-        date = formatter.parse(fileJSON.get(EDB.HEADING_DATE).getString());
+        date = formatter.parse(fileJSON.getString(EDB.HEADING_DATE));
       } catch (ParseException e) {
         e.printStackTrace();
       }
 
-      FileDescriptor file = new FileDescriptor(
+      VfsFile file = new VfsFile(
           fileJSON.getInt(EDB.HEADING_ID), fileName,
-          FileType.parse(fileJSON.get(EDB.HEADING_TYPE).getInt()), date);
+          FileType.parse(fileJSON.getInt(EDB.HEADING_TYPE)), date);
 
       // Don't show directories
       if (showDirs || file.getType() == FileType.FILE) {
@@ -410,25 +418,6 @@ public class EDBRepository extends CacheRepository {
 
     return files;
   }
-
-  /*
-   * private void cacheArrayDesign(Sample sample) throws IOException { URL url =
-   * new UrlBuilder(sampleUrl).addPath(sample.getUid()).addPath("gep").addPath(
-   * "array" ).toUrl();
-   * 
-   * JsonValue json = mJsonParser.parse(url);
-   * 
-   * for (int i = 0; i < json.size(); ++i) { JsonValue arrayJSON = json.get(i);
-   * 
-   * //String id = arrayJSON.get("id").getString(); String name =
-   * arrayJSON.get("name").getString(); String assay =
-   * arrayJSON.get("assay_name").getString(); String provider =
-   * arrayJSON.get("provider_name").getString();
-   * 
-   * ArrayDesign arrayDesign = new ArrayDesign(name, assay, provider);
-   * 
-   * sample.setArrayDesign(arrayDesign); } }
-   */
 
   @Override
   public void cachePersons(int sampleId, Collection<Person> persons)
@@ -445,7 +434,7 @@ public class EDBRepository extends CacheRepository {
       for (int j = 0; j < json.size(); ++j) {
         Json personJSON = json.get(j);
 
-        Person person = mPersons.get(personJSON.get("id").getInt());
+        Person person = mPersons.get(personJSON.getInt("id"));
 
         persons.add(person);
       }
@@ -538,12 +527,12 @@ public class EDBRepository extends CacheRepository {
     for (int i = 0; i < json.size(); ++i) {
       Json tagJson = json.get(i);
 
-      int id = tagJson.get(EDB.HEADING_ID).getInt();
+      int id = tagJson.getInt(EDB.HEADING_ID);
 
       Tag field = mTags.get(id);
 
       SampleTag sampleTag = new SampleTag(id, field,
-          tagJson.get(EDB.HEADING_VALUE).getString());
+          tagJson.getString(EDB.HEADING_VALUE));
 
       // System.err.println("tags " + field.toString());
       // System.err.println("tags " + tagJson.get("value").getString());
@@ -605,6 +594,38 @@ public class EDBRepository extends CacheRepository {
   public Collection<Species> getOrganisms() {
     return mSpecies.getValues();
   }
+  
+  @Override
+  public Iterable<Genome> getGenomes() {
+    return mGenomes.getValues();
+  }
+  
+  @Override
+  public Iterable<Genome> getGenomes(int sid) throws IOException {
+    URL url = mRNASeqGenomesUrl.param("sid", sid).toURL();
+    
+    Json json = new JsonParser().parse(url);
+    
+    List<Genome> ret = new ArrayList<Genome>();
+
+    for (int i = 0; i < json.size(); ++i) {
+      Json sectionTypeJSON = json.get(i);
+
+      int id = sectionTypeJSON.getInt(EDB.HEADING_ID);
+      String name = sectionTypeJSON.getString(EDB.HEADING_NAME_SHORT);
+      
+      ret.add(new Genome(id, name));
+    }
+    
+    return ret;
+  }
+  
+  @Override
+  public Iterable<VfsFile> getGenomeFiles(int sid, int gid) throws IOException {
+    URL url = mGenomeFilessUrl.param("sid", sid).param("gid", gid).toURL();
+    
+    return getFiles(url);
+  }
 
   /*
    * @Override public List<Peaks> searchChipSeqPeaks(Sample sample) throws
@@ -660,4 +681,5 @@ public class EDBRepository extends CacheRepository {
   public Vfs vfs() {
     return mVfs;
   }
+
 }

@@ -83,7 +83,7 @@ public class SearchStackElementCategory {
             operatorStack);
       }
 
-      List<SearchStackElement<Sample>> searchQueue = SearchStackElement
+      List<SearchStackElement> searchQueue = SearchStackElement
           .parseQuery(searchEntry.getText());
 
       SearchStackElementCategory element = new SearchStackElementCategory(

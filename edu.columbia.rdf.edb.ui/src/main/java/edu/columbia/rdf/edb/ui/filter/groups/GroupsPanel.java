@@ -54,7 +54,7 @@ public class GroupsPanel extends VBox
       "In All Groups");
   
   private ModernButton mAllGroupsButton =
-      new ModernTextLink("All groups");
+      new ModernTextLink("All groups...");
 
   private ModernWindow mParent;
 

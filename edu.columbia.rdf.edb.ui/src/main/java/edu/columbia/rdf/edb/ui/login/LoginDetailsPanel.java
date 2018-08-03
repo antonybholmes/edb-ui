@@ -31,7 +31,7 @@ public class LoginDetailsPanel extends MatrixPanel {
     // mServerField.setBorder(BORDER);
     // mServerField.setOpaque(false);
 
-    mTotpField.setBorder(BORDER);
+    //mTotpField.setBorder(BORDER);
 
     add(new ModernLabel("Server"));
     add(new ModernTextBorderPanel(mServerField));

@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import edu.columbia.rdf.edb.EDBWLogin;
-import edu.columbia.rdf.edb.FileDescriptor;
+import edu.columbia.rdf.edb.VfsFile;
 
 /**
  * Maintains a connection to a caArray server.
@@ -83,7 +83,7 @@ public class EDBFileDownloader implements FileDownloader {
   }
 
   @Override
-  public void downloadFile(FileDescriptor file, Path localFile)
+  public void downloadFile(VfsFile file, Path localFile)
       throws IOException {
     UrlBuilder urlFile = mLogin.getURL().resolve("download").resolve("files")
         .resolve(file.getId());
@@ -92,13 +92,13 @@ public class EDBFileDownloader implements FileDownloader {
   }
 
   @Override
-  public void downloadZip(Set<FileDescriptor> files, Path localFile)
+  public void downloadZip(Set<VfsFile> files, Path localFile)
       throws IOException {
     UrlBuilder url = mLogin.getURL().resolve("download").resolve("files")
         .resolve("zip");
 
     // Add the file ids we want to download
-    for (FileDescriptor file : files) {
+    for (VfsFile file : files) {
       url = url.param("id", file.getId());
     }
 

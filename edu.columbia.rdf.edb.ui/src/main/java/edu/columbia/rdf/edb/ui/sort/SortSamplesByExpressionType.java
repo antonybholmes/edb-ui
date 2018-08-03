@@ -26,7 +26,7 @@ public class SortSamplesByExpressionType extends SampleSorter {
     ListMultiMap<String, Sample> map = ArrayListMultiMap.create();
 
     for (Sample sample : samples) {
-      String name = sample.getExpressionType().getName();
+      String name = sample.getDataType().getName();
 
       if (!filterModel.keep(name)) {
         continue;
@@ -45,7 +45,7 @@ public class SortSamplesByExpressionType extends SampleSorter {
     Set<String> names = new HashSet<String>();
 
     for (Sample sample : samples) {
-      String name = sample.getExpressionType().getName();
+      String name = sample.getDataType().getName();
 
       names.add(name);
     }

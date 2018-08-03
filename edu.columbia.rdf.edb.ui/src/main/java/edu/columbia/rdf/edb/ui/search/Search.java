@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.jebtk.core.search.SearchStackElement;
 
-import edu.columbia.rdf.edb.Sample;
-
 /**
  * Captures the what the user is searching for as both a string and queue.
  * 
@@ -14,9 +12,9 @@ import edu.columbia.rdf.edb.Sample;
  */
 public class Search {
   public String search;
-  public List<SearchStackElement<Sample>> searchQueue;
+  public List<SearchStackElement> searchQueue;
 
-  public Search(String search, List<SearchStackElement<Sample>> searchQueue) {
+  public Search(String search, List<SearchStackElement> searchQueue) {
     this.search = search;
     this.searchQueue = searchQueue;
   }

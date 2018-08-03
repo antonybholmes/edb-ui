@@ -18,14 +18,14 @@ import org.jebtk.modern.io.RecentFilesService;
 import org.jebtk.modern.io.ZipGuiFileFilter;
 import org.jebtk.modern.window.ModernWindow;
 
-import edu.columbia.rdf.edb.FileDescriptor;
+import edu.columbia.rdf.edb.VfsFile;
 
 public class DownloadManager {
   public static final String MAS5 = "mas5-annotated";
   public static final String RMA = "rma-annotated";
 
   public static Path downloadAsZip(ModernWindow parent,
-      Set<FileDescriptor> files) throws IOException {
+      Set<VfsFile> files) throws IOException {
 
     if (files.size() == 0) {
       ModernMessageDialog.createDialog(parent,
@@ -72,7 +72,7 @@ public class DownloadManager {
     return output;
   }
 
-  public static void downloadAsZip(Set<FileDescriptor> files, Path output)
+  public static void downloadAsZip(Set<VfsFile> files, Path output)
       throws IOException {
     Repository connection = RepositoryService.getInstance()
         .getRepository(RepositoryService.DEFAULT_REP);
@@ -103,7 +103,7 @@ public class DownloadManager {
     return fc.getSelectedFile().toPath();
   }
 
-  public static void download(FileDescriptor file, Path output)
+  public static void download(VfsFile file, Path output)
       throws IOException {
     Repository connection = RepositoryService.getInstance()
         .getRepository(RepositoryService.DEFAULT_REP);
