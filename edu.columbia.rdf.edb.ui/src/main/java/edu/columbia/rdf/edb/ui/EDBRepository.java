@@ -112,7 +112,7 @@ public class EDBRepository extends CacheRepository {
   }
 
   private UrlBuilder getSamplesUrl(int id) {
-    return getSamplesUrl().resolve(id);
+    return getSamplesUrl().param("sample", id);
   }
 
   private UrlBuilder getSampleFilesUrl(int id) {
@@ -124,7 +124,7 @@ public class EDBRepository extends CacheRepository {
   }
 
   private UrlBuilder getSampleTagUrl(int sampleId, int tagId) {
-    return getSamplesUrl(sampleId).resolve("tags").resolve(tagId);
+    return getSamplesUrl(sampleId).resolve("tags").param("tag", tagId);
   }
 
   private UrlBuilder getSamplePersonsUrl(int sampleId) {

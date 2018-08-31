@@ -56,6 +56,10 @@ public class EDBFileDownloader implements FileDownloader {
    * 
    * throw new NetworkFileException(urlFile + " is badly formed."); } }
    */
+  
+  private UrlBuilder getFilesUrl() {
+    return mLogin.getURL().resolve("download").resolve("files");
+  }
 
   public void downloadFile(UrlBuilder url, Path localFile) throws IOException {
     downloadFile(url.toURL(), localFile);
@@ -85,8 +89,7 @@ public class EDBFileDownloader implements FileDownloader {
   @Override
   public void downloadFile(VfsFile file, Path localFile)
       throws IOException {
-    UrlBuilder urlFile = mLogin.getURL().resolve("download").resolve("files")
-        .resolve(file.getId());
+    UrlBuilder urlFile = getFilesUrl().param("file", file.getId());
 
     downloadFile(urlFile, localFile);
   }
@@ -94,12 +97,11 @@ public class EDBFileDownloader implements FileDownloader {
   @Override
   public void downloadZip(Set<VfsFile> files, Path localFile)
       throws IOException {
-    UrlBuilder url = mLogin.getURL().resolve("download").resolve("files")
-        .resolve("zip");
+    UrlBuilder url = getFilesUrl().param("mode", "zip");
 
     // Add the file ids we want to download
     for (VfsFile file : files) {
-      url = url.param("id", file.getId());
+      url = url.param("file", file.getId());
     }
 
     downloadFile(url.toURL(), localFile);

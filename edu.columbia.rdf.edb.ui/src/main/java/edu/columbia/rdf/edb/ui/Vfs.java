@@ -33,15 +33,21 @@ public class Vfs {
    * @throws IOException
    * @throws java.text.ParseException
    */
-  public List<VfsFile> ls() throws ParseException, MalformedURLException,
-      IOException, java.text.ParseException {
+  public List<VfsFile> ls() throws MalformedURLException, IOException {
     return ls(-1);
   }
 
-  public List<VfsFile> ls(int vfsId)
-      throws ParseException, MalformedURLException, IOException {
-    UrlBuilder urlFile = mLogin.getURL().resolve("vfs").resolve("ls")
-        .resolve(vfsId);
+  /**
+   * List files in a VFS directory.
+   * @param vfsId
+   * @return
+   * @throws ParseException
+   * @throws MalformedURLException
+   * @throws IOException
+   */
+  public List<VfsFile> ls(int vfsId) throws MalformedURLException, IOException {
+    UrlBuilder urlFile = getVFSURL().resolve("ls")
+        .param("parent", vfsId);
 
     System.err.println(urlFile);
 
@@ -52,11 +58,19 @@ public class Vfs {
     for (int i = 0; i < json.size(); ++i) {
       Json fileJson = json.get(i);
 
-      VfsFile f = new VfsFile(fileJson.getInt("id"),
-          fileJson.getString("n"), FileType.parse(fileJson.getInt("t")),
-          DateUtils.parseRevFormattedDate(fileJson.getString("d")));
+      VfsFile f;
+      try {
+        f = new VfsFile(fileJson.getInt("id"),
+            fileJson.getString("n"), 
+            FileType.parse(fileJson.getInt("t")),
+            DateUtils.parseRevFormattedDate(fileJson.getString("d")));
+        
+        files.add(f);
+      } catch (ParseException e) {
+        e.printStackTrace();
+      }
 
-      files.add(f);
+      
     }
 
     Collections.sort(files);
@@ -66,7 +80,7 @@ public class Vfs {
 
   public List<Tag> tags()
       throws MalformedURLException, IOException, ParseException {
-    UrlBuilder urlFile = mLogin.getURL().resolve("vfs").resolve("tags");
+    UrlBuilder urlFile = getVFSURL().resolve("tags");
 
     System.err.println(urlFile);
 
@@ -85,5 +99,9 @@ public class Vfs {
     }
 
     return tags;
+  }
+  
+  private UrlBuilder getVFSURL() {
+    return mLogin.getURL().resolve("vfs");
   }
 }
