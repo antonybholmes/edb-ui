@@ -8,8 +8,8 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.Set;
 
+import org.jebtk.core.http.UrlBuilder;
 import org.jebtk.core.io.FileUtils;
-import org.jebtk.core.network.UrlBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

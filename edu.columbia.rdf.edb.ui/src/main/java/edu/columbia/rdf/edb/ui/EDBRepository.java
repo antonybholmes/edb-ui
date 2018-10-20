@@ -17,10 +17,10 @@ import java.util.List;
 import org.jebtk.bioinformatics.annotation.Genome;
 import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.core.NetworkFileException;
+import org.jebtk.core.http.UrlBuilder;
 import org.jebtk.core.io.ByteStreams;
 import org.jebtk.core.json.Json;
 import org.jebtk.core.json.JsonParser;
-import org.jebtk.core.network.UrlBuilder;
 import org.jebtk.core.path.Path;
 import org.jebtk.core.search.SearchStackElement;
 

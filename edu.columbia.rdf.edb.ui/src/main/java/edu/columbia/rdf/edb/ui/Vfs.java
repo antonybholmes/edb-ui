@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.jebtk.core.http.UrlBuilder;
 import org.jebtk.core.json.Json;
 import org.jebtk.core.json.JsonParser;
-import org.jebtk.core.network.UrlBuilder;
 import org.jebtk.core.text.DateUtils;
 
 import edu.columbia.rdf.edb.EDBWLogin;

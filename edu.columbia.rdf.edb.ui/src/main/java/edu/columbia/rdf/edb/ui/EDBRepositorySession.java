@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 
+import org.jebtk.core.http.UrlBuilder;
 import org.jebtk.core.json.Json;
 import org.jebtk.core.json.JsonParser;
-import org.jebtk.core.network.UrlBuilder;
 
 import edu.columbia.rdf.edb.EDBWLogin;
 import edu.columbia.rdf.edb.ui.cache.CacheRepository;
