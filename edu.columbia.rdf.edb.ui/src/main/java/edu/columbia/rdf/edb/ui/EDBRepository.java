@@ -18,7 +18,7 @@ import org.jebtk.bioinformatics.annotation.Genome;
 import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.core.NetworkFileException;
 import org.jebtk.core.http.UrlBuilder;
-import org.jebtk.core.io.ByteStreams;
+import org.jebtk.core.io.StreamUtils;
 import org.jebtk.core.json.Json;
 import org.jebtk.core.json.JsonParser;
 import org.jebtk.core.path.Path;
@@ -27,7 +27,6 @@ import org.jebtk.core.search.SearchStackElement;
 import edu.columbia.rdf.edb.EDB;
 import edu.columbia.rdf.edb.EDBWLogin;
 import edu.columbia.rdf.edb.Experiment;
-import edu.columbia.rdf.edb.VfsFile;
 import edu.columbia.rdf.edb.FileType;
 import edu.columbia.rdf.edb.GEO;
 import edu.columbia.rdf.edb.Group;
@@ -38,6 +37,7 @@ import edu.columbia.rdf.edb.SampleTag;
 import edu.columbia.rdf.edb.SampleTags;
 import edu.columbia.rdf.edb.Species;
 import edu.columbia.rdf.edb.Tag;
+import edu.columbia.rdf.edb.VfsFile;
 import edu.columbia.rdf.edb.ui.cache.CacheRepository;
 import edu.columbia.rdf.edb.ui.cache.SampleAutoCache;
 
@@ -461,7 +461,7 @@ public class EDBRepository extends CacheRepository {
     InputStream input = urlFile.openStream();
 
     try {
-      ByteStreams.copy(input, output);
+      StreamUtils.copy(input, output);
     } finally {
       input.close();
       output.close();
