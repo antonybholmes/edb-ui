@@ -61,7 +61,7 @@ public class GroupsService extends GroupsModel implements ChangeListener {
     mAutoLoad = false;
 
     Collection<Group> groups = RepositoryService.getInstance()
-        .getCurrentRepository().getUserGroups();
+        .getRepository().getUserGroups();
 
     for (Group g : groups) {
       mGroupMap.put(g, false);
@@ -79,7 +79,7 @@ public class GroupsService extends GroupsModel implements ChangeListener {
 
     // Maintain a list of all groups regardless of whether user is part of
     // them or not
-    mAllGroups = RepositoryService.getInstance().getCurrentRepository()
+    mAllGroups = RepositoryService.getInstance().getRepository()
         .getGroups();
   }
 

@@ -39,6 +39,7 @@ public abstract class Repository implements Serializable {
 
   private static final long serialVersionUID = 1L;
   public static final Path ALL_PATH = new Path("/All");
+  public static final Collection<Person> ALL_PERSONS = Collections.emptySet();
   public static final Collection<Type> ALL_TYPES = Collections.emptySet();
   public static final Collection<Species> ALL_ORGANISMS = Collections
       .emptySet();
@@ -118,7 +119,7 @@ public abstract class Repository implements Serializable {
       Path path);
 
   public List<Sample> searchSamples(String query) throws IOException {
-    return searchSamples(query, ALL_PATH, ALL_TYPES, ALL_ORGANISMS, ALL_GROUPS);
+    return searchSamples(query, ALL_PATH, ALL_PERSONS, ALL_TYPES, ALL_ORGANISMS, ALL_GROUPS);
   }
 
   public List<Sample> searchSamples(String query, Path path, Type dataType)
@@ -132,6 +133,7 @@ public abstract class Repository implements Serializable {
       Collection<Species> organisms) throws IOException {
     return searchSamples(query,
         path,
+        ALL_PERSONS,
         CollectionUtils.asSet(dataType),
         organisms,
         ALL_GROUPS);
@@ -148,7 +150,7 @@ public abstract class Repository implements Serializable {
    */
   public List<Sample> searchSamples(String query, Groups groups)
       throws IOException {
-    return searchSamples(query, ALL_PATH, ALL_TYPES, ALL_ORGANISMS, groups);
+    return searchSamples(query, ALL_PATH, ALL_PERSONS, ALL_TYPES, ALL_ORGANISMS, groups);
   }
 
   /**
@@ -163,18 +165,35 @@ public abstract class Repository implements Serializable {
   public List<Sample> searchSamples(String query,
       Collection<Species> organisms,
       Groups groups) throws IOException {
-    return searchSamples(query, ALL_PATH, ALL_TYPES, organisms, groups);
+    return searchSamples(query, ALL_PATH, ALL_PERSONS, ALL_TYPES, organisms, groups);
   }
 
   public List<Sample> searchSamples(String query,
       Collection<Type> dataTypes,
       Collection<Species> organisms,
       Groups groups) throws IOException {
-    return searchSamples(query, ALL_PATH, dataTypes, organisms, groups);
+    return searchSamples(query, ALL_PATH, ALL_PERSONS, dataTypes, organisms, groups);
+  }
+  
+  public List<Sample> searchSamples(String query,
+      Collection<Person> persons,
+      Collection<Type> dataTypes,
+      Collection<Species> organisms,
+      Groups groups) throws IOException {
+    return searchSamples(query, ALL_PATH, persons, dataTypes, organisms, groups);
+  }
+  
+  public List<Sample> searchSamples(String query,
+      Path path,
+      Collection<Type> dataTypes,
+      Collection<Species> organisms,
+      Groups groups) throws IOException {
+    return searchSamples(query, path, ALL_PERSONS, dataTypes, organisms, groups);
   }
 
   public abstract List<Sample> searchSamples(String query,
       Path path,
+      Collection<Person> persons,
       Collection<Type> dataTypes,
       Collection<Species> organisms,
       Groups groups) throws IOException;
@@ -238,6 +257,10 @@ public abstract class Repository implements Serializable {
   }
 
   public Collection<Species> getOrganisms() {
+    return Collections.emptyList();
+  }
+  
+  public Collection<Person> getPersons() {
     return Collections.emptyList();
   }
 

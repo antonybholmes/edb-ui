@@ -42,15 +42,16 @@ public class RepositoryService {
     mDefaultRep = repository;
   }
 
-  public Repository getRepository() {
-    return getRepository(RepositoryService.DEFAULT_REP);
-  }
-
   public Repository getRepository(String name) {
     return mRepositoryMap.get(name);
   }
 
-  public Repository getCurrentRepository() {
+  /**
+   * Returns the current default repository.
+   * 
+   * @return
+   */
+  public Repository getRepository() {
     return mDefaultRep;
   }
 }

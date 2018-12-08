@@ -146,6 +146,7 @@ public class EDBRepository extends CacheRepository {
   @Override
   public List<Sample> searchSamples(String query,
       Path path,
+      Collection<Person> persons,
       Collection<Type> dataTypes,
       Collection<Species> organisms,
       Groups groups) throws IOException {
@@ -173,6 +174,12 @@ public class EDBRepository extends CacheRepository {
 
       if (groups.getAllMode()) {
         url = url.param("gm", "all");
+      }
+    }
+    
+    if (persons.size() > 0) {
+      for (Type p : persons) {
+        url = url.param("person", p.getId());
       }
     }
 
@@ -586,9 +593,15 @@ public class EDBRepository extends CacheRepository {
   }
 
   @Override
+  public Collection<Person> getPersons() {
+    return mPersons.getValues();
+  }
+  
+  @Override
   public Collection<Type> getDataTypes() {
     return mDataTypes.getValues();
   }
+  
 
   @Override
   public Collection<Species> getOrganisms() {

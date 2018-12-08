@@ -23,10 +23,10 @@ import java.util.List;
 
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
+import org.jebtk.modern.AssetService;
 import org.jebtk.modern.BorderService;
 import org.jebtk.modern.ModernComponent;
 import org.jebtk.modern.UI;
-import org.jebtk.modern.AssetService;
 import org.jebtk.modern.button.ModernButton;
 import org.jebtk.modern.collapsepane.ModernSubCollapsePane;
 import org.jebtk.modern.dialog.ModernDialogHelpWindow;
@@ -48,6 +48,7 @@ import edu.columbia.rdf.edb.ui.filter.datatypes.DataTypesService;
 import edu.columbia.rdf.edb.ui.filter.groups.GroupsModel;
 import edu.columbia.rdf.edb.ui.filter.groups.GroupsPanel;
 import edu.columbia.rdf.edb.ui.filter.groups.GroupsService;
+import edu.columbia.rdf.edb.ui.filter.organisms.OrganismsModel;
 import edu.columbia.rdf.edb.ui.filter.organisms.OrganismsPanel;
 import edu.columbia.rdf.edb.ui.filter.organisms.OrganismsService;
 
@@ -77,7 +78,9 @@ public class SamplesDialog extends ModernDialogHelpWindow
 
   private DataTypesModel mDataTypesModel = DataTypesService.getInstance();
 
-  private OrganismsService mOrganismsModel = OrganismsService.getInstance();
+  private OrganismsModel mOrganismsModel = OrganismsService.getInstance();
+  
+  //private PersonsModel mPersonsModel = PersonsService.getInstance();
 
   public class RefreshEvents implements ModernClickListener {
     @Override
@@ -197,13 +200,14 @@ public class SamplesDialog extends ModernDialogHelpWindow
     // DataTypesPanel dataTypesPanel = new DataTypesPanel(mDataTypesModel,
     // mOrganismsModel);
     OrganismsPanel organismsPanel = new OrganismsPanel(mOrganismsModel);
-
-    mDataTypesModel.addChangeListener(l);
-    mOrganismsModel.addChangeListener(l);
-    
-    
     collapsePane.addTab("Organisms", organismsPanel);
 
+    
+    //PersonsPanel personsPanel = new PersonsPanel(mPersonsModel);
+    //collapsePane.addTab("Persons", personsPanel);
+
+    
+    
     
     collapsePane.setExpanded(true);
 
@@ -253,6 +257,10 @@ public class SamplesDialog extends ModernDialogHelpWindow
     // ModernLineBorderPanel(panel)));
 
     //setDarkBackground();
+    
+    mDataTypesModel.addChangeListener(l);
+    mOrganismsModel.addChangeListener(l);
+    //mPersonsModel.addChangeListener(l);
   }
 
   protected Component footer() {
@@ -274,7 +282,10 @@ public class SamplesDialog extends ModernDialogHelpWindow
 
     Repository store = RepositoryService.getInstance().getRepository(mRepName);
 
+    //        mPersonsModel.getPersons(),
+    
     List<Sample> samples = store.searchSamples(mSearchPanel.getText(),
+        Repository.ALL_TYPES,
         mOrganismsModel.getOrganisms(),
         mUserGroupsModel.getGroups());
 

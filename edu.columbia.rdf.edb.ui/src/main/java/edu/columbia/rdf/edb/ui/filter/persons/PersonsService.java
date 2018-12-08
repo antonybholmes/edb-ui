@@ -1,4 +1,4 @@
-package edu.columbia.rdf.edb.ui.filter.organisms;
+package edu.columbia.rdf.edb.ui.filter.persons;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +11,6 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.TransformerException;
 
-import org.jebtk.core.AppService;
 import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.io.FileUtils;
@@ -19,38 +18,37 @@ import org.jebtk.core.io.PathUtils;
 import org.jebtk.core.xml.XmlUtils;
 import org.xml.sax.SAXException;
 
-import edu.columbia.rdf.edb.Species;
+import edu.columbia.rdf.edb.Person;
 import edu.columbia.rdf.edb.ui.RepositoryService;
 
-public class OrganismsService extends OrganismsModel implements ChangeListener {
+public class PersonsService extends PersonsModel implements ChangeListener {
   private static final long serialVersionUID = 1L;
 
   private static class ServiceLoader {
-    private static final OrganismsService INSTANCE = new OrganismsService();
+    private static final PersonsService INSTANCE = new PersonsService();
   }
 
-  public static OrganismsService getInstance() {
+  public static PersonsService getInstance() {
     return ServiceLoader.INSTANCE;
   }
 
-  private static final Path ORGANISMS_FILE = PathUtils
-      .getPath("res/organisms.xml");
+  private static final Path PERSONS_FILE = PathUtils
+      .getPath("res/persons.xml");
 
-  private static final Path USER_ORGANISMS_FILE = AppService.getInstance()
-      .getFile("user.organisms.xml");
+  private static final Path USER_PERSONS_FILE = 
+      PathUtils.getPath("user.persons.xml");
 
   private boolean mAutoLoad = true;
 
-  private OrganismsService() {
+  private PersonsService() {
     addChangeListener(this);
   }
 
   @Override
-  public Iterator<Species> iterator() {
+  public Iterator<Person> iterator() {
     autoLoad();
 
     return mTypeMap.keySet().iterator();
-
   }
 
   private void autoLoad() {
@@ -58,18 +56,18 @@ public class OrganismsService extends OrganismsModel implements ChangeListener {
       return;
     }
 
-    Collection<Species> groups = RepositoryService.getInstance()
-        .getRepository().getOrganisms();
+    Collection<Person> groups = RepositoryService.getInstance()
+        .getRepository().getPersons();
 
-    for (Species g : groups) {
+    for (Person g : groups) {
       mTypeMap.put(g, true);
     }
 
     mAutoLoad = false;
 
     try {
-      autoLoadXml(ORGANISMS_FILE);
-      autoLoadXml(USER_ORGANISMS_FILE);
+      autoLoadXml(PERSONS_FILE);
+      autoLoadXml(USER_PERSONS_FILE);
     } catch (SAXException | IOException | ParserConfigurationException e) {
       e.printStackTrace();
     }
@@ -109,7 +107,7 @@ public class OrganismsService extends OrganismsModel implements ChangeListener {
     SAXParserFactory factory = SAXParserFactory.newInstance();
     SAXParser saxParser = factory.newSAXParser();
 
-    OrganismsXmlHandler handler = new OrganismsXmlHandler(this);
+    PersonsXmlHandler handler = new PersonsXmlHandler(this);
 
     saxParser.parse(is, handler);
 
@@ -128,6 +126,6 @@ public class OrganismsService extends OrganismsModel implements ChangeListener {
 
   private void save()
       throws TransformerException, ParserConfigurationException {
-    XmlUtils.writeXml(this, USER_ORGANISMS_FILE);
+    XmlUtils.writeXml(this, USER_PERSONS_FILE);
   }
 }

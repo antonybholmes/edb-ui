@@ -59,7 +59,7 @@ public class DataTypesService extends DataTypesModel implements ChangeListener {
     }
 
     Collection<Type> groups = RepositoryService.getInstance()
-        .getCurrentRepository().getDataTypes();
+        .getRepository().getDataTypes();
 
     for (Type g : groups) {
       mTypeMap.put(g, true);
