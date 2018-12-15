@@ -101,7 +101,7 @@ public class LoginButton extends ModernDialogFlatButton {
    * Graphics2D)
    */
   @Override
-  public void drawForegroundAAText(Graphics2D g2) {
+  public void drawForegroundAA(Graphics2D g2) {
     // Color.WHITE);
 
     Graphics2D g2Temp = ImageUtils.createAAStrokeGraphics(g2);

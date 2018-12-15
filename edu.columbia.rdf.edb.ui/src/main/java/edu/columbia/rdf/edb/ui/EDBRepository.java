@@ -1,5 +1,6 @@
 package edu.columbia.rdf.edb.ui;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -17,12 +18,15 @@ import java.util.List;
 import org.jebtk.bioinformatics.annotation.Genome;
 import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.core.NetworkFileException;
+import org.jebtk.core.http.URLUtils;
 import org.jebtk.core.http.UrlBuilder;
 import org.jebtk.core.io.StreamUtils;
 import org.jebtk.core.json.Json;
 import org.jebtk.core.json.JsonParser;
 import org.jebtk.core.path.Path;
 import org.jebtk.core.search.SearchStackElement;
+import org.jebtk.core.text.Splitter;
+import org.jebtk.core.text.TextUtils;
 
 import edu.columbia.rdf.edb.EDB;
 import edu.columbia.rdf.edb.EDBWLogin;
@@ -124,7 +128,7 @@ public class EDBRepository extends CacheRepository {
   }
 
   private UrlBuilder getSampleTagUrl(int sampleId, int tagId) {
-    return getSamplesUrl(sampleId).resolve("tags").param("tag", tagId);
+    return getSampleTagsUrl(sampleId).param("tag", tagId);
   }
 
   private UrlBuilder getSamplePersonsUrl(int sampleId) {
@@ -510,8 +514,6 @@ public class EDBRepository extends CacheRepository {
                                            // path.toString()).addParam("q",
                                            // query).toUrl();
 
-    // System.err.println(url);
-
     Json json = new JsonParser().parse(url);
 
     List<Sample> samples = parseSampleJson(json);
@@ -525,35 +527,47 @@ public class EDBRepository extends CacheRepository {
 
   @Override
   public void cacheTags(int sampleId, SampleTags tags) throws IOException {
-    URL url = getSampleTagsUrl(sampleId).toURL();
-
-    // System.err.println(url);
-
-    Json json = new JsonParser().parse(url);
-
-    for (int i = 0; i < json.size(); ++i) {
-      Json tagJson = json.get(i);
-
-      int id = tagJson.getInt(EDB.HEADING_ID);
-
-      Tag field = mTags.get(id);
-
-      SampleTag sampleTag = new SampleTag(id, field,
-          tagJson.getString(EDB.HEADING_VALUE));
-
-      // System.err.println("tags " + field.toString());
-      // System.err.println("tags " + tagJson.get("value").getString());
-
-      tags.add(sampleTag);
-    }
+    cacheTag(getSampleTagsUrl(sampleId), tags);
   }
 
   @Override
   public void cacheTag(int sampleId, int tagId, SampleTags tags)
       throws IOException {
-    URL url = getSampleTagUrl(sampleId, tagId).toURL();
+    cacheTag(getSampleTagUrl(sampleId, tagId), tags);
+  }
+  
+  private void cacheTag(UrlBuilder url, SampleTags tags)
+      throws IOException {
+    
+    Splitter split = Splitter.on(TextUtils.COLON_DELIMITER).limit(2);
+    
+    url = url.param("format", "text");
+    
+    //System.err.println(url);
+    
+    BufferedReader reader = URLUtils.newBufferedReader(url);
 
-    Json json = new JsonParser().parse(url);
+    String line;
+    List<String> tokens;
+    int id;
+    String value;
+    
+    while ((line = reader.readLine()) != null) {
+      tokens = split.text(line);
+      
+      id = Integer.parseInt(tokens.get(0));
+      value = tokens.get(1);
+
+      Tag field = mTags.get(id);
+
+      SampleTag sampleTag = new SampleTag(id, field,
+          value);
+      
+      tags.add(sampleTag);
+    }
+    
+    /*
+    Json json = new JsonParser().parse(url.toURL());
 
     for (int i = 0; i < json.size(); ++i) {
       Json tagJson = json.get(i);
@@ -570,6 +584,7 @@ public class EDBRepository extends CacheRepository {
 
       tags.add(sampleTag);
     }
+    */
   }
 
   @Override
