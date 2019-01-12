@@ -50,9 +50,9 @@ public class GroupsXmlHandler extends DefaultHandler {
       Attributes attributes) throws SAXException {
 
     if (qName.equals("groups")) {
-      if (attributes.getValue("all") != null) {
-        mModel.updateAllMode(attributes.getValue("all").equals(TextUtils.TRUE));
-      }
+      //if (attributes.getValue("all") != null) {
+      //  mModel.updateAllMode(attributes.getValue("all").equals(TextUtils.TRUE));
+      //}
     } else if (qName.equals("group")) {
       String name = attributes.getValue("name").toLowerCase();
       boolean selected = attributes.getValue("selected").equals(TextUtils.TRUE);

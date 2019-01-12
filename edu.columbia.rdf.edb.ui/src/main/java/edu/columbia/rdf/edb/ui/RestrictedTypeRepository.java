@@ -25,14 +25,15 @@ import org.jebtk.core.collections.CollectionUtils;
 import org.jebtk.core.path.Path;
 
 import edu.columbia.rdf.edb.EDBWLogin;
-import edu.columbia.rdf.edb.Groups;
+import edu.columbia.rdf.edb.Group;
 import edu.columbia.rdf.edb.Sample;
+import edu.columbia.rdf.edb.SampleSet;
 import edu.columbia.rdf.edb.Species;
 
 /**
  * Specialized repository for querying samples of a specific type.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class RestrictedTypeRepository extends EDBRepository {
 
@@ -56,11 +57,12 @@ public class RestrictedTypeRepository extends EDBRepository {
   }
 
   @Override
-  public List<Sample> searchSamples(String query,
+  public SearchResults searchSamples(String query,
       Path path,
       Collection<Type> dataTypes,
       Collection<Species> organisms,
-      Groups groups) throws IOException {
-    return super.searchSamples(query, path, mTypes, organisms, groups);
+      Collection<Group> groups,
+      Collection<SampleSet> sets) throws IOException {
+    return super.searchSamples(query, path, mTypes, organisms, groups, sets);
   }
 }

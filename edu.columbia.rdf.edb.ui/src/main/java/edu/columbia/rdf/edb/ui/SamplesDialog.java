@@ -284,12 +284,12 @@ public class SamplesDialog extends ModernDialogHelpWindow
 
     //        mPersonsModel.getPersons(),
     
-    List<Sample> samples = store.searchSamples(mSearchPanel.getText(),
+    SearchResults res = store.searchSamples(mSearchPanel.getText(),
         Repository.ALL_TYPES,
         mOrganismsModel.getOrganisms(),
         mUserGroupsModel.getGroups());
 
-    mSampleModel.set(samples);
+    mSampleModel.set(res.samples);
   }
 
   public void setSelected(int i) {

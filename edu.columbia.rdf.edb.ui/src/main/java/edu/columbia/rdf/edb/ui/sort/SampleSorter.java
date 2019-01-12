@@ -21,7 +21,7 @@ import edu.columbia.rdf.edb.SampleTag;
  * The experiment tree can be sorted in multiple ways. Given a list of
  * experiments and a tree, generate a custom sorted tree of experiments.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  * @param <T>
  *
  */

@@ -25,7 +25,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package edu.columbia.rdf.edb.ui.filter.groups;
+package edu.columbia.rdf.edb.ui.filter.sets;
 
 import org.jebtk.modern.tabs.IconTabsVectorIcon;
 
@@ -35,8 +35,8 @@ import org.jebtk.modern.tabs.IconTabsVectorIcon;
  * @author Antony Holmes
  *
  */
-public class GroupsVectorIcon extends IconTabsVectorIcon {
-  public GroupsVectorIcon() {
-    super('G');
+public class SetsVectorIcon extends IconTabsVectorIcon {
+  public SetsVectorIcon() {
+    super('S');
   }
 }

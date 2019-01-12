@@ -19,7 +19,7 @@ import edu.columbia.rdf.edb.Sample;
 /**
  * Displays all of the information pertaining to a particular sample.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class SampleDataPanel extends ModernClipboardWidget {

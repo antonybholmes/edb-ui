@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Stores a global instance of an experiment repository.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class RepositoryService {

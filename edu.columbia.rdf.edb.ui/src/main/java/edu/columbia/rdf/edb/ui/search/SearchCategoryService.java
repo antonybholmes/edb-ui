@@ -20,7 +20,7 @@ import org.xml.sax.SAXException;
 /**
  * Represents all of the search fields available for the search component.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class SearchCategoryService implements Iterable<SearchCategoryGroup> {

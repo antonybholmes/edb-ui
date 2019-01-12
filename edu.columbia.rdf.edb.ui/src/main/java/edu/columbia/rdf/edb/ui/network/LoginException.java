@@ -5,7 +5,7 @@ import edu.columbia.rdf.edb.ui.ExperimentSearchException;
 /**
  * Logins entries for a connection to a caArray server.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 

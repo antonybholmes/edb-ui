@@ -32,7 +32,7 @@ import org.jebtk.modern.tabs.IconTabsVectorIcon;
 /**
  * Group vector icon showing 3 colored balls spaced equally around a circle.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class DataTypesVectorIcon extends IconTabsVectorIcon {

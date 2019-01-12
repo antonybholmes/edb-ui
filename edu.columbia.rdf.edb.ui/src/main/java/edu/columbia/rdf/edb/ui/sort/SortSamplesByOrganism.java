@@ -14,7 +14,7 @@ import edu.columbia.rdf.edb.Sample;
 /**
  * Sort samples by Array Design.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class SortSamplesByOrganism extends SampleSorter {

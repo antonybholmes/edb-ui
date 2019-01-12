@@ -8,7 +8,7 @@ import edu.columbia.rdf.edb.DataViewField;
 /**
  * Sections are hierarchical orderings of key/value pairs.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class SectionNode extends KeyValueNode<String> {

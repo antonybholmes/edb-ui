@@ -9,7 +9,7 @@ import org.w3c.dom.Element;
 /**
  * Describes all the terms in a search
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class UserSearch extends ArrayList<UserSearchEntry>

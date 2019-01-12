@@ -13,29 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.columbia.rdf.edb.ui.filter.groups;
+package edu.columbia.rdf.edb.ui.filter.sets;
 
 import java.util.Map.Entry;
-
-import javax.swing.Box;
 
 import org.jebtk.core.collections.IterHashMap;
 import org.jebtk.core.collections.IterMap;
 import org.jebtk.modern.UI;
 import org.jebtk.modern.button.ModernButton;
 import org.jebtk.modern.button.ModernCheckSwitch;
-import org.jebtk.modern.button.ModernTextLink;
 import org.jebtk.modern.event.ModernClickEvent;
 import org.jebtk.modern.event.ModernClickListener;
-import org.jebtk.modern.panel.HBox;
 import org.jebtk.modern.panel.VBox;
+import org.jebtk.modern.text.ModernSubHeadingLabel;
 import org.jebtk.modern.widget.ButtonStyle;
 import org.jebtk.modern.widget.ModernClickWidget;
 import org.jebtk.modern.widget.ModernTwoStateWidget;
 import org.jebtk.modern.widget.ModernWidget;
-import org.jebtk.modern.window.ModernWindow;
 
-import edu.columbia.rdf.edb.Group;
+import edu.columbia.rdf.edb.SampleSet;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -44,33 +40,23 @@ import edu.columbia.rdf.edb.Group;
  * @author Antony Holmes
  *
  */
-public class GroupsPanel extends VBox
+public class SetsPanel extends VBox
     implements ModernClickListener {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 1L;
 
-  private GroupsModel mModel;
+  private SetsModel mModel;
 
-  private IterMap<ModernTwoStateWidget, Group> mCheckMap = 
-      new IterHashMap<ModernTwoStateWidget, Group>();
+  private IterMap<ModernTwoStateWidget, SampleSet> mCheckMap = 
+      new IterHashMap<ModernTwoStateWidget, SampleSet>();
 
   private ModernTwoStateWidget mCheckAll = new ModernCheckSwitch("Select All");
-
-  //private ModernTwoStateWidget mCheckAllMode = new ModernCheckSwitch(
-  //    "In All Groups");
-  
-  private ModernButton mAllGroupsButton =
-      new ModernTextLink("All groups...");
-  
   
   private ModernClickWidget mApplyButton =
       new ModernButton("Apply").setButtonStyle(ButtonStyle.PILL);
 
-  private ModernWindow mParent;
-
-  public GroupsPanel(ModernWindow parent, GroupsModel model) {
-    mParent = parent;
+  public SetsPanel(SetsModel model) {
     mModel = model;
 
     //ModernSubCollapsePane collapsePane = new ModernSubCollapsePane();
@@ -80,12 +66,15 @@ public class GroupsPanel extends VBox
     /// box.add(new ModernSubHeadingLabel("My Groups"));
     // box.add(UI.createVGap(10));
 
+    add(new ModernSubHeadingLabel("Sample Sets"));
+    add(UI.createVGap(10));
+    
     add(mCheckAll);
     add(UI.createVGap(10));
 
-    for (Group g : model) {
+    for (SampleSet g : model) {
       ModernTwoStateWidget check = new ModernCheckSwitch(g.getName(),
-          model.getUse(g), g.getColor(), g.getColor());
+          model.getUse(g));
 
       add(check);
 
@@ -101,16 +90,12 @@ public class GroupsPanel extends VBox
     
     add(UI.createVGap(20));
     
-    Box box = new HBox();
-    box.add(Box.createHorizontalGlue());
-    box.add(mApplyButton);
-    add(box);
+    //Box box = new HBox();
+    //box.add(Box.createHorizontalGlue());
+    //box.add(mApplyButton);
+    //add(box);
     
-    add(UI.createVGap(20));
-    
-    add(mAllGroupsButton);
-    
-    add(UI.createVGap(10));
+    add(mApplyButton);
     
     setBorder(ModernWidget.BORDER);
 
@@ -132,21 +117,6 @@ public class GroupsPanel extends VBox
         checkAll();
       }
     });
-
-    /*
-    mCheckAllMode.addClickListener(new ModernClickListener() {
-      @Override
-      public void clicked(ModernClickEvent e) {
-        mModel.setAllMode(mCheckAllMode.isSelected());
-      }
-    });
-    */
-    
-    mAllGroupsButton.addClickListener(new ModernClickListener() {
-      @Override
-      public void clicked(ModernClickEvent e) {
-        allGroups();
-      }});
     
     mApplyButton.addClickListener(new ModernClickListener() {
       @Override
@@ -155,17 +125,11 @@ public class GroupsPanel extends VBox
       }});
   }
   
-  private void allGroups() {
-    AllGroupsDialog dialog = new AllGroupsDialog(mParent, mModel);
-    
-    dialog.setVisible(true);
-  }
-
   @Override
   public void clicked(ModernClickEvent e) {
     ModernTwoStateWidget check = (ModernTwoStateWidget) e.getSource();
 
-    Group g = mCheckMap.get(check);
+    SampleSet g = mCheckMap.get(check);
 
     mModel.setUse(g, check.isSelected());
   }
@@ -181,8 +145,9 @@ public class GroupsPanel extends VBox
   }
   
   private void apply() {
-    for (Entry<ModernTwoStateWidget, Group> item : mCheckMap) {
+    for (Entry<ModernTwoStateWidget, SampleSet> item : mCheckMap) {
       mModel.updateUse(item.getValue(), item.getKey().isSelected());
+      System.err.println("aha " + item.getValue().getName() + " " + item.getKey().isSelected());
     }
 
     // Finally trigger a refresh via the model

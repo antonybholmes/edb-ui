@@ -19,7 +19,7 @@ import edu.columbia.rdf.edb.SampleTag;
  * Displays the results of an experiment using a grid and multiple Ui elements
  * to make it easier for users to cut and paste.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class SectionDataPanelGrid extends ModernPlotCanvas {

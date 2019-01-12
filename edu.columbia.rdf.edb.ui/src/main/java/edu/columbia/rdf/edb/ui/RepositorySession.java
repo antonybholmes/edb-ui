@@ -11,7 +11,7 @@ import edu.columbia.rdf.edb.ui.network.ServerException;
 /**
  * Allows a repository to be restored from disk using serialization.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public abstract class RepositorySession {

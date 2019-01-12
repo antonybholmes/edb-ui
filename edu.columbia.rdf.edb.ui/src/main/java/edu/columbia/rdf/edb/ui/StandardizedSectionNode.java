@@ -3,7 +3,7 @@ package edu.columbia.rdf.edb.ui;
 /**
  * Sections are hierarchical orderings of key/value pairs.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class StandardizedSectionNode extends SectionNode {

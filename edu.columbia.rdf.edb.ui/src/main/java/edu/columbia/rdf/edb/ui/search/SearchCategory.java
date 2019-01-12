@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 /**
  * A search category has a name and a path pointing into a keyword database,
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class SearchCategory

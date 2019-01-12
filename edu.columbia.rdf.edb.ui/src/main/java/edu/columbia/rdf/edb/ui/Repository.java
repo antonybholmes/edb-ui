@@ -7,7 +7,6 @@ import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -18,21 +17,22 @@ import org.jebtk.core.collections.CollectionUtils;
 import org.jebtk.core.json.Json;
 import org.jebtk.core.path.Path;
 import org.jebtk.core.search.SearchStackElement;
+import org.jebtk.core.text.TextUtils;
 
 import edu.columbia.rdf.edb.Experiment;
-import edu.columbia.rdf.edb.VfsFile;
 import edu.columbia.rdf.edb.Group;
-import edu.columbia.rdf.edb.Groups;
 import edu.columbia.rdf.edb.Person;
 import edu.columbia.rdf.edb.Sample;
+import edu.columbia.rdf.edb.SampleSet;
 import edu.columbia.rdf.edb.SampleTags;
 import edu.columbia.rdf.edb.Species;
+import edu.columbia.rdf.edb.VfsFile;
 
 /**
  * Represents a database of experiments and samples. These can be from caArray
  * or some other database.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public abstract class Repository implements Serializable {
@@ -43,8 +43,11 @@ public abstract class Repository implements Serializable {
   public static final Collection<Type> ALL_TYPES = Collections.emptySet();
   public static final Collection<Species> ALL_ORGANISMS = Collections
       .emptySet();
-  public static final Groups ALL_GROUPS = new Groups(new HashSet<Group>(),
-      true);
+  public static final Collection<Group> ALL_GROUPS = Collections
+      .emptySet();
+  
+  public static final Collection<SampleSet> NO_SAMPLE_SETS = Collections
+      .emptySet();
 
   public abstract Experiment getExperiment(int id);
 
@@ -104,7 +107,13 @@ public abstract class Repository implements Serializable {
 
   public abstract void saveSession(File sessionFile) throws IOException;
 
-  public abstract List<Sample> getAllSamples();
+  public SearchResults getAllSamples(int page) throws IOException {
+    return getAllSamples(NO_SAMPLE_SETS, page);
+  }
+
+  public SearchResults getAllSamples(Collection<SampleSet> sets, int page) throws IOException {
+    return searchSamples(TextUtils.EMPTY_STRING, sets, page);
+  }
 
   /**
    * Given a search stack and an annotation path, find all the samples matching
@@ -118,16 +127,20 @@ public abstract class Repository implements Serializable {
       List<SearchStackElement> searchQueue,
       Path path);
 
-  public List<Sample> searchSamples(String query) throws IOException {
-    return searchSamples(query, ALL_PATH, ALL_PERSONS, ALL_TYPES, ALL_ORGANISMS, ALL_GROUPS);
+  public SearchResults searchSamples(String query, int page) throws IOException {
+    return searchSamples(query, NO_SAMPLE_SETS, page);
+  }
+  
+  public SearchResults searchSamples(String query, Collection<SampleSet> sets, int page) throws IOException {
+    return searchSamples(query, ALL_PATH, ALL_PERSONS, ALL_TYPES, ALL_ORGANISMS, ALL_GROUPS, sets, page);
   }
 
-  public List<Sample> searchSamples(String query, Path path, Type dataType)
+  public SearchResults searchSamples(String query, Path path, Type dataType)
       throws IOException {
     return searchSamples(query, path, dataType, ALL_ORGANISMS);
   }
 
-  public List<Sample> searchSamples(String query,
+  public SearchResults searchSamples(String query,
       Path path,
       Type dataType,
       Collection<Species> organisms) throws IOException {
@@ -136,21 +149,9 @@ public abstract class Repository implements Serializable {
         ALL_PERSONS,
         CollectionUtils.asSet(dataType),
         organisms,
-        ALL_GROUPS);
-  }
-
-  /**
-   * Search samples filtering only by groups.
-   * 
-   * @param query
-   * @param organisms
-   * @param groups
-   * @return
-   * @throws IOException
-   */
-  public List<Sample> searchSamples(String query, Groups groups)
-      throws IOException {
-    return searchSamples(query, ALL_PATH, ALL_PERSONS, ALL_TYPES, ALL_ORGANISMS, groups);
+        ALL_GROUPS,
+        NO_SAMPLE_SETS,
+        1);
   }
 
   /**
@@ -162,41 +163,62 @@ public abstract class Repository implements Serializable {
    * @return
    * @throws IOException
    */
-  public List<Sample> searchSamples(String query,
+  public SearchResults searchSamples(String query,
       Collection<Species> organisms,
-      Groups groups) throws IOException {
-    return searchSamples(query, ALL_PATH, ALL_PERSONS, ALL_TYPES, organisms, groups);
+      Collection<Group> groups) throws IOException {
+    return searchSamples(query, ALL_PATH, ALL_PERSONS, ALL_TYPES, organisms, groups, NO_SAMPLE_SETS, 1);
   }
 
-  public List<Sample> searchSamples(String query,
+  public SearchResults searchSamples(String query,
       Collection<Type> dataTypes,
       Collection<Species> organisms,
-      Groups groups) throws IOException {
-    return searchSamples(query, ALL_PATH, ALL_PERSONS, dataTypes, organisms, groups);
+      Collection<Group> groups) throws IOException {
+    return searchSamples(query, ALL_PATH, ALL_PERSONS, dataTypes, organisms, groups, NO_SAMPLE_SETS, 1);
   }
   
-  public List<Sample> searchSamples(String query,
+  public SearchResults searchSamples(String query,
       Collection<Person> persons,
       Collection<Type> dataTypes,
       Collection<Species> organisms,
-      Groups groups) throws IOException {
-    return searchSamples(query, ALL_PATH, persons, dataTypes, organisms, groups);
+      Collection<Group> groups) throws IOException {
+    return searchSamples(query, ALL_PATH, persons, dataTypes, organisms, groups, NO_SAMPLE_SETS, 1);
   }
   
-  public List<Sample> searchSamples(String query,
+  public SearchResults searchSamples(String query,
       Path path,
       Collection<Type> dataTypes,
       Collection<Species> organisms,
-      Groups groups) throws IOException {
-    return searchSamples(query, path, ALL_PERSONS, dataTypes, organisms, groups);
+      Collection<Group> groups) throws IOException {
+    return searchSamples(query, path, dataTypes, organisms, groups, NO_SAMPLE_SETS);
+  }
+  
+  public SearchResults searchSamples(String query,
+      Path path,
+      Collection<Type> dataTypes,
+      Collection<Species> organisms,
+      Collection<Group> groups,
+      Collection<SampleSet> sets) throws IOException {
+    return searchSamples(query, path, dataTypes, organisms, groups, sets, 1);
+  }
+  
+  public SearchResults searchSamples(String query,
+      Path path,
+      Collection<Type> dataTypes,
+      Collection<Species> organisms,
+      Collection<Group> groups,
+      Collection<SampleSet> sets,
+      int page) throws IOException {
+    return searchSamples(query, path, ALL_PERSONS, dataTypes, organisms, groups, sets, page);
   }
 
-  public abstract List<Sample> searchSamples(String query,
+  public abstract SearchResults searchSamples(String query,
       Path path,
       Collection<Person> persons,
       Collection<Type> dataTypes,
       Collection<Species> organisms,
-      Groups groups) throws IOException;
+      Collection<Group> groups,
+      Collection<SampleSet> sets,
+      int page) throws IOException;
 
   /**
    * Returns the peaks associated with a list of samples. Duplicates are
@@ -223,7 +245,7 @@ public abstract class Repository implements Serializable {
   // MalformedURLException, UnsupportedEncodingException, ParseException,
   // IOException, java.text.ParseException;
 
-  public List<Sample> parseSampleJson(Json json) throws IOException {
+  public SearchResults parseSampleJson(Json json) throws IOException {
     return null;
   }
 
@@ -272,6 +294,10 @@ public abstract class Repository implements Serializable {
     return Collections.emptyList();
   }
   
+  public Iterable<SampleSet> getSets() {
+    return Collections.emptyList();
+  }
+  
   public Iterable<Genome> getGenomes() {
     return Collections.emptyList();
   }
@@ -305,4 +331,6 @@ public abstract class Repository implements Serializable {
   public Iterable<VfsFile> getGenomeFiles(int sid, int gid) throws IOException {
     return Collections.emptyList();
   }
+
+  
 }

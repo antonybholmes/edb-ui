@@ -7,7 +7,7 @@ import org.jebtk.core.xml.XmlRepresentation;
 /**
  * Logins entries for a connection to a server.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public abstract class Login

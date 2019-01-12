@@ -9,7 +9,7 @@ import org.w3c.dom.Element;
 /**
  * Describes part of a search and how it is logically linked to other terms.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class UserSearchEntry

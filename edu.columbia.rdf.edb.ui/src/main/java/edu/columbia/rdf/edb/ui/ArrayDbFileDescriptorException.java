@@ -3,7 +3,7 @@ package edu.columbia.rdf.edb.ui;
 /**
  * Logins entries for a connection to a caArray server.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class ArrayDbFileDescriptorException extends ExperimentSearchException {

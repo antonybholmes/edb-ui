@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Represents a named group of search fields.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class SearchCategoryGroup

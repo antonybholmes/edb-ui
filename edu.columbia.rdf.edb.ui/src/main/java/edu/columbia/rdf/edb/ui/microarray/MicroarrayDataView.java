@@ -13,7 +13,7 @@ import edu.columbia.rdf.edb.ui.DataViewXmlHandler;
 /**
  * Plugin for display of microarray data.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class MicroarrayDataView extends DataView {

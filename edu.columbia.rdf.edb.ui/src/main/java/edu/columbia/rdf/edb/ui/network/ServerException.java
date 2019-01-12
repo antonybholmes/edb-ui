@@ -5,7 +5,7 @@ import edu.columbia.rdf.edb.ui.ExperimentSearchException;
 /**
  * To be thrown when we cannot connect to a server
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class ServerException extends ExperimentSearchException {

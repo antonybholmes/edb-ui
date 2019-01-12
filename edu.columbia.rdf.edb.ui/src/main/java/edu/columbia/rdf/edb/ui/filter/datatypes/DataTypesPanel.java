@@ -21,16 +21,18 @@ import java.util.Map;
 import javax.swing.Box;
 
 import org.jebtk.bioinformatics.annotation.Type;
-import org.jebtk.modern.ModernComponent;
 import org.jebtk.modern.UI;
+import org.jebtk.modern.button.ModernButton;
 import org.jebtk.modern.button.ModernCheckSwitch;
 import org.jebtk.modern.event.ModernClickEvent;
 import org.jebtk.modern.event.ModernClickListener;
+import org.jebtk.modern.panel.HBox;
 import org.jebtk.modern.panel.VBox;
-import org.jebtk.modern.scrollpane.ModernScrollPane;
-import org.jebtk.modern.scrollpane.ScrollBarPolicy;
 import org.jebtk.modern.text.ModernSubHeadingLabel;
+import org.jebtk.modern.widget.ButtonStyle;
+import org.jebtk.modern.widget.ModernClickWidget;
 import org.jebtk.modern.widget.ModernTwoStateWidget;
+import org.jebtk.modern.widget.ModernWidget;
 
 import edu.columbia.rdf.edb.Species;
 import edu.columbia.rdf.edb.ui.filter.organisms.OrganismsModel;
@@ -41,7 +43,7 @@ import edu.columbia.rdf.edb.ui.filter.organisms.OrganismsModel;
  * @author Antony Holmes
  *
  */
-public class DataTypesPanel extends ModernComponent {
+public class DataTypesPanel extends VBox {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 1L;
@@ -56,18 +58,39 @@ public class DataTypesPanel extends ModernComponent {
       true);
 
   private OrganismsModel mOrganismsModel;
+  
+  private ModernClickWidget mApplyButton =
+      new ModernButton("Apply").setButtonStyle(ButtonStyle.PILL);
 
   public DataTypesPanel(DataTypesModel model, OrganismsModel organismsModel) {
     mModel = model;
     mOrganismsModel = organismsModel;
 
-    Box box = VBox.create();
+    add(mCheckAll);
+    add(UI.createVGap(20));
 
-    box.add(mCheckAll);
-    box.add(UI.createVGap(20));
+    add(new ModernSubHeadingLabel("Data Types"));
+    add(UI.createVGap(10));
 
-    box.add(new ModernSubHeadingLabel("Data Types"));
-    box.add(UI.createVGap(10));
+
+
+    for (Type t : model) {
+      ModernTwoStateWidget check = new ModernCheckSwitch(t.getName(),
+          model.getUse(t));
+
+      add(check);
+
+      mCheckMap.put(check, t);
+
+      //check.addClickListener(l);
+    }
+
+    add(UI.createVGap(20));
+    add(new ModernSubHeadingLabel("Organisms"));
+    add(UI.createVGap(10));
+
+    // box.add(mCheckAll);
+    // box.add(UI.createVGap(10));
 
     mCheckAll.addClickListener(new ModernClickListener() {
       @Override
@@ -76,6 +99,38 @@ public class DataTypesPanel extends ModernComponent {
       }
     });
 
+
+
+    for (Species t : organismsModel) {
+      ModernTwoStateWidget check = new ModernCheckSwitch(t.getName(),
+          organismsModel.getUse(t));
+
+      add(check);
+
+      mCheckOrganismsMap.put(check, t);
+
+      //check.addClickListener(l);
+    }
+    
+    add(UI.createVGap(20));
+    
+    Box box = new HBox();
+    //box.add(Box.createHorizontalGlue());
+    box.add(mApplyButton);
+    add(box);
+
+
+    setBorder(ModernWidget.BORDER);
+    
+    
+    mApplyButton.addClickListener(new ModernClickListener() {
+      @Override
+      public void clicked(ModernClickEvent e) {
+        apply();
+      }});
+    
+    
+    /*
     ModernClickListener l = new ModernClickListener() {
       @Override
       public void clicked(ModernClickEvent e) {
@@ -86,25 +141,7 @@ public class DataTypesPanel extends ModernComponent {
         mModel.setUse(g, check.isSelected());
       }
     };
-
-    for (Type t : model) {
-      ModernTwoStateWidget check = new ModernCheckSwitch(t.getName(),
-          model.getUse(t));
-
-      box.add(check);
-
-      mCheckMap.put(check, t);
-
-      check.addClickListener(l);
-    }
-
-    box.add(UI.createVGap(20));
-    box.add(new ModernSubHeadingLabel("Organisms"));
-    box.add(UI.createVGap(10));
-
-    // box.add(mCheckAll);
-    // box.add(UI.createVGap(10));
-
+    
     l = new ModernClickListener() {
       @Override
       public void clicked(ModernClickEvent e) {
@@ -115,23 +152,7 @@ public class DataTypesPanel extends ModernComponent {
         mOrganismsModel.setUse(o, check.isSelected());
       }
     };
-
-    for (Species t : organismsModel) {
-      ModernTwoStateWidget check = new ModernCheckSwitch(t.getName(),
-          organismsModel.getUse(t));
-
-      box.add(check);
-
-      mCheckOrganismsMap.put(check, t);
-
-      check.addClickListener(l);
-    }
-
-    setBody(new ModernScrollPane(box)
-        .setHorizontalScrollBarPolicy(ScrollBarPolicy.NEVER)
-        .setVerticalScrollBarPolicy(ScrollBarPolicy.AUTO_SHOW));
-
-    setBorder(BORDER);
+    */
   }
 
   private void checkAll() {
@@ -142,6 +163,19 @@ public class DataTypesPanel extends ModernComponent {
 
     for (ModernTwoStateWidget c : mCheckOrganismsMap.keySet()) {
       c.setSelected(mCheckAll.isSelected());
+      mOrganismsModel.updateUse(mCheckOrganismsMap.get(c), c.isSelected());
+    }
+
+    // Finally trigger a refresh via the model
+    //mModel.fireChanged();
+  }
+  
+  private void apply() {
+    for (ModernTwoStateWidget c : mCheckMap.keySet()) {
+      mModel.updateUse(mCheckMap.get(c), c.isSelected());
+    }
+
+    for (ModernTwoStateWidget c : mCheckOrganismsMap.keySet()) {
       mOrganismsModel.updateUse(mCheckOrganismsMap.get(c), c.isSelected());
     }
 

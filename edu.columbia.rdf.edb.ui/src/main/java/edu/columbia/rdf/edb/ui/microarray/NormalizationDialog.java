@@ -134,7 +134,7 @@ public class NormalizationDialog extends ModernDialogTaskWindow
     return new ArrayList<Boolean>();
   }
 
-  public List<DataViewField> getColumnAnnotations() {
+  public List<DataViewField> getAnnotations() {
     // DataView dataViewSample =
     // ViewPluginService.getInstance().getView(MICROARRAY_EXPRESSION_DATA).getDataView();
 

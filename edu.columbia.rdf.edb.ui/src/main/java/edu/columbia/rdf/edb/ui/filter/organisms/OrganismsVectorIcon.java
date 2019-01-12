@@ -37,7 +37,7 @@ import org.jebtk.modern.widget.ModernWidget;
 /**
  * Group vector icon showing 3 colored balls spaced equally around a circle.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class OrganismsVectorIcon extends ModernVectorIcon {

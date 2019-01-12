@@ -19,7 +19,7 @@ import edu.columbia.rdf.edb.VfsFile;
 /**
  * Maintains a connection to a caArray server.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class EDBFileDownloader implements FileDownloader {

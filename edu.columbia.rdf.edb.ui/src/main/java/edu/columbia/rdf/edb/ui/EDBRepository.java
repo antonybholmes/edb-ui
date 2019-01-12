@@ -34,9 +34,9 @@ import edu.columbia.rdf.edb.Experiment;
 import edu.columbia.rdf.edb.FileType;
 import edu.columbia.rdf.edb.GEO;
 import edu.columbia.rdf.edb.Group;
-import edu.columbia.rdf.edb.Groups;
 import edu.columbia.rdf.edb.Person;
 import edu.columbia.rdf.edb.Sample;
+import edu.columbia.rdf.edb.SampleSet;
 import edu.columbia.rdf.edb.SampleTag;
 import edu.columbia.rdf.edb.SampleTags;
 import edu.columbia.rdf.edb.Species;
@@ -48,7 +48,7 @@ import edu.columbia.rdf.edb.ui.cache.SampleAutoCache;
 /**
  * Maintains a connection to a caArray server.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class EDBRepository extends CacheRepository {
   private static final long serialVersionUID = 1L;
@@ -111,9 +111,6 @@ public class EDBRepository extends CacheRepository {
     return mSamplesUrl;
   }
   
-  private UrlBuilder getRNASeqUrl() {
-    return mRNASeqUrl;
-  }
 
   private UrlBuilder getSamplesUrl(int id) {
     return getSamplesUrl().param("sample", id);
@@ -148,12 +145,14 @@ public class EDBRepository extends CacheRepository {
   }
 
   @Override
-  public List<Sample> searchSamples(String query,
+  public SearchResults searchSamples(String query,
       Path path,
       Collection<Person> persons,
       Collection<Type> dataTypes,
       Collection<Species> organisms,
-      Groups groups) throws IOException {
+      Collection<Group> groups,
+      Collection<SampleSet> sets,
+      int page) throws IOException {
     UrlBuilder url = getSearchSamplesUrl().param("p", path.toString())
         .param("q", query);
     // .param("v", "all")
@@ -176,9 +175,19 @@ public class EDBRepository extends CacheRepository {
         url = url.param("g", g.getId());
       }
 
-      if (groups.getAllMode()) {
-        url = url.param("gm", "all");
+      //if (groups.getAllMode()) {
+      //  url = url.param("gm", "all");
+      //}
+    }
+    
+    if (sets.size() > 0) {
+      for (Type s : sets) {
+        url = url.param("set", s.getId());
       }
+
+      //if (groups.getAllMode()) {
+      //  url = url.param("gm", "all");
+      //}
     }
     
     if (persons.size() > 0) {
@@ -186,28 +195,35 @@ public class EDBRepository extends CacheRepository {
         url = url.param("person", p.getId());
       }
     }
+    
+    url = url.param("page", page);
 
     System.err.println(url);
 
     Json json = new JsonParser().parse(url.toURL());
 
-    List<Sample> ret = parseSampleJson(json);
+    SearchResults ret = parseSampleJson(json);
 
     return ret;
   }
 
   @Override
-  public List<Sample> parseSampleJson(Json json) {
+  public SearchResults parseSampleJson(Json json) {
     return parseSampleJson(json, SearchMode.FULL);
   }
 
-  public List<Sample> parseSampleJson(Json json, SearchMode searchMode) {
+  public SearchResults parseSampleJson(Json json, SearchMode searchMode) {
     List<Sample> samples = new ArrayList<Sample>(1000);
 
     Json sampleJSON;
     Json tempJSON;
 
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    
+    int page = json.getInt("page");
+    int pages = json.getInt("pages");
+    
+    json = json.get("results");
 
     for (int i = 0; i < json.size(); ++i) {
       sampleJSON = json.get(i);
@@ -351,7 +367,7 @@ public class EDBRepository extends CacheRepository {
       samples.add(sample);
     }
 
-    return samples;
+    return new SearchResults(samples, new SearchMetaData(page, pages));
   }
 
   @Override
@@ -486,11 +502,6 @@ public class EDBRepository extends CacheRepository {
   }
 
   @Override
-  public List<Sample> getAllSamples() {
-    return null;
-  }
-
-  @Override
   public Sample getSample(int id) throws IOException {
     URL url = getSamplesUrl(id).toURL(); // ("p", path.toString()).addParam("q",
                                          // query).toUrl();
@@ -499,10 +510,10 @@ public class EDBRepository extends CacheRepository {
 
     Json json = new JsonParser().parse(url);
 
-    List<Sample> samples = parseSampleJson(json);
+    SearchResults res = parseSampleJson(json);
 
-    if (samples.size() > 0) {
-      return samples.get(0);
+    if (res.samples.size() > 0) {
+      return res.samples.get(0);
     } else {
       return null;
     }
@@ -516,10 +527,10 @@ public class EDBRepository extends CacheRepository {
 
     Json json = new JsonParser().parse(url);
 
-    List<Sample> samples = parseSampleJson(json);
+    SearchResults res = parseSampleJson(json);
 
-    if (samples.size() > 0) {
-      return samples.get(0);
+    if (res.samples.size() > 0) {
+      return res.samples.get(0);
     } else {
       return null;
     }
@@ -626,6 +637,11 @@ public class EDBRepository extends CacheRepository {
   @Override
   public Iterable<Genome> getGenomes() {
     return mGenomes.getValues();
+  }
+  
+  @Override
+  public Iterable<SampleSet> getSets() {
+    return mSets.getValues();
   }
   
   @Override

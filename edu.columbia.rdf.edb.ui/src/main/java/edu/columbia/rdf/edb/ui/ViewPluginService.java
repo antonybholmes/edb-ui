@@ -16,7 +16,7 @@ import edu.columbia.rdf.edb.Sample;
  * samples should be display to the user. This allows inadequacies of caArray to
  * be abstracted away from the user so they get a consistent data view.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class ViewPluginService implements Iterable<ViewPlugin>, Serializable {

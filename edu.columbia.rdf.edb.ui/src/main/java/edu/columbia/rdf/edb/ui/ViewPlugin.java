@@ -17,7 +17,7 @@ import edu.columbia.rdf.edb.Sample;
 /**
  * All custom data views for the experimentdb should implement this.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public abstract class ViewPlugin implements Comparable<ViewPlugin> {
 

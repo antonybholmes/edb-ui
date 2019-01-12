@@ -14,7 +14,7 @@ import edu.columbia.rdf.edb.Sample;
 /**
  * Sort samples by experiment.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class SortSamplesByExpressionType extends SampleSorter {

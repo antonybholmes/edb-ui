@@ -5,7 +5,7 @@ import org.jebtk.core.MessageException;
 /**
  * All Array Search errors should derive from this.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class ExperimentSearchException extends MessageException {

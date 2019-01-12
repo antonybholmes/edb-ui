@@ -13,7 +13,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import edu.columbia.rdf.edb.Group;
-import edu.columbia.rdf.edb.Groups;
 import edu.columbia.rdf.edb.ui.Repository;
 
 public abstract class GroupsModel extends ChangeListeners
@@ -21,8 +20,6 @@ public abstract class GroupsModel extends ChangeListeners
   private static final long serialVersionUID = 1L;
 
   protected Map<Group, Boolean> mGroupMap = new TreeMap<Group, Boolean>();
-
-  private boolean mAllMode = false;
 
   @Override
   public Iterator<Group> iterator() {
@@ -48,26 +45,12 @@ public abstract class GroupsModel extends ChangeListeners
     mGroupMap.put(g, use);
   }
 
-  public void setAllMode(boolean allMode) {
-    updateAllMode(allMode);
-
-    fireChanged();
-  }
-
-  public void updateAllMode(boolean allMode) {
-    mAllMode = allMode;
-  }
-
-  public boolean getAllMode() {
-    return mAllMode;
-  }
-
   /**
    * Return the selected groups.
    * 
    * @return
    */
-  public Groups getGroups() {
+  public Collection<Group> getGroups() {
     Set<Group> ret = new HashSet<Group>(mGroupMap.size());
 
     for (Group g : this) {
@@ -80,7 +63,7 @@ public abstract class GroupsModel extends ChangeListeners
     // empty set of groups to indicate all groups should be searched
     // since this requires fewer filtering checks.
     if (ret.size() < mGroupMap.size()) {
-      return new Groups(ret, mAllMode);
+      return ret;
     } else {
       return Repository.ALL_GROUPS;
     }
@@ -91,7 +74,6 @@ public abstract class GroupsModel extends ChangeListeners
   @Override
   public Element toXml(Document doc) {
     Element element = doc.createElement("groups");
-    element.setAttribute("all", Boolean.toString(mAllMode));
 
     for (Group g : this) {
       Element ge = doc.createElement("group");

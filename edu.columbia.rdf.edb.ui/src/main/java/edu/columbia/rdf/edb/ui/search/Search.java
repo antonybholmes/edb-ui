@@ -7,7 +7,7 @@ import org.jebtk.core.search.SearchStackElement;
 /**
  * Captures the what the user is searching for as both a string and queue.
  * 
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class Search {

@@ -15,7 +15,7 @@ import edu.columbia.rdf.edb.Sample;
  * Describes a search operation for determining if an experiment matches some
  * criteria or other.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  *
  */
 public class SearchStackElementCategory {

@@ -26,14 +26,15 @@ import org.jebtk.core.json.JsonParser;
 import org.jebtk.core.path.Path;
 
 import edu.columbia.rdf.edb.EDBWLogin;
-import edu.columbia.rdf.edb.Groups;
+import edu.columbia.rdf.edb.Group;
 import edu.columbia.rdf.edb.Sample;
+import edu.columbia.rdf.edb.SampleSet;
 import edu.columbia.rdf.edb.Species;
 
 /**
  * Specialized repository for querying ChIP-seq only samples.
  *
- * @author Antony Holmes Holmes
+ * @author Antony Holmes
  */
 public class RestrictedRepository extends EDBRepository {
 
@@ -61,16 +62,17 @@ public class RestrictedRepository extends EDBRepository {
    * @see edu.columbia.lib.rdf.edb.Repository#searchSamples(java.lang.String)
    */
   @Override
-  public List<Sample> searchSamples(String query) throws IOException {
-    return searchSamples(query, mPath, ALL_TYPES, ALL_ORGANISMS, ALL_GROUPS);
+  public SearchResults searchSamples(String query, int page) throws IOException {
+    return searchSamples(query, mPath, ALL_PERSONS, ALL_TYPES, ALL_ORGANISMS, ALL_GROUPS, NO_SAMPLE_SETS, page);
   }
 
   @Override
-  public List<Sample> searchSamples(String query,
+  public SearchResults searchSamples(String query,
       Path path,
       Collection<Type> dataTypes,
       Collection<Species> organisms,
-      Groups groups) throws IOException {
+      Collection<Group> groups,
+      Collection<SampleSet> sets) throws IOException {
     URL url = getSearchSamplesUrl().param("p", path.toString())
         .param("q", query).param("ext", "persons").param("ext", "tags").toURL();
 
