@@ -10,7 +10,6 @@ import java.util.TreeMap;
 import org.jebtk.core.event.ChangeListeners;
 
 import edu.columbia.rdf.edb.SampleSet;
-import edu.columbia.rdf.edb.ui.Repository;
 
 public abstract class SetsModel extends ChangeListeners
     implements Iterable<SampleSet> {
@@ -56,8 +55,6 @@ public abstract class SetsModel extends ChangeListeners
       }
     }
 
-    System.err.println("sets model " + ret.size());
-    
     return ret;
   }
 

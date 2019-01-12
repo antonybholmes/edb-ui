@@ -18,16 +18,13 @@ package edu.columbia.rdf.edb.ui.filter.datatypes;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.Box;
-
 import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.modern.UI;
-import org.jebtk.modern.button.ModernButton;
 import org.jebtk.modern.button.ModernCheckSwitch;
 import org.jebtk.modern.event.ModernClickEvent;
 import org.jebtk.modern.event.ModernClickListener;
-import org.jebtk.modern.panel.HBox;
 import org.jebtk.modern.panel.VBox;
+import org.jebtk.modern.ribbon.RibbonButton;
 import org.jebtk.modern.text.ModernSubHeadingLabel;
 import org.jebtk.modern.widget.ButtonStyle;
 import org.jebtk.modern.widget.ModernClickWidget;
@@ -60,7 +57,7 @@ public class DataTypesPanel extends VBox {
   private OrganismsModel mOrganismsModel;
   
   private ModernClickWidget mApplyButton =
-      new ModernButton("Apply").setButtonStyle(ButtonStyle.PILL);
+      new RibbonButton("Apply").setButtonStyle(ButtonStyle.PILL_CONTENT, ButtonStyle.PILL);
 
   public DataTypesPanel(DataTypesModel model, OrganismsModel organismsModel) {
     mModel = model;
@@ -114,10 +111,10 @@ public class DataTypesPanel extends VBox {
     
     add(UI.createVGap(20));
     
-    Box box = new HBox();
+    //Box box = new HBox();
     //box.add(Box.createHorizontalGlue());
-    box.add(mApplyButton);
-    add(box);
+    add(mApplyButton);
+    //add(box);
 
 
     setBorder(ModernWidget.BORDER);

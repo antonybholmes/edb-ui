@@ -17,8 +17,6 @@ package edu.columbia.rdf.edb.ui.filter.groups;
 
 import java.util.Map.Entry;
 
-import javax.swing.Box;
-
 import org.jebtk.core.collections.IterHashMap;
 import org.jebtk.core.collections.IterMap;
 import org.jebtk.modern.UI;
@@ -27,8 +25,8 @@ import org.jebtk.modern.button.ModernCheckSwitch;
 import org.jebtk.modern.button.ModernTextLink;
 import org.jebtk.modern.event.ModernClickEvent;
 import org.jebtk.modern.event.ModernClickListener;
-import org.jebtk.modern.panel.HBox;
 import org.jebtk.modern.panel.VBox;
+import org.jebtk.modern.ribbon.RibbonButton;
 import org.jebtk.modern.widget.ButtonStyle;
 import org.jebtk.modern.widget.ModernClickWidget;
 import org.jebtk.modern.widget.ModernTwoStateWidget;
@@ -65,7 +63,7 @@ public class GroupsPanel extends VBox
   
   
   private ModernClickWidget mApplyButton =
-      new ModernButton("Apply").setButtonStyle(ButtonStyle.PILL);
+      new RibbonButton("Apply").setButtonStyle(ButtonStyle.PILL_CONTENT, ButtonStyle.PILL);
 
   private ModernWindow mParent;
 
@@ -101,10 +99,10 @@ public class GroupsPanel extends VBox
     
     add(UI.createVGap(20));
     
-    Box box = new HBox();
-    box.add(Box.createHorizontalGlue());
-    box.add(mApplyButton);
-    add(box);
+    //Box box = new HBox();
+    //box.add(Box.createHorizontalGlue());
+    add(mApplyButton);
+    //add(box);
     
     add(UI.createVGap(20));
     
