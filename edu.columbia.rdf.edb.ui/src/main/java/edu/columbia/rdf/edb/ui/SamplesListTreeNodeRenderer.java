@@ -124,7 +124,7 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
 
       // g2.clipRect(0, 0, getWidth(), getHeight());
 
-      g2.setFont(MaterialService.getInstance().getFonts().bold());
+      g2.setFont(MaterialService.instance().getFonts().bold());
 
       y = ModernWidget.getTextYPosCenter(g2, HEADER_HEIGHT);
       g2.drawString(getTruncatedText(g2, mText1, x, mRect.getW()), x, y);
@@ -140,7 +140,7 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
       // x += PADDINTreeIconNodeCountRenderer.BRANCH_OPEN_ICON.getWidth(); // +
       // ModernTheme.getInstance().getClass("widget").getInt("padding");
 
-      g2.setFont(MaterialService.getInstance().getFonts().subHeading());
+      g2.setFont(MaterialService.instance().getFonts().subHeading());
       g2.setColor(TEXT_COLOR);
       y = 20;
       g2.drawString(getTruncatedText(g2, mText1, x, mRect.getW()), x, y);

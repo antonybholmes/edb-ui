@@ -64,6 +64,10 @@ public class UserSearchEntry
   public static UserSearchEntry create(SearchCategory field) {
     return create(DEFAULT_BOOL_TERM, field, "");
   }
+  
+  public static UserSearchEntry create(String search) {
+    return create(DEFAULT_BOOL_TERM, DEFAULT_FIELD, search);
+  }
 
   public static UserSearchEntry create(SearchStackOperator operator,
       SearchCategory field,

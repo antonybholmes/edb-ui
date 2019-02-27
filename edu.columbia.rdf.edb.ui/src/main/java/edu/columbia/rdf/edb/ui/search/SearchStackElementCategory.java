@@ -9,8 +9,6 @@ import java.util.List;
 import org.jebtk.core.search.SearchStackElement;
 import org.jebtk.core.search.SearchStackOperator;
 
-import edu.columbia.rdf.edb.Sample;
-
 /**
  * Describes a search operation for determining if an experiment matches some
  * criteria or other.

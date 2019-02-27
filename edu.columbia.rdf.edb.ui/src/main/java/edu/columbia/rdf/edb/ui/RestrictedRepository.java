@@ -18,7 +18,6 @@ package edu.columbia.rdf.edb.ui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
-import java.util.List;
 
 import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.core.json.Json;
@@ -27,7 +26,6 @@ import org.jebtk.core.path.Path;
 
 import edu.columbia.rdf.edb.EDBWLogin;
 import edu.columbia.rdf.edb.Group;
-import edu.columbia.rdf.edb.Sample;
 import edu.columbia.rdf.edb.SampleSet;
 import edu.columbia.rdf.edb.Species;
 

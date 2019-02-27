@@ -31,15 +31,15 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import org.jebtk.modern.UI;
-import org.jebtk.modern.dialog.ModernDialogFlatButton;
 import org.jebtk.modern.graphics.ImageUtils;
+import org.jebtk.modern.ribbon.RibbonButton;
 import org.jebtk.modern.theme.ModernTheme;
 import org.jebtk.modern.theme.ThemeService;
 
 /**
  * The class LoginButton.
  */
-public class LoginButton extends ModernDialogFlatButton {
+public class LoginButton extends RibbonButton {
 
   /**
    * The constant serialVersionUID.
@@ -78,20 +78,6 @@ public class LoginButton extends ModernDialogFlatButton {
     super(UI.BUTTON_SIGN_IN);
 
     UI.setSize(this, WIDTH, HEIGHT);
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * org.abh.lib.ui.modern.button.ModernButtonWidget#drawBackground(java.awt.
-   * Graphics2D)
-   */
-  @Override
-  public void drawBackground(Graphics2D g2) {
-    super.drawBackground(g2);
-
-    // drawBorder(g2, BORDER_COLOR);
   }
 
   /*

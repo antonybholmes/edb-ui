@@ -63,7 +63,7 @@ public class GroupsPanel extends VBox
   
   
   private ModernClickWidget mApplyButton =
-      new RibbonButton("Apply").setButtonStyle(ButtonStyle.PILL_CONTENT, ButtonStyle.PILL);
+      new RibbonButton("Apply").setButtonStyle(ButtonStyle.PILL_CONTENT);
 
   private ModernWindow mParent;
 

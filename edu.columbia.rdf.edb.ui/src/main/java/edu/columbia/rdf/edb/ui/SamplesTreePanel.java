@@ -24,8 +24,8 @@ import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.core.event.ChangeListener;
 import org.jebtk.core.settings.SettingsService;
 import org.jebtk.core.tree.TreeNode;
-import org.jebtk.modern.UI;
 import org.jebtk.modern.AssetService;
+import org.jebtk.modern.UI;
 import org.jebtk.modern.event.ModernClickEvent;
 import org.jebtk.modern.event.ModernClickListener;
 import org.jebtk.modern.event.ModernSelectionListener;
@@ -54,9 +54,11 @@ public class SamplesTreePanel extends ModernPanel
     implements ModernClickListener {
   private static final long serialVersionUID = 1L;
 
-  private static final ModernTreeNodeRenderer TREE_RENDERER = new TreeNodeFileCountRenderer();
+  private static final ModernTreeNodeRenderer TREE_RENDERER = 
+      new TreeNodeFileCountRenderer();
 
-  private static final ModernTreeNodeRenderer LIST_RENDERER = new SamplesListTreeNodeRenderer();
+  private static final ModernTreeNodeRenderer LIST_RENDERER = 
+      new SamplesListTreeNodeRenderer();
 
   private ModernTree<Sample> mTree = new ModernTree<Sample>();
 

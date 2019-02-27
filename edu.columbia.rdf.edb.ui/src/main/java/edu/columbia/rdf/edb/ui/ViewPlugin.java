@@ -7,6 +7,7 @@ import java.util.List;
 import org.jebtk.core.path.Path;
 import org.jebtk.modern.ModernComponent;
 import org.jebtk.modern.SelectionModel;
+import org.jebtk.modern.fx.ribbon.FxRibbonWindow;
 import org.jebtk.modern.menu.ModernPopupMenu2;
 import org.jebtk.modern.status.StatusModel;
 import org.jebtk.modern.window.ModernRibbonWindow;
@@ -80,6 +81,12 @@ public abstract class ViewPlugin implements Comparable<ViewPlugin> {
    * @param selectedSamples
    */
   public void init(ModernRibbonWindow parent,
+      StatusModel statusModel,
+      SelectionModel<Sample> selectedSamples) {
+    // Do nothing
+  }
+  
+  public void init(FxRibbonWindow parent,
       StatusModel statusModel,
       SelectionModel<Sample> selectedSamples) {
     // Do nothing

@@ -13,9 +13,9 @@ import org.jebtk.core.json.JsonParser;
 import org.jebtk.core.text.DateUtils;
 
 import edu.columbia.rdf.edb.EDBWLogin;
-import edu.columbia.rdf.edb.VfsFile;
 import edu.columbia.rdf.edb.FileType;
 import edu.columbia.rdf.edb.Tag;
+import edu.columbia.rdf.edb.VfsFile;
 
 public class Vfs {
   private EDBWLogin mLogin;

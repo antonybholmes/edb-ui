@@ -21,7 +21,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import edu.columbia.rdf.edb.Person;
-import edu.columbia.rdf.edb.Species;
 
 /**
  * The class KeyXmlHandler.

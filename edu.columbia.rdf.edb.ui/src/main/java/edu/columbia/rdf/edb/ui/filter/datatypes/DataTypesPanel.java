@@ -57,7 +57,7 @@ public class DataTypesPanel extends VBox {
   private OrganismsModel mOrganismsModel;
   
   private ModernClickWidget mApplyButton =
-      new RibbonButton("Apply").setButtonStyle(ButtonStyle.PILL_CONTENT, ButtonStyle.PILL);
+      new RibbonButton("Apply").setButtonStyle(ButtonStyle.PILL_CONTENT);
 
   public DataTypesPanel(DataTypesModel model, OrganismsModel organismsModel) {
     mModel = model;

@@ -54,7 +54,7 @@ public class SetsPanel extends VBox
   private ModernTwoStateWidget mCheckAll = new ModernCheckSwitch("Select All");
   
   private ModernClickWidget mApplyButton =
-      new RibbonButton("Apply").setButtonStyle(ButtonStyle.PILL_CONTENT, ButtonStyle.PILL);
+      new RibbonButton("Apply").setButtonStyle(ButtonStyle.PILL_CONTENT);
 
   public SetsPanel(SetsModel model) {
     mModel = model;
