@@ -160,7 +160,7 @@ public class EDBRepository extends CacheRepository {
 
     if (dataTypes.size() > 0) {
       for (Type d : dataTypes) {
-        url = url.param("t", d.getId());
+        url = url.param("type", d.getId());
       }
     }
 
@@ -172,7 +172,7 @@ public class EDBRepository extends CacheRepository {
 
     if (groups.size() > 0) {
       for (Type g : groups) {
-        url = url.param("g", g.getId());
+        url = url.param("group", g.getId());
       }
 
       //if (groups.getAllMode()) {
@@ -198,7 +198,7 @@ public class EDBRepository extends CacheRepository {
     
     url = url.param("page", page);
 
-    System.err.println(url);
+    System.err.println(url + " " + this);
 
     Json json = new JsonParser().parse(url.toURL());
 

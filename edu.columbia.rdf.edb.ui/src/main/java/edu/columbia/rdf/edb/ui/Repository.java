@@ -173,7 +173,7 @@ public abstract class Repository implements Serializable {
       Collection<Type> dataTypes,
       Collection<Species> organisms,
       Collection<Group> groups) throws IOException {
-    return searchSamples(query, ALL_PATH, ALL_PERSONS, dataTypes, organisms, groups, NO_SAMPLE_SETS, 1);
+    return searchSamples(query, ALL_PERSONS, dataTypes, organisms, groups);
   }
   
   public SearchResults searchSamples(String query,

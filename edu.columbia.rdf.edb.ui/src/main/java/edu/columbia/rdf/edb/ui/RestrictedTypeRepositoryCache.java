@@ -52,7 +52,7 @@ public class RestrictedTypeRepositoryCache extends EDBRepositorySession {
   @Override
   public CacheRepository restore(File sessionFile)
       throws IOException, ClassNotFoundException {
-    EDBRepository repository = new RestrictedTypeRepository(mLogin, mType);
+    EDBRepository repository = new RestrictedDataTypeRepository(mLogin, mType);
 
     repository.cache();
 

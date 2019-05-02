@@ -25,15 +25,17 @@ import org.jebtk.core.path.Path;
 
 import edu.columbia.rdf.edb.EDBWLogin;
 import edu.columbia.rdf.edb.Group;
+import edu.columbia.rdf.edb.Person;
 import edu.columbia.rdf.edb.SampleSet;
 import edu.columbia.rdf.edb.Species;
 
 /**
- * Specialized repository for querying samples of a specific type.
+ * Specialized repository for querying samples of a specific data type, such
+ * as ChIP-seq only.
  *
  * @author Antony Holmes
  */
-public class RestrictedTypeRepository extends EDBRepository {
+public class RestrictedDataTypeRepository extends EDBRepository {
 
   /**
    * The constant serialVersionUID.
@@ -47,7 +49,7 @@ public class RestrictedTypeRepository extends EDBRepository {
    * @param login the login
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public RestrictedTypeRepository(EDBWLogin login, Type type)
+  public RestrictedDataTypeRepository(EDBWLogin login, Type type)
       throws IOException {
     super(login);
 
@@ -57,10 +59,12 @@ public class RestrictedTypeRepository extends EDBRepository {
   @Override
   public SearchResults searchSamples(String query,
       Path path,
+      Collection<Person> persons,
       Collection<Type> dataTypes,
       Collection<Species> organisms,
       Collection<Group> groups,
-      Collection<SampleSet> sets) throws IOException {
-    return super.searchSamples(query, path, mTypes, organisms, groups, sets);
+      Collection<SampleSet> sets,
+      int page) throws IOException {
+    return super.searchSamples(query, path, persons, mTypes, organisms, groups, sets, page);
   }
 }
