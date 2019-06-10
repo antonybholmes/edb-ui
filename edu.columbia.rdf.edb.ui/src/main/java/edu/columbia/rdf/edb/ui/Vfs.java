@@ -47,7 +47,8 @@ public class Vfs {
    */
   public List<VfsFile> ls(int vfsId) throws MalformedURLException, IOException {
     UrlBuilder urlFile = getVFSURL().resolve("ls")
-        .param("parent", vfsId);
+        .param("parent", vfsId)
+        .param("page", 1);
 
     System.err.println(urlFile);
 
