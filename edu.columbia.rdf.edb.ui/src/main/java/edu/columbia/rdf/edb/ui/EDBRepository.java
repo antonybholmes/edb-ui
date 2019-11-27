@@ -547,13 +547,13 @@ public class EDBRepository extends CacheRepository {
     cacheTag(getSampleTagUrl(sampleId, tagId), tags);
   }
   
-  private void cacheTag(UrlBuilder url, SampleTags tags)
-      throws IOException {
+  private void cacheTag(UrlBuilder url, SampleTags tags) throws IOException {
     
-    Splitter split = Splitter.on(TextUtils.COLON_DELIMITER).limit(2);
+    //Splitter split = Splitter.on(TextUtils.COLON_DELIMITER).limit(2);
     
-    url = url.param("format", "text");
+    //url = url.param("format", "text");
     
+    /*
     //System.err.println(url);
     
     BufferedReader reader = URLUtils.newBufferedReader(url);
@@ -576,8 +576,9 @@ public class EDBRepository extends CacheRepository {
       
       tags.add(sampleTag);
     }
+    */
     
-    /*
+    
     Json json = new JsonParser().parse(url.toURL());
 
     for (int i = 0; i < json.size(); ++i) {
@@ -595,7 +596,6 @@ public class EDBRepository extends CacheRepository {
 
       tags.add(sampleTag);
     }
-    */
   }
 
   @Override

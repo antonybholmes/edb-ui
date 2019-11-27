@@ -24,11 +24,11 @@
 			<artifactId>org.jebtk.core</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		<dependency>
-			<groupId>org.jebtk</groupId>
-			<artifactId>org.jebtk.modern.fx</artifactId>
-			<version>1.0.0</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.jebtk</groupId> -->
+<!-- 			<artifactId>org.jebtk.modern.fx</artifactId> -->
+<!-- 			<version>1.0.0</version> -->
+<!-- 		</dependency> -->
 		<dependency>
       <groupId>org.jebtk</groupId>
       <artifactId>org.jebtk.modern</artifactId>
