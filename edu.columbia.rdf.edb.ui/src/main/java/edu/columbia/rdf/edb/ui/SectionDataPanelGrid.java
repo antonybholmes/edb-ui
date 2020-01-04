@@ -6,8 +6,8 @@ import java.awt.Graphics2D;
 import org.jebtk.core.dictionary.SubstitutionService;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.ModernPlotCanvas;
+import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.DrawingContext;
-import org.jebtk.modern.widget.ModernWidget;
 
 import edu.columbia.rdf.edb.DataView;
 import edu.columbia.rdf.edb.DataViewField;

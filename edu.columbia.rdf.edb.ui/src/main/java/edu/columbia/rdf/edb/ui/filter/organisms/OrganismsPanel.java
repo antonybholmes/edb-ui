@@ -18,13 +18,13 @@ package edu.columbia.rdf.edb.ui.filter.organisms;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.UI;
 import org.jebtk.modern.button.ModernCheckSwitch;
+import org.jebtk.modern.button.ModernTwoStateWidget;
 import org.jebtk.modern.event.ModernClickEvent;
 import org.jebtk.modern.event.ModernClickListener;
 import org.jebtk.modern.panel.VBox;
-import org.jebtk.modern.widget.ModernTwoStateWidget;
-import org.jebtk.modern.widget.ModernWidget;
 
 import edu.columbia.rdf.edb.Species;
 

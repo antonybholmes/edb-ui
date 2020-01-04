@@ -1,6 +1,5 @@
 package edu.columbia.rdf.edb.ui;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,15 +17,12 @@ import java.util.List;
 import org.jebtk.bioinformatics.annotation.Genome;
 import org.jebtk.bioinformatics.annotation.Type;
 import org.jebtk.core.NetworkFileException;
-import org.jebtk.core.http.URLUtils;
-import org.jebtk.core.http.UrlBuilder;
+import org.jebtk.core.http.URLPath;
 import org.jebtk.core.io.StreamUtils;
 import org.jebtk.core.json.Json;
 import org.jebtk.core.json.JsonParser;
 import org.jebtk.core.path.Path;
 import org.jebtk.core.search.SearchStackElement;
-import org.jebtk.core.text.Splitter;
-import org.jebtk.core.text.TextUtils;
 
 import edu.columbia.rdf.edb.EDB;
 import edu.columbia.rdf.edb.EDBWLogin;
@@ -59,13 +55,13 @@ public class EDBRepository extends CacheRepository {
 
   private Vfs mVfs;
 
-  private final UrlBuilder mSamplesUrl;
+  private final URLPath mSamplesUrl;
 
-  private final UrlBuilder mRNASeqUrl;
+  private final URLPath mRNASeqUrl;
 
-  private UrlBuilder mRNASeqGenomesUrl;
+  private URLPath mRNASeqGenomesUrl;
 
-  private UrlBuilder mGenomeFilessUrl;
+  private URLPath mGenomeFilessUrl;
 
   public EDBRepository(EDBWLogin login) throws IOException {
     super(login);
@@ -74,10 +70,10 @@ public class EDBRepository extends CacheRepository {
     mVfs = new Vfs(mLogin);
     
     
-    mSamplesUrl = mLogin.getURL().resolve("samples");
-    mRNASeqUrl = mLogin.getURL().resolve("rnaseq");
-    mRNASeqGenomesUrl = mRNASeqUrl.resolve("genomes");
-    mGenomeFilessUrl = mRNASeqUrl.resolve("files");
+    mSamplesUrl = mLogin.getURL().join("samples");
+    mRNASeqUrl = mLogin.getURL().join("rnaseq");
+    mRNASeqGenomesUrl = mRNASeqUrl.join("genomes");
+    mGenomeFilessUrl = mRNASeqUrl.join("files");
   }
 
   @Override
@@ -87,61 +83,61 @@ public class EDBRepository extends CacheRepository {
     return null;
   }
 
-  protected UrlBuilder getSearchSamplesUrl() {
-    return getSamplesUrl().resolve("search");
+  protected URLPath getSearchSamplesUrl() {
+    return getSamplesUrl().join("search");
   }
 
-  private UrlBuilder getExperimentsUrl() {
-    return mLogin.getURL().resolve("experiments");
+  private URLPath getExperimentsUrl() {
+    return mLogin.getURL().join("experiments");
   }
 
-  private UrlBuilder getExperimentsUrl(int id) {
-    return getExperimentsUrl().resolve(id);
+  private URLPath getExperimentsUrl(int id) {
+    return getExperimentsUrl().join(id);
   }
 
-  private UrlBuilder getExperimentFilesUrl(int id) {
-    return getExperimentsUrl(id).resolve("files");
+  private URLPath getExperimentFilesUrl(int id) {
+    return getExperimentsUrl(id).join("files");
   }
 
-  private UrlBuilder getExperimentFilesDirUrl(int id) {
-    return getExperimentFilesUrl(id).resolve("dir");
+  private URLPath getExperimentFilesDirUrl(int id) {
+    return getExperimentFilesUrl(id).join("dir");
   }
 
-  private UrlBuilder getSamplesUrl() {
+  private URLPath getSamplesUrl() {
     return mSamplesUrl;
   }
   
 
-  private UrlBuilder getSamplesUrl(int id) {
+  private URLPath getSamplesUrl(int id) {
     return getSamplesUrl().param("sample", id);
   }
 
-  private UrlBuilder getSampleFilesUrl(int id) {
-    return getSamplesUrl(id).resolve("files");
+  private URLPath getSampleFilesUrl(int id) {
+    return getSamplesUrl(id).join("files");
   }
 
-  private UrlBuilder getSampleTagsUrl(int id) {
-    return getSamplesUrl(id).resolve("tags");
+  private URLPath getSampleTagsUrl(int id) {
+    return getSamplesUrl(id).join("tags");
   }
 
-  private UrlBuilder getSampleTagUrl(int sampleId, int tagId) {
+  private URLPath getSampleTagUrl(int sampleId, int tagId) {
     return getSampleTagsUrl(sampleId).param("tag", tagId);
   }
 
-  private UrlBuilder getSamplePersonsUrl(int sampleId) {
-    return getSamplesUrl(sampleId).resolve("persons");
+  private URLPath getSamplePersonsUrl(int sampleId) {
+    return getSamplesUrl(sampleId).join("persons");
   }
 
-  private UrlBuilder getSampleGeoUrl(Sample sample) {
+  private URLPath getSampleGeoUrl(Sample sample) {
     return getSampleGeoUrl(sample.getId());
   }
 
-  private UrlBuilder getSampleGeoUrl(int id) {
-    return getSamplesUrl(id).resolve("geo");
+  private URLPath getSampleGeoUrl(int id) {
+    return getSamplesUrl(id).join("geo");
   }
 
-  private UrlBuilder getSamplesUrl(String name) {
-    return getSamplesUrl().resolve("alias").resolve(name);
+  private URLPath getSamplesUrl(String name) {
+    return getSamplesUrl().join("alias").join(name);
   }
 
   @Override
@@ -153,7 +149,7 @@ public class EDBRepository extends CacheRepository {
       Collection<Group> groups,
       Collection<SampleSet> sets,
       int page) throws IOException {
-    UrlBuilder url = getSearchSamplesUrl().param("p", path.toString())
+    URLPath url = getSearchSamplesUrl().param("p", path.toString())
         .param("q", query);
     // .param("v", "all")
     // .param("m", 1000)
@@ -200,7 +196,7 @@ public class EDBRepository extends CacheRepository {
 
     System.err.println(url + " " + this);
 
-    Json json = new JsonParser().parse(url.toURL());
+    Json json = new JsonParser().parse(url);
 
     SearchResults ret = parseSampleJson(json);
 
@@ -373,7 +369,7 @@ public class EDBRepository extends CacheRepository {
   @Override
   public VfsFile getExperimentFilesDir(int experimentId)
       throws IOException {
-    URL url = getExperimentFilesDirUrl(experimentId).toURL();
+    URLPath url = getExperimentFilesDirUrl(experimentId);
 
     return getFiles(url, true).get(0);
   }
@@ -381,14 +377,14 @@ public class EDBRepository extends CacheRepository {
   @Override
   public List<VfsFile> getExperimentFiles(int experimentId)
       throws IOException {
-    URL url = getExperimentFilesUrl(experimentId).toURL();
+    URLPath url = getExperimentFilesUrl(experimentId);
 
     return getFiles(url);
   }
 
   @Override
   public List<VfsFile> getSampleFiles(int sampleId) throws IOException {
-    URL url = getSampleFilesUrl(sampleId).toURL();
+    URLPath url = getSampleFilesUrl(sampleId);
 
     List<VfsFile> files = null;
 
@@ -397,7 +393,7 @@ public class EDBRepository extends CacheRepository {
     return files;
   }
 
-  private static List<VfsFile> getFiles(URL url) throws IOException {
+  private static List<VfsFile> getFiles(URLPath url) throws IOException {
     return getFiles(url, false);
   }
 
@@ -410,7 +406,7 @@ public class EDBRepository extends CacheRepository {
    * @throws IOException
    * @throws ParseException
    */
-  private static List<VfsFile> getFiles(URL url, boolean showDirs)
+  private static List<VfsFile> getFiles(URLPath url, boolean showDirs)
       throws IOException {
     System.err.println(url);
 
@@ -503,7 +499,7 @@ public class EDBRepository extends CacheRepository {
 
   @Override
   public Sample getSample(int id) throws IOException {
-    URL url = getSamplesUrl(id).toURL(); // ("p", path.toString()).addParam("q",
+    URLPath url = getSamplesUrl(id); // ("p", path.toString()).addParam("q",
                                          // query).toUrl();
 
     System.err.println(url);
@@ -521,7 +517,7 @@ public class EDBRepository extends CacheRepository {
 
   @Override
   public Sample getSample(String name) throws IOException {
-    URL url = getSamplesUrl(name).toURL(); // ("p",
+    URLPath url = getSamplesUrl(name); // ("p",
                                            // path.toString()).addParam("q",
                                            // query).toUrl();
 
@@ -547,14 +543,16 @@ public class EDBRepository extends CacheRepository {
     cacheTag(getSampleTagUrl(sampleId, tagId), tags);
   }
   
-  private void cacheTag(UrlBuilder url, SampleTags tags) throws IOException {
+  private void cacheTag(URLPath url, SampleTags tags) throws IOException {
     
     //Splitter split = Splitter.on(TextUtils.COLON_DELIMITER).limit(2);
     
     //url = url.param("format", "text");
     
-    /*
     //System.err.println(url);
+    
+    /*
+    
     
     BufferedReader reader = URLUtils.newBufferedReader(url);
 
@@ -584,15 +582,11 @@ public class EDBRepository extends CacheRepository {
     for (int i = 0; i < json.size(); ++i) {
       Json tagJson = json.get(i);
 
-      int id = tagJson.get(EDB.HEADING_ID).getInt();
+      int id = tagJson.getInt(EDB.HEADING_ID);
 
       Tag field = mTags.get(id);
 
-      SampleTag sampleTag = new SampleTag(id, field,
-          tagJson.get(EDB.HEADING_VALUE).getString());
-
-      // System.err.println("tags " + field.toString());
-      // System.err.println("tags " + tagJson.get("value").getString());
+      SampleTag sampleTag = new SampleTag(id, field, tagJson.getString("v"));
 
       tags.add(sampleTag);
     }
@@ -600,7 +594,7 @@ public class EDBRepository extends CacheRepository {
 
   @Override
   public void cacheGEO(Sample sample) throws IOException {
-    URL url = getSampleGeoUrl(sample).toURL();
+    URLPath url = getSampleGeoUrl(sample);
 
     // System.err.println(url);
 
@@ -646,7 +640,7 @@ public class EDBRepository extends CacheRepository {
   
   @Override
   public Iterable<Genome> getGenomes(int sid) throws IOException {
-    URL url = mRNASeqGenomesUrl.param("sid", sid).toURL();
+    URLPath url = mRNASeqGenomesUrl.param("sid", sid);
     
     Json json = new JsonParser().parse(url);
     
@@ -666,7 +660,7 @@ public class EDBRepository extends CacheRepository {
   
   @Override
   public Iterable<VfsFile> getGenomeFiles(int sid, int gid) throws IOException {
-    URL url = mGenomeFilessUrl.param("sid", sid).param("gid", gid).toURL();
+    URLPath url = mGenomeFilessUrl.param("sid", sid).param("gid", gid);
     
     return getFiles(url);
   }

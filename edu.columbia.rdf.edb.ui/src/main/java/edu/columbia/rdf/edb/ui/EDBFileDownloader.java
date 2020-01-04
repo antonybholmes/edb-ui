@@ -8,7 +8,7 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.Set;
 
-import org.jebtk.core.http.UrlBuilder;
+import org.jebtk.core.http.URLPath;
 import org.jebtk.core.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +33,10 @@ public class EDBFileDownloader implements FileDownloader {
     mLogin = login;
 
     // serveFileUrl =
-    // new UrlBuilder(mLogin).addPath("download").addPath("file");
+    // UrlBuilder.fromUrl(mLogin).addPath("download").addPath("file");
 
     // serveFilesUrl =
-    // new UrlBuilder(mLogin).addPath("download").addPath("zip");
+    // UrlBuilder.fromUrl(mLogin).addPath("download").addPath("zip");
   }
 
   /*
@@ -57,11 +57,11 @@ public class EDBFileDownloader implements FileDownloader {
    * throw new NetworkFileException(urlFile + " is badly formed."); } }
    */
   
-  private UrlBuilder getFilesUrl() {
-    return mLogin.getURL().resolve("download").resolve("files");
+  private URLPath getFilesUrl() {
+    return mLogin.getURL().join("download").join("files");
   }
 
-  public void downloadFile(UrlBuilder url, Path localFile) throws IOException {
+  public void downloadFile(URLPath url, Path localFile) throws IOException {
     downloadFile(url.toURL(), localFile);
   }
 
@@ -89,7 +89,7 @@ public class EDBFileDownloader implements FileDownloader {
   @Override
   public void downloadFile(VfsFile file, Path localFile)
       throws IOException {
-    UrlBuilder urlFile = getFilesUrl().param("file", file.getId());
+    URLPath urlFile = getFilesUrl().param("file", file.getId());
 
     downloadFile(urlFile, localFile);
   }
@@ -97,7 +97,7 @@ public class EDBFileDownloader implements FileDownloader {
   @Override
   public void downloadZip(Set<VfsFile> files, Path localFile)
       throws IOException {
-    UrlBuilder url = getFilesUrl().param("mode", "zip");
+    URLPath url = getFilesUrl().param("mode", "zip");
 
     // Add the file ids we want to download
     for (VfsFile file : files) {

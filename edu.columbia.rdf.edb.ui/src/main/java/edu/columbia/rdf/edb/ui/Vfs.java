@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.jebtk.core.http.UrlBuilder;
+import org.jebtk.core.http.URLPath;
 import org.jebtk.core.json.Json;
 import org.jebtk.core.json.JsonParser;
 import org.jebtk.core.text.DateUtils;
@@ -46,7 +46,7 @@ public class Vfs {
    * @throws IOException
    */
   public List<VfsFile> ls(int vfsId) throws MalformedURLException, IOException {
-    UrlBuilder urlFile = getVFSURL().resolve("ls")
+    URLPath urlFile = getVFSURL().join("ls")
         .param("parent", vfsId)
         .param("page", 1);
 
@@ -81,7 +81,7 @@ public class Vfs {
 
   public List<Tag> tags()
       throws MalformedURLException, IOException, ParseException {
-    UrlBuilder urlFile = getVFSURL().resolve("tags");
+    URLPath urlFile = getVFSURL().join("tags");
 
     System.err.println(urlFile);
 
@@ -102,7 +102,7 @@ public class Vfs {
     return tags;
   }
   
-  private UrlBuilder getVFSURL() {
-    return mLogin.getURL().resolve("vfs");
+  private URLPath getVFSURL() {
+    return mLogin.getURL().join("vfs");
   }
 }

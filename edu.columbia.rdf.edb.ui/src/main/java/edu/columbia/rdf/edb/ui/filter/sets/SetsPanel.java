@@ -19,17 +19,17 @@ import java.util.Map.Entry;
 
 import org.jebtk.core.collections.IterHashMap;
 import org.jebtk.core.collections.IterMap;
+import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.UI;
+import org.jebtk.modern.button.ButtonStyle;
 import org.jebtk.modern.button.ModernCheckSwitch;
+import org.jebtk.modern.button.ModernClickWidget;
+import org.jebtk.modern.button.ModernTwoStateWidget;
 import org.jebtk.modern.event.ModernClickEvent;
 import org.jebtk.modern.event.ModernClickListener;
 import org.jebtk.modern.panel.VBox;
 import org.jebtk.modern.ribbon.RibbonButton;
 import org.jebtk.modern.text.ModernSubHeadingLabel;
-import org.jebtk.modern.widget.ButtonStyle;
-import org.jebtk.modern.widget.ModernClickWidget;
-import org.jebtk.modern.widget.ModernTwoStateWidget;
-import org.jebtk.modern.widget.ModernWidget;
 
 import edu.columbia.rdf.edb.SampleSet;
 

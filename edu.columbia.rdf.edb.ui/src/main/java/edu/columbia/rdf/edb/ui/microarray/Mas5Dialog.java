@@ -7,10 +7,10 @@ import javax.swing.Box;
 
 import org.jebtk.modern.UI;
 import org.jebtk.modern.button.ModernCheckSwitch;
+import org.jebtk.modern.button.ModernTwoStateWidget;
 import org.jebtk.modern.event.ModernClickListener;
 import org.jebtk.modern.panel.ModernPanel;
 import org.jebtk.modern.panel.VBox;
-import org.jebtk.modern.widget.ModernTwoStateWidget;
 import org.jebtk.modern.window.ModernWindow;
 
 public class Mas5Dialog extends NormalizationDialog

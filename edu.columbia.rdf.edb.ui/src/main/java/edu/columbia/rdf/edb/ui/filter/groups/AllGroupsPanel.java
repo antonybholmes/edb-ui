@@ -4,9 +4,9 @@ import java.awt.Graphics2D;
 import java.util.Collection;
 
 import org.jebtk.core.collections.CollectionUtils;
+import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.UI;
 import org.jebtk.modern.graphics.ImageUtils;
-import org.jebtk.modern.widget.ModernWidget;
 
 import edu.columbia.rdf.edb.Group;
 

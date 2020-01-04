@@ -24,6 +24,7 @@ import org.jebtk.core.event.ChangeEvent;
 import org.jebtk.modern.ModernComponent;
 import org.jebtk.modern.UI;
 import org.jebtk.modern.button.ModernCheckSwitch;
+import org.jebtk.modern.button.ModernTwoStateWidget;
 import org.jebtk.modern.event.ModernClickEvent;
 import org.jebtk.modern.event.ModernClickListener;
 import org.jebtk.modern.panel.VBox;
@@ -32,7 +33,6 @@ import org.jebtk.modern.scrollpane.ScrollBarPolicy;
 import org.jebtk.modern.search.FilterEventListener;
 import org.jebtk.modern.search.FilterModel;
 import org.jebtk.modern.text.ModernSubHeadingLabel;
-import org.jebtk.modern.widget.ModernTwoStateWidget;
 
 import edu.columbia.rdf.edb.ui.SampleSortModel;
 

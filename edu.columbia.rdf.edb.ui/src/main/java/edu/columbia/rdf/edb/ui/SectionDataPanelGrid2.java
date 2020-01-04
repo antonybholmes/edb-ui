@@ -2,6 +2,7 @@ package edu.columbia.rdf.edb.ui;
 
 import org.jebtk.core.dictionary.SubstitutionService;
 import org.jebtk.core.text.TextUtils;
+import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.UI;
 import org.jebtk.modern.panel.MatrixPanel;
 import org.jebtk.modern.panel.VBoxAutoWidth;
@@ -9,7 +10,6 @@ import org.jebtk.modern.text.ModernClipboardTextField;
 import org.jebtk.modern.text.ModernLabel;
 import org.jebtk.modern.text.ModernLabelBold;
 import org.jebtk.modern.text.ModernTextBorderPanel;
-import org.jebtk.modern.widget.ModernWidget;
 
 import edu.columbia.rdf.edb.DataView;
 import edu.columbia.rdf.edb.DataViewField;

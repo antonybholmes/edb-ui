@@ -20,6 +20,7 @@ import java.awt.Graphics2D;
 import java.util.List;
 
 import org.jebtk.core.tree.TreeNode;
+import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.ImageUtils;
 import org.jebtk.modern.graphics.icons.CheveronDownVectorIcon;
 import org.jebtk.modern.graphics.icons.CheveronRightVectorIcon;
@@ -29,7 +30,6 @@ import org.jebtk.modern.theme.MaterialService;
 import org.jebtk.modern.theme.ThemeService;
 import org.jebtk.modern.tree.ModernTreeNodeRenderer;
 import org.jebtk.modern.tree.Tree;
-import org.jebtk.modern.widget.ModernWidget;
 
 import edu.columbia.rdf.edb.Group;
 import edu.columbia.rdf.edb.Sample;
