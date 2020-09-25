@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.List;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.tree.TreeNode;
 import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.ImageUtils;
@@ -49,17 +50,20 @@ public class SamplesListTreeNodeRenderer extends ModernTreeNodeRenderer {
   /** The maximum number of groups to show */
   private static final int MAX_GROUP_DISPLAY = 5;
 
-  private static final Color PARENT_TEXT_COLOR = ThemeService.getInstance()
-      .getColors().getGray32(16);
+  private static final Color PARENT_TEXT_COLOR = 
+      ThemeService.getInstance().getColors().getGray32(16);
+  
+  private static final Props PARENT_TEXT = 
+      new Props().set("color", PARENT_TEXT_COLOR);
 
   public static final RasterIcon BRANCH_OPEN_ICON = new RasterIcon(
-      new CheveronDownVectorIcon(PARENT_TEXT_COLOR), 12); // new
+      new CheveronDownVectorIcon(), 12, PARENT_TEXT); // new
   // TriangleDownVectorIcon());
   // //CheveronDownVectorIcon());
 
   /** The Constant BRANCH_CLOSED_ICON. */
   public static final RasterIcon BRANCH_CLOSED_ICON = new RasterIcon(
-      new CheveronRightVectorIcon(PARENT_TEXT_COLOR), 12);
+      new CheveronRightVectorIcon(), 12, PARENT_TEXT);
 
   private String mText1 = null;
   private String mText2 = null;

@@ -31,6 +31,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 
+import org.jebtk.core.Props;
 import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.icons.ModernVectorIcon;
 
@@ -55,8 +56,8 @@ public class OrganismsVectorIcon extends ModernVectorIcon {
       int y,
       int w,
       int h,
-      Object... params) {
-    Color color = (Color) params[0];
+      Props props) {
+    Color color = props.getColor("color");
 
     g2.setColor(color);
     g2.fillRect(x, y, w, w);

@@ -3,11 +3,14 @@ package edu.columbia.rdf.edb.ui;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import org.jebtk.core.Props;
 import org.jebtk.core.dictionary.SubstitutionService;
 import org.jebtk.core.text.TextUtils;
 import org.jebtk.graphplot.ModernPlotCanvas;
 import org.jebtk.modern.ModernWidget;
 import org.jebtk.modern.graphics.DrawingContext;
+
+import com.google.common.base.Objects;
 
 import edu.columbia.rdf.edb.DataView;
 import edu.columbia.rdf.edb.DataViewField;
@@ -52,11 +55,12 @@ public class SectionDataPanelGrid extends ModernPlotCanvas {
   }
 
   @Override
-  public void plot(Graphics2D g2, DrawingContext context, Object... params) {
+  public void plot(Graphics2D g2, DrawingContext context, Props props) {
     int x = getInsets().left;
     int x2 = x + 180;
     int y = (ROW_HEIGHT + g2.getFontMetrics().getAscent()) / 2;
 
+      
     g2.setColor(TEXT_COLOR);
 
     for (DataViewSection dataViewSection : mView) {
