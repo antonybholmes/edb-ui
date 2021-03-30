@@ -1,6 +1,6 @@
 bin
 .metadata
 tmp
-cache
+/cache
 /lib
 /target/
